@@ -1,5 +1,5 @@
 <RCC>
-  <qresource prefix="/trolltech/formeditor">
+  <qresource prefix="/SceneEdit/QtExt">
     <file>images/submenu.png</file>
     <file>images/cursors/arrow.png</file>
     <file>images/cursors/cross.png</file>
@@ -114,7 +114,5 @@
     <file>images/mac/textbold.png</file>
     <file>images/mac/textitalic.png</file>
     <file>images/mac/textunder.png</file>
-</qresource>
+  </qresource>
 </RCC>
-
-

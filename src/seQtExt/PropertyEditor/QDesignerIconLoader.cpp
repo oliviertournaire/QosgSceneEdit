@@ -27,20 +27,20 @@
 #include <QtGui/QIcon>
 #include <QtGui/QPixmap>
 
-//namespace qdesigner_internal {
 
 QIcon createIconSet(const QString &name)
 {
     QStringList candidates = QStringList()
-        << (QString::fromUtf8(":/trolltech/formeditor/images/") + name)
+        << (QString::fromUtf8(":/SceneEdit/QtExt/images/") + name)
 #ifdef Q_WS_MAC
-        << (QString::fromUtf8(":/trolltech/formeditor/images/mac/") + name)
+        << (QString::fromUtf8(":/SceneEdit/QtExt/images/mac/") + name)
 #else
-        << (QString::fromUtf8(":/trolltech/formeditor/images/win/") + name)
+        << (QString::fromUtf8(":/SceneEdit/QtExt/images/win/") + name)
 #endif
-        << (QString::fromUtf8(":/trolltech/formeditor/images/designer_") + name);
+        << (QString::fromUtf8(":/SceneEdit/QtExt/images/designer_") + name);
 
-    foreach (QString f, candidates) {
+    foreach (QString f, candidates) 
+    {
         if (QFile::exists(f))
             return QIcon(f);
     }
@@ -50,9 +50,6 @@ QIcon createIconSet(const QString &name)
 
 QIcon emptyIcon()
 {
-    static const QIcon empty_icon(QLatin1String(":/trolltech/formeditor/images/emptyicon.png"));
+    static const QIcon empty_icon(QLatin1String(":/SceneEdit/QtExt/images/emptyicon.png"));
     return  empty_icon;
-} // namespace qdesigner_internal
-
-//}
-
+}

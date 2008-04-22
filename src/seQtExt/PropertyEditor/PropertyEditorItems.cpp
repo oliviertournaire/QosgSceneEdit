@@ -1450,28 +1450,28 @@ QString CursorProperty::cursorName(int shape)
 QPixmap CursorProperty::cursorPixmap(int shape)
 {
     switch (shape) {
-    case Qt::ArrowCursor: return QPixmap(QString::fromUtf8(":/trolltech/formeditor/images/cursors/arrow.png"));
-    case Qt::UpArrowCursor: return QPixmap(QString::fromUtf8(":/trolltech/formeditor/images/cursors/uparrow.png"));
-    case Qt::CrossCursor: return QPixmap(QString::fromUtf8(":/trolltech/formeditor/images/cursors/cross.png"));
-    case Qt::WaitCursor: return QPixmap(QString::fromUtf8(":/trolltech/formeditor/images/cursors/wait.png"));
-    case Qt::IBeamCursor: return QPixmap(QString::fromUtf8(":/trolltech/formeditor/images/cursors/ibeam.png"));
-    case Qt::SizeVerCursor: return QPixmap(QString::fromUtf8(":/trolltech/formeditor/images/cursors/sizev.png"));
-    case Qt::SizeHorCursor: return QPixmap(QString::fromUtf8(":/trolltech/formeditor/images/cursors/sizeh.png"));
-    case Qt::SizeBDiagCursor: return QPixmap(QString::fromUtf8(":/trolltech/formeditor/images/cursors/sizef.png"));
-    case Qt::SizeFDiagCursor: return QPixmap(QString::fromUtf8(":/trolltech/formeditor/images/cursors/sizeb.png"));
-    case Qt::SizeAllCursor: return QPixmap(QString::fromUtf8(":/trolltech/formeditor/images/cursors/sizeall.png"));
+    case Qt::ArrowCursor: return QPixmap(QString::fromUtf8(":/SceneEdit/QtExt/images/cursors/arrow.png"));
+    case Qt::UpArrowCursor: return QPixmap(QString::fromUtf8(":/SceneEdit/QtExt/images/cursors/uparrow.png"));
+    case Qt::CrossCursor: return QPixmap(QString::fromUtf8(":/SceneEdit/QtExt/images/cursors/cross.png"));
+    case Qt::WaitCursor: return QPixmap(QString::fromUtf8(":/SceneEdit/QtExt/images/cursors/wait.png"));
+    case Qt::IBeamCursor: return QPixmap(QString::fromUtf8(":/SceneEdit/QtExt/images/cursors/ibeam.png"));
+    case Qt::SizeVerCursor: return QPixmap(QString::fromUtf8(":/SceneEdit/QtExt/images/cursors/sizev.png"));
+    case Qt::SizeHorCursor: return QPixmap(QString::fromUtf8(":/SceneEdit/QtExt/images/cursors/sizeh.png"));
+    case Qt::SizeBDiagCursor: return QPixmap(QString::fromUtf8(":/SceneEdit/QtExt/images/cursors/sizef.png"));
+    case Qt::SizeFDiagCursor: return QPixmap(QString::fromUtf8(":/SceneEdit/QtExt/images/cursors/sizeb.png"));
+    case Qt::SizeAllCursor: return QPixmap(QString::fromUtf8(":/SceneEdit/QtExt/images/cursors/sizeall.png"));
+    case Qt::SplitVCursor: return QPixmap(QString::fromUtf8(":/SceneEdit/QtExt/images/cursors/vsplit.png"));
+    case Qt::SplitHCursor: return QPixmap(QString::fromUtf8(":/SceneEdit/QtExt/images/cursors/hsplit.png"));
+    case Qt::PointingHandCursor: return QPixmap(QString::fromUtf8(":/SceneEdit/QtExt/images/cursors/hand.png"));
+    case Qt::ForbiddenCursor: return QPixmap(QString::fromUtf8(":/SceneEdit/QtExt/images/cursors/no.png"));
+    case Qt::WhatsThisCursor: return QPixmap(QString::fromUtf8(":/SceneEdit/QtExt/images/cursors/whatsthis.png"));
+    case Qt::BusyCursor: return QPixmap(QString::fromUtf8(":/SceneEdit/QtExt/images/cursors/busy.png"));
     case Qt::BlankCursor:
     {
         QBitmap cur = QBitmap(25, 25);
         cur.clear();
         return cur;
     }
-    case Qt::SplitVCursor: return QPixmap(QString::fromUtf8(":/trolltech/formeditor/images/cursors/vsplit.png"));
-    case Qt::SplitHCursor: return QPixmap(QString::fromUtf8(":/trolltech/formeditor/images/cursors/hsplit.png"));
-    case Qt::PointingHandCursor: return QPixmap(QString::fromUtf8(":/trolltech/formeditor/images/cursors/hand.png"));
-    case Qt::ForbiddenCursor: return QPixmap(QString::fromUtf8(":/trolltech/formeditor/images/cursors/no.png"));
-    case Qt::WhatsThisCursor: return QPixmap(QString::fromUtf8(":/trolltech/formeditor/images/cursors/whatsthis.png"));
-    case Qt::BusyCursor: return QPixmap(QString::fromUtf8(":/trolltech/formeditor/images/cursors/busy.png"));
     default: return QPixmap();
     }
 }

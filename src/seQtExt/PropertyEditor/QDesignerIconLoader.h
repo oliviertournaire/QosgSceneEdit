@@ -32,10 +32,10 @@
 // We mean it.
 //
 
-# ifndef ICONLOADER_H
-# define ICONLOADER_H
+#ifndef ICONLOADER_H
+#define ICONLOADER_H
 
-# include "SharedGlobal.h"
+#include "SharedGlobal.h"
 
 class QString;
 class QIcon;
