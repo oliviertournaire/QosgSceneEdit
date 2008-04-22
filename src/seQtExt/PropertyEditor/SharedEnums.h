@@ -35,22 +35,19 @@
 #ifndef SHAREDENUMS_H
 #define SHAREDENUMS_H
 
-#include "SharedGlobal.h"
-
-//namespace qdesigner_internal {
-
-    // Validation mode of text property line edits
-    enum TextPropertyValidationMode {
-        // Allow for multiline editing using literal "\n".
-        ValidationMultiLine,
-        // Validate a stylesheet
-        ValidationStyleSheet,
-        // Single line mode, suppresses newlines
-        ValidationSingleLine,
-        // Allow only for identifier characters
-        ValidationObjectName,
-        // Allow only for identifier characters and colons
-        ValidationObjectNameScope };
-//}
+// Validation mode of text property line edits
+enum TextPropertyValidationMode 
+{
+    // Allow for multiline editing using literal "\n".
+    ValidationMultiLine,
+    // Validate a stylesheet
+    ValidationStyleSheet,
+    // Single line mode, suppresses newlines
+    ValidationSingleLine,
+    // Allow only for identifier characters
+    ValidationObjectName,
+    // Allow only for identifier characters and colons
+    ValidationObjectNameScope 
+};
 
 #endif // SHAREDENUMS_H
