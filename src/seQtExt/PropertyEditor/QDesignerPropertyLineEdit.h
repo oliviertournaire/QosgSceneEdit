@@ -35,27 +35,22 @@
 #ifndef PROPERTYLINEEDIT_H
 #define PROPERTYLINEEDIT_H
 
-//#include "shared_global_p.h"
-# include "SharedGlobal.h"
-
 #include <QtGui/QLineEdit>
 
-//namespace qdesigner_internal {
-
-    // A line edit with a special context menu allowing for adding (escaped) new  lines
-    class PropertyLineEdit : public QLineEdit {
-        Q_OBJECT
-    public:
-        PropertyLineEdit(QWidget *parent, bool wantNewLine);
-        bool event(QEvent *e);
-    protected:
-        void contextMenuEvent (QContextMenuEvent *event );
-    private slots:
-        void insertNewLine();
-    private:
-        void insertText(const QString &);
-        const bool m_wantNewLine;
-    };
-//}
+// A line edit with a special context menu allowing for adding (escaped) new  lines
+class PropertyLineEdit : public QLineEdit 
+{
+    Q_OBJECT
+public:
+    PropertyLineEdit(QWidget *parent, bool wantNewLine);
+    bool event(QEvent *e);
+protected:
+    void contextMenuEvent (QContextMenuEvent *event );
+private slots:
+    void insertNewLine();
+private:
+    void insertText(const QString &);
+    const bool m_wantNewLine;
+};
 
 #endif // PROPERTYLINEEDIT_H

@@ -35,16 +35,10 @@
 #ifndef ICONLOADER_H
 #define ICONLOADER_H
 
-#include "SharedGlobal.h"
-
 class QString;
 class QIcon;
 
-//namespace qdesigner_internal {
-
 QIcon createIconSet(const QString &name);
 QIcon emptyIcon();
-
-//} // namespace qdesigner_internal
 
 #endif // ICONLOADER_H

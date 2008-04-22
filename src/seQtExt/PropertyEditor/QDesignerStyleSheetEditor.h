@@ -38,11 +38,8 @@
 #include <QtGui/QTextEdit>
 #include <QtGui/QDialog>
 #include <QtGui/QLabel>
-#include "SharedGlobal.h"
 
 class QDesignerFormWindowInterface;
-
-//namespace qdesigner_internal {
 
 class StyleSheetEditor : public QTextEdit
 {
@@ -71,7 +68,5 @@ private:
     QWidget *m_widget;
     QLabel *validityLabel;
 };
-
-//} // namespace qdesigner_internal
 
 #endif // STYLESHEETEDITOR_H

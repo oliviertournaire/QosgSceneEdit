@@ -35,11 +35,7 @@
 #ifndef RESOURCEMIMEDATA_H
 #define RESOURCEMIMEDATA_H
 
-#include "SharedGlobal.h"
-
 #include <QtCore/QMimeData>
-
-//namespace qdesigner_internal {
 
 // Resources for drag and drop
 class ResourceMimeData : public QMimeData
@@ -66,5 +62,5 @@ private:
     QString m_qrcPath;
     QString m_filePath;
 };
-//}
+
 #endif // RESOURCEMIMEDATA_H

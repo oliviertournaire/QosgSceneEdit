@@ -21,12 +21,11 @@
 **
 ****************************************************************************/
 
-# ifndef QPROPERTYEDITOR_ITEMS_P_H
-# define QPROPERTYEDITOR_ITEMS_P_H
+#ifndef QPROPERTYEDITOR_ITEMS_P_H
+#define QPROPERTYEDITOR_ITEMS_P_H
 
-# include "PropertyEditorGlobal.h"
-# include "SharedGlobal.h"
-# include "SharedEnums.h"
+#include "PropertyEditorGlobal.h"
+#include "SharedEnums.h"
 
 #include <QtCore/QStringList>
 #include <QtCore/QVariant>
