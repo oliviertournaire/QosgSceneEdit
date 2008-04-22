@@ -1,0 +1,25 @@
+#pragma once
+
+// OpenSceneGraph
+#include <osg/NodeVisitor>
+#include <stack>
+
+class TreeViewItem;
+
+class BuildMfcTreeView : public osg::NodeVisitor
+{
+public:
+
+	BuildMfcTreeView(osg::Node *node);
+	virtual ~BuildMfcTreeView();
+
+	virtual void apply(osg::Node& node);
+
+	TreeViewItem* getRoot() { return _parents.top(); }
+	int getMaxTreeDepth() const;
+
+private:
+
+	stack<HTREEITEM> _parents;
+	int _maxTreeDepth;
+};
