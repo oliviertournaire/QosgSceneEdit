@@ -43,7 +43,6 @@ SET(qtext_SRCS
 	PropertyEditor/QPropertyEditor.cpp
 	PropertyEditor/QPropertyEditor.h
 	PropertyEditor/SharedEnums.h
-	PropertyEditor/SharedGlobal.h
 )
 
 SET(qtext_MOC_HDRS
@@ -108,7 +107,6 @@ SOURCE_GROUP("PropertyEditor\\Headers" FILES
 	PropertyEditor/QDesignerUtils.h
 	PropertyEditor/QPropertyEditor.h
 	PropertyEditor/SharedEnums.h
-	PropertyEditor/SharedGlobal.h
 )
 
 ADD_DEFINITIONS(-DSEQTEXT_EXPORT_LIBRARY)
