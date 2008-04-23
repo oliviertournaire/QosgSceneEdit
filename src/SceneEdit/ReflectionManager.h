@@ -1,6 +1,8 @@
 #pragma once
 
 #include <QObject>
+#include <QHash>
+
 #include <osg/Referenced>
 #include <osgIntrospection/Reflection>
 
@@ -30,6 +32,8 @@ public:
 protected slots:
 
 	void			treeItemSelectionChanged();
+    void			propertyChanged(IProperty *property);
+	void			resetProperty(const QString& name);
 
 
 private:
@@ -43,4 +47,5 @@ private:
 	QPropertyEditor *_propertyEditor;
 	QTreeWidget *_treeWidget;
 	PropertyCollection *_collection;
+	QHash<IProperty*, const osgIntrospection::PropertyInfo*> _propertyHash;
 };

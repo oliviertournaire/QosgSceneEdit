@@ -6,6 +6,7 @@
 #include <QTextStream>
 
 #include <osg/Node>
+#include <osg/BoundingSphere>
 #include <osgDB/Registry>
 #include <osgDB/DynamicLibrary>
 #include <osgDB/FileUtils>
@@ -16,7 +17,11 @@
 #include <osgIntrospection/PropertyInfo>
 #include <osgIntrospection/variant_cast>
 
+#include <QMetaType>
+
 using osgIntrospection::variant_cast;
+
+Q_DECLARE_METATYPE(osg::BoundingSphere)
 
 //=================================================================================================
 
@@ -48,6 +53,8 @@ ReflectionManager::ReflectionManager(QTreeWidget *treeWidget, QPropertyEditor *p
     }
 
 	connect(_treeWidget, SIGNAL(itemSelectionChanged()), this, SLOT(treeItemSelectionChanged()));
+	connect(_propertyEditor->model(), SIGNAL(propertyChanged(IProperty*)), this, SLOT(propertyChanged(IProperty*)));
+	connect(_propertyEditor->model(), SIGNAL(resetProperty(const QString&)), this, SLOT(resetProperty(const QString&)));
 }
 
 //=================================================================================================
@@ -60,6 +67,8 @@ ReflectionManager::~ReflectionManager()
 
 void ReflectionManager::setNode(osg::Referenced *obj)
 {
+	_propertyHash.clear();
+
 	if (!obj)
 	{
 		_propertyEditor->setInitialInput(0L);
@@ -155,7 +164,10 @@ void ReflectionManager::parseClass(const osgIntrospection::Type& classType, osg:
 			IProperty *p = parseProperties(propInfo, obj);
 
 			if (p)
+			{
 				_collection->addProperty(p);
+				_propertyHash[p] = propInfo;
+			}
 		}
 	}
 }
@@ -258,4 +270,50 @@ IProperty* ReflectionManager::parseSimpleProperty(const osgIntrospection::Type& 
 		p = new StringProperty(propType.getQualifiedName().c_str(), propName);
 
 	return p;
+}
+
+void ReflectionManager::propertyChanged(IProperty *property)
+{
+#if 1
+	QList<QTreeWidgetItem*> items = _treeWidget->selectedItems();
+
+	if (items.size() == 1)
+	{
+		TreeViewItem *item = dynamic_cast<TreeViewItem*>(items.front());
+
+		if (item)
+		{
+			QString propName(property->propertyName());
+			osg::ref_ptr<osg::Node> node = item->getOsgNode();
+			const osgIntrospection::PropertyInfo *propInfo = _propertyHash[property];
+
+			if (propInfo)
+			{
+				QVariant variant = property->value();
+				int type = variant.userType();
+
+
+				if (type == QVariant::Bool)
+				{
+					propInfo->setValue(osgIntrospection::Value(node.get()), variant.toBool());
+				}
+				else if (type == QVariant::String)
+				{
+					propInfo->setValue(osgIntrospection::Value(node.get()), variant.toString().toStdString());
+				}
+				else if (type == QVariant::Int)
+				{
+					propInfo->setValue(osgIntrospection::Value(node.get()), variant.toInt());
+				}
+				else if (type == qMetaTypeId<osg::BoundingSphere>())
+				{
+				}
+			}
+		}
+	}
+#endif
+}
+
+void ReflectionManager::resetProperty(const QString& name)
+{
 }

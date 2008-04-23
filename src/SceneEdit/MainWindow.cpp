@@ -239,7 +239,7 @@ void MainWindow::fileSaveAs()
 	{
 		QString fileName = dialog.selectedFiles().at(0);
 
-		osgDB::writeNodeFile(*_modelRoot, fileName.toStdString());
+		osgDB::writeNodeFile(*_modelRoot->getChild(0), fileName.toStdString());
 	}
 }
 
