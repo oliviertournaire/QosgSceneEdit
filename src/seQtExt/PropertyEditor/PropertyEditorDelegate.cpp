@@ -33,9 +33,10 @@
 #include <QtGui/QHBoxLayout>
 
 #include <QtCore/qdebug.h>
-// #include <private/qfont_p.h>
 
-//namespace qdesigner_internal {
+// ================================================================================================
+// === EditorWithReset
+// ================================================================================================
 
 EditorWithReset::EditorWithReset(const IProperty *property, QPropertyEditorModel *model, QWidget *parent)
     : QWidget(parent)
@@ -57,10 +58,14 @@ EditorWithReset::EditorWithReset(const IProperty *property, QPropertyEditorModel
     connect(button, SIGNAL(clicked()), this, SLOT(emitResetProperty()));
 }
 
+// ================================================================================================
+
 void EditorWithReset::emitResetProperty()
 {
     emit resetProperty(m_property, m_model);
 }
+
+// ================================================================================================
 
 void EditorWithReset::setChildEditor(QWidget *child_editor)
 {
@@ -70,6 +75,70 @@ void EditorWithReset::setChildEditor(QWidget *child_editor)
     m_layout->insertWidget(0, m_child_editor);
     setFocusProxy(m_child_editor);
 }
+
+// ================================================================================================
+// === EditorWithCommitAndRevert
+// ================================================================================================
+
+EditorWithCommitAndRevert::EditorWithCommitAndRevert(const IProperty *property, 
+													 QPropertyEditorModel *model, 
+													 QWidget *parent)
+: QWidget(parent)
+{
+    setAutoFillBackground(true);
+    m_property = property;
+    m_child_editor = 0;
+    m_layout = new QHBoxLayout(this);
+    m_layout->setMargin(0);
+    m_layout->setSpacing(0);
+    m_model = model;
+
+    QToolButton *button = new QToolButton(this);
+    button->setToolButtonStyle(Qt::ToolButtonTextOnly);
+    button->setIcon(createIconSet(QLatin1String("commit.png")));
+    button->setIconSize(QSize(8,8));
+    button->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::MinimumExpanding));
+    m_layout->addWidget(button);
+    connect(button, SIGNAL(clicked()), this, SLOT(emitCommitProperty()));
+
+	button = new QToolButton(this);
+	button->setToolButtonStyle(Qt::ToolButtonTextOnly);
+    button->setIcon(createIconSet(QLatin1String("revert.png")));
+    button->setIconSize(QSize(8,8));
+    button->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::MinimumExpanding));
+    m_layout->addWidget(button);
+    connect(button, SIGNAL(clicked()), this, SLOT(emitRevertProperty()));
+
+}
+
+// ================================================================================================
+
+void EditorWithCommitAndRevert::emitCommitProperty()
+{
+    emit commitProperty(m_property, m_model);
+}
+
+// ================================================================================================
+
+void EditorWithCommitAndRevert::emitRevertProperty()
+{
+    emit revertProperty(m_property, m_model);
+}
+
+// ================================================================================================
+
+void EditorWithCommitAndRevert::setChildEditor(QWidget *child_editor)
+{
+    m_child_editor = child_editor;
+
+    m_child_editor->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::MinimumExpanding));
+    m_layout->insertWidget(0, m_child_editor);
+    setFocusProxy(m_child_editor);
+}
+
+// ================================================================================================
+// === QPropertyEditorDelegate
+// ================================================================================================
 
 QPropertyEditorDelegate::QPropertyEditorDelegate(QObject *parent)
     : QItemDelegate(parent),
@@ -84,8 +153,12 @@ QPropertyEditorDelegate::~QPropertyEditorDelegate()
 bool QPropertyEditorDelegate::eventFilter(QObject *object, QEvent *event)
 {
     QWidget *editor = qobject_cast<QWidget*>(object);
+
     if (editor && qobject_cast<EditorWithReset*>(editor->parent()))
         editor = editor->parentWidget();
+
+	if (editor && qobject_cast<EditorWithCommitAndRevert*>(editor->parent()))
+		editor = editor->parentWidget();
 
     switch (event->type()) {
         case QEvent::KeyPress:
@@ -184,34 +257,58 @@ QWidget *QPropertyEditorDelegate::createEditor(QWidget *parent,
 
     QPropertyEditorModel *model = const_cast<QPropertyEditorModel *>(static_cast<const QPropertyEditorModel *>(index.model()));
     const IProperty *property = model->privateData(index);
+
     if (property == 0)
         return 0;
 
     QWidget *editor = 0;
 
-    if (!isReadOnly() && property->hasEditor()) { // ### always true
-        if (property->hasReset()) {
-            EditorWithReset *editor_w_reset
-                = new EditorWithReset(property, model, parent);
-            QWidget *child_editor
-                = property->createEditor(editor_w_reset, editor_w_reset, SIGNAL(sync()));
+	// ### always true
+    if (!isReadOnly() && property->hasEditor()) 
+	{ 
+        if (property->hasReset()) 
+		{
+            EditorWithReset *editor_w_reset = new EditorWithReset(property, model, parent);
+            QWidget *child_editor = property->createEditor(editor_w_reset, editor_w_reset, SIGNAL(sync()));
+
             editor_w_reset->setChildEditor(child_editor);
+
             connect(editor_w_reset, SIGNAL(sync()), this, SLOT(sync()));
             connect(editor_w_reset, SIGNAL(resetProperty(const IProperty *, QPropertyEditorModel *)),
-                        this, SLOT(resetProperty(const IProperty *, QPropertyEditorModel *)));
+                    this, SLOT(resetProperty(const IProperty *, QPropertyEditorModel *)));
 
             editor = editor_w_reset;
-            if (TextPropertyEditor* edit = qobject_cast<TextPropertyEditor*>(child_editor)) {
+
+            if (TextPropertyEditor* edit = qobject_cast<TextPropertyEditor*>(child_editor)) 
+			{
                 // in case of TextPropertyEditor install the filter on it's private QLineEdit
                 edit->installEventFilter(const_cast<QPropertyEditorDelegate *>(this));
-            } else
+            } 
+			else
                 child_editor->installEventFilter(const_cast<QPropertyEditorDelegate *>(this));
-        } else {
-            editor = property->createEditor(parent, this, SLOT(sync()));
-            editor->installEventFilter(const_cast<QPropertyEditorDelegate *>(this));
+        } 
+		else 
+		{
+			EditorWithCommitAndRevert *editor_w_cr = new EditorWithCommitAndRevert(property, model, parent);
+			QWidget *child_editor = property->createEditor(editor_w_cr, editor_w_cr, SIGNAL(sync()));
+
+			editor_w_cr->setChildEditor(child_editor);
+
+            connect(editor_w_cr, SIGNAL(sync()), this, SLOT(sync()));
+
+			editor = editor_w_cr;
+
+            if (TextPropertyEditor* edit = qobject_cast<TextPropertyEditor*>(child_editor)) 
+			{
+                // in case of TextPropertyEditor install the filter on it's private QLineEdit
+                edit->installEventFilter(const_cast<QPropertyEditorDelegate *>(this));
+            } 
+			else
+                child_editor->installEventFilter(const_cast<QPropertyEditorDelegate *>(this));
+            //editor = property->createEditor(parent, this, SLOT(sync()));
+            //editor->installEventFilter(const_cast<QPropertyEditorDelegate *>(this));
         }
     }
-
 
     return editor;
 }
@@ -221,6 +318,9 @@ void QPropertyEditorDelegate::setEditorData(QWidget *editor,
 {
     if (EditorWithReset *editor_w_reset = qobject_cast<EditorWithReset*>(editor))
         editor = editor_w_reset->childEditor();
+
+    if (EditorWithCommitAndRevert *editor_w_cr = qobject_cast<EditorWithCommitAndRevert*>(editor))
+        editor = editor_w_cr->childEditor();
 
     const QAbstractItemModel *model = index.model();
     IProperty *property = static_cast<const QPropertyEditorModel*>(model)->privateData(index);
@@ -235,6 +335,9 @@ void QPropertyEditorDelegate::setModelData(QWidget *editor,
 {
     if (EditorWithReset *editor_w_reset = qobject_cast<EditorWithReset*>(editor))
         editor = editor_w_reset->childEditor();
+
+    if (EditorWithCommitAndRevert *editor_w_cr = qobject_cast<EditorWithCommitAndRevert*>(editor))
+        editor = editor_w_cr->childEditor();
 
     if (IProperty *property = static_cast<const QPropertyEditorModel*>(model)->privateData(index)) {
         property->updateValue(editor);
@@ -340,5 +443,4 @@ void QPropertyEditorDelegate::updateEditorGeometry(QWidget *editor, const QStyle
     editor->setGeometry(editor->geometry().adjusted(0, 0, -1, -1));
 }
 
-//}
 //#include "qpropertyeditor_delegate.moc"

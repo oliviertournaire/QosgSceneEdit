@@ -355,7 +355,7 @@ QWidget *StringProperty::createEditor(QWidget *parent, const QObject *target, co
 {
     TextPropertyEditor* textEditor = new TextPropertyEditor(TextPropertyEditor::EmbeddingTreeView, m_validationMode, parent);
 
-    QObject::connect(textEditor, SIGNAL(textChanged(QString)), target, receiver);
+    QObject::connect(textEditor, SIGNAL(editingFinished(QString)), target, receiver);
     return textEditor;
 }
 
@@ -1559,7 +1559,7 @@ QWidget *DoubleProperty::createEditor(QWidget *parent, const QObject *target, co
     lineEdit->setFrame(0);
     lineEdit->setValidator(new QDoubleValidator(lineEdit));
 
-    QObject::connect(lineEdit, SIGNAL(textChanged(QString)), target, receiver);
+    QObject::connect(lineEdit, SIGNAL(editingFinished(QString)), target, receiver);
     return lineEdit;
 }
 
@@ -1688,7 +1688,7 @@ QWidget *CharProperty::createEditor(QWidget *parent, const QObject *target, cons
     QLineEdit *lineEdit = new QLineEdit(parent);
     lineEdit->setFrame(0);
     lineEdit->setInputMask(QLatin1String("X; "));
-    QObject::connect(lineEdit, SIGNAL(textChanged(QString)), target, receiver);
+    QObject::connect(lineEdit, SIGNAL(editingFinished(QString)), target, receiver);
 
     return lineEdit;
 }
@@ -1741,7 +1741,7 @@ QWidget *LongLongProperty::createEditor(QWidget *parent, const QObject *target, 
     lineEdit->setFrame(0);
     lineEdit->setValidator(new QLongLongValidator(lineEdit));
 
-    QObject::connect(lineEdit, SIGNAL(textChanged(QString)), target, receiver);
+    QObject::connect(lineEdit, SIGNAL(editingFinished(QString)), target, receiver);
     return lineEdit;
 }
 
@@ -1819,7 +1819,7 @@ QWidget *UrlProperty::createEditor(QWidget *parent, const QObject *target, const
     QLineEdit *lineEdit = new QLineEdit(parent);
     lineEdit->setFrame(0);
 
-    QObject::connect(lineEdit, SIGNAL(textChanged(QString)), target, receiver);
+    QObject::connect(lineEdit, SIGNAL(editingFinished(QString)), target, receiver);
     return lineEdit;
 }
 
@@ -1908,7 +1908,7 @@ QWidget *UIntProperty::createEditor(QWidget *parent, const QObject *target, cons
     QLineEdit *lineEdit = new QLineEdit(parent);
     lineEdit->setFrame(0);
     lineEdit->setValidator(new QULongLongValidator(0, UINT_MAX, lineEdit));
-    QObject::connect(lineEdit, SIGNAL(textChanged(QString)), target, receiver);
+    QObject::connect(lineEdit, SIGNAL(editingFinished(QString)), target, receiver);
 
     return lineEdit;
 }
@@ -1957,7 +1957,7 @@ QWidget *ULongLongProperty::createEditor(QWidget *parent, const QObject *target,
     QLineEdit *lineEdit = new QLineEdit(parent);
     lineEdit->setFrame(0);
     lineEdit->setValidator(new QULongLongValidator(lineEdit));
-    QObject::connect(lineEdit, SIGNAL(textChanged(QString)), target, receiver);
+    QObject::connect(lineEdit, SIGNAL(editingFinished(QString)), target, receiver);
 
     return lineEdit;
 }

@@ -38,8 +38,6 @@
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QItemDelegate>
 
-//namespace qdesigner_internal {
-
 class IProperty;
 class QPropertyEditorModel;
 
@@ -112,6 +110,30 @@ private:
     QPropertyEditorModel *m_model;
 };
 
-//}  // namespace qdesigner_internal
+class EditorWithCommitAndRevert : public QWidget
+{
+	Q_OBJECT
+
+public:
+
+	EditorWithCommitAndRevert(const IProperty *property, QPropertyEditorModel *model, QWidget *parent = 0);
+    void setChildEditor(QWidget *child_editor);
+    QWidget *childEditor() const { return m_child_editor; }
+
+private slots:
+	void emitCommitProperty();
+    void emitRevertProperty();
+
+signals:
+    void sync();
+    void commitProperty(const IProperty *property, QPropertyEditorModel *model);
+    void revertProperty(const IProperty *property, QPropertyEditorModel *model);
+
+private:
+    QWidget *m_child_editor;
+    QHBoxLayout *m_layout;
+    const IProperty *m_property;
+    QPropertyEditorModel *m_model;
+};
 
 #endif // QPROPERTYEDITOR_DELEGATE_P_H

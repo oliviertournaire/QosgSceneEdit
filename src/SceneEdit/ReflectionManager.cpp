@@ -300,6 +300,12 @@ void ReflectionManager::propertyChanged(IProperty *property)
 				else if (type == QVariant::String)
 				{
 					propInfo->setValue(osgIntrospection::Value(node.get()), variant.toString().toStdString());
+
+					// If node name was changed, we must notify others that the name was changed.
+					if (propInfo->getName() == "Name")
+					{
+						item->setText(0, variant.toString());
+					}
 				}
 				else if (type == QVariant::Int)
 				{
