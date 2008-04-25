@@ -133,11 +133,14 @@ void EditorWithCommitAndRevert::emitRevertProperty()
 
 void EditorWithCommitAndRevert::setChildEditor(QWidget *child_editor)
 {
-    m_child_editor = child_editor;
+	if (child_editor)
+	{
+		m_child_editor = child_editor;
 
-    m_child_editor->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::MinimumExpanding));
-    m_layout->insertWidget(0, m_child_editor);
-    setFocusProxy(m_child_editor);
+		m_child_editor->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::MinimumExpanding));
+		m_layout->insertWidget(0, m_child_editor);
+		setFocusProxy(m_child_editor);
+	}
 }
 
 
@@ -337,6 +340,9 @@ QWidget *QPropertyEditorDelegate::createEditor(QWidget *parent,
 		{
 			EditorWithCommitAndRevert *editor_w_cr = new EditorWithCommitAndRevert(property, model, parent);
 			QWidget *child_editor = property->createEditor(editor_w_cr, editor_w_cr, SIGNAL(sync()));
+
+			if (!child_editor)
+				return 0;
 
 			editor_w_cr->setChildEditor(child_editor);
 

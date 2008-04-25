@@ -40,6 +40,7 @@
 
 #include <osg/Vec3>
 #include <osg/BoundingSphere>
+#include <osg/BoundingBox>
 
 class QWidget;
 class QComboBox;
@@ -670,6 +671,8 @@ public:
     QVariant	value() const;
 
     void		setValue(const QVariant &v);
+
+	QWidget*	createEditor(QWidget *parent, const QObject *target, const char *receiver) const { return 0; }
 };
 
 //=================================================================================================
@@ -682,6 +685,25 @@ public:
     QVariant	value() const;
 
     void		setValue(const QVariant &v);
+
+	QWidget*	createEditor(QWidget *parent, const QObject *target, const char *receiver) const { return 0; }
+};
+
+//=================================================================================================
+
+class QT_PROPERTYEDITOR_EXPORT OsgBoundingBoxProperty : public AbstractPropertyGroup
+{
+public:
+				OsgBoundingBoxProperty(const osg::BoundingBox& value, const QString &name);
+
+    QVariant	value() const;
+
+    void		setValue(const QVariant &v);
+
+	QWidget*	createEditor(QWidget *parent, const QObject *target, const char *receiver) const { return 0; }
+
+private:
+	osg::BoundingBox _boundingBox;
 };
 
 //=================================================================================================

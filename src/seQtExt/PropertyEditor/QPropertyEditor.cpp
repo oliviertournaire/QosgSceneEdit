@@ -26,7 +26,6 @@
 #include "PropertyEditorDelegate.h"
 
 #include "QDesignerResourceMimeData.h"
-//#include <resourcemimedata_p.h>
 
 #include <QtDesigner/QDesignerFormEditorInterface>
 #include <QtDesigner/QDesignerFormWindowManagerInterface>
@@ -38,14 +37,13 @@
 #include <QtGui/qevent.h>
 #include <qdebug.h>
 
-//namespace qdesigner_internal {
 
 Q_GLOBAL_STATIC_WITH_ARGS(PropertyCollection, dummy_collection, (QLatin1String("<empty>")))
 
-QPropertyEditor::QPropertyEditor(QWidget *parent)    :
-    QTreeView(parent),
-    m_model(new QPropertyEditorModel(this)),
-    m_itemDelegate(new QPropertyEditorDelegate(this))
+QPropertyEditor::QPropertyEditor(QWidget *parent)
+: QTreeView(parent)
+, m_model(new QPropertyEditorModel(this))
+, m_itemDelegate(new QPropertyEditorDelegate(this))
 {
     setModel(m_model);
     setItemDelegate(m_itemDelegate);
@@ -120,6 +118,10 @@ IProperty *QPropertyEditor::initialInput() const
 
 void QPropertyEditor::drawBranches(QPainter *painter, const QRect &rect, const QModelIndex &index) const
 {
+#if 0
+	QTreeView::drawBranches(painter, rect, index);
+	return;
+#else
     // designer fights the style it uses. :(
     static const bool mac_style = QApplication::style()->inherits("QMacStyle");
     static const int windows_deco_size = 9;
@@ -127,20 +129,24 @@ void QPropertyEditor::drawBranches(QPainter *painter, const QRect &rect, const Q
     QStyleOptionViewItem opt = viewOptions();
 
     IProperty *property = static_cast<const QPropertyEditorModel*>(model())->privateData(index);
-    if (index.column() == 0 && property && property->changed()) {
+    if (index.column() == 0 && property && property->changed()) 
+	{
         opt.font.setBold(true);
     }
 
-    if (property && property->isSeparator()) {
+    if (property && property->isSeparator()) 
+	{
         painter->fillRect(rect, opt.palette.dark());
     }
 
-    if (model()->hasChildren(index)) {
+    if (model()->hasChildren(index)) 
+	{
         opt.state |= QStyle::State_Children;
 
         QRect primitive(rect.left(), rect.top(), indentation(), rect.height());
 
-        if (!mac_style) {
+        if (!mac_style) 
+		{
             primitive.moveLeft(primitive.left() + (primitive.width() - windows_deco_size)/2);
             primitive.moveTop(primitive.top() + (primitive.height() - windows_deco_size)/2);
             primitive.setWidth(windows_deco_size);
@@ -151,13 +157,16 @@ void QPropertyEditor::drawBranches(QPainter *painter, const QRect &rect, const Q
 
         if (isExpanded(index))
             opt.state |= QStyle::State_Open;
+
         style()->drawPrimitive(QStyle::PE_IndicatorBranch, &opt, painter, this);
     }
+
     const QPen savedPen = painter->pen();
     const QColor color = static_cast<QRgb>(QApplication::style()->styleHint(QStyle::SH_Table_GridLineColor, &opt));
     painter->setPen(QPen(color));
     painter->drawLine(rect.x(), rect.bottom(), rect.right(), rect.bottom());
     painter->setPen(savedPen);
+#endif
 }
 
 void QPropertyEditor::keyPressEvent(QKeyEvent *ev)
@@ -235,4 +244,76 @@ void QPropertyEditor::dropEvent ( QDropEvent * event )
     }
 }
 
-//}
+void QPropertyEditor::mousePressEvent(QMouseEvent *event)
+{
+    // we want to handle mousePress in EditingState (persistent editors)
+    if ((state() != NoState && state() != EditingState) || !viewport()->rect().contains(event->pos())) 
+	{
+        return;
+    }
+    //int i = itemDecorationAt(event->pos());
+	QModelIndex i = indexAt(event->pos());
+	QRect rect = visualRect(i);
+    if (i.isValid() && itemsExpandable() && model()->hasChildren(i)/*&& hasChildren(d->viewItems.at(i).index)*/) 
+	{
+        if (isExpanded(i))
+            collapse(i);
+        else
+            expand(i);
+
+        if (!isAnimated())
+		{
+            updateGeometries();
+            viewport()->update();
+        }
+    } 
+	else 
+	{
+        QTreeView::mousePressEvent(event);
+    }
+}
+
+int QPropertyEditor::itemDecorationAt(const QPoint &pos) const
+{
+	return -1;
+ //   int x = pos.x();
+ //   int column = header()->logicalIndexAt(x);
+ //   if (column == -1)
+ //       return -1; // no logical index at x
+ //   int position = header()->sectionViewportPosition(column);
+ //   int size = header()->sectionSize(column);
+ //   int cx = (isRightToLeft() ? size - x + position : x - position);
+ //   //int viewItemIndex = itemAtCoordinate(pos.y());
+ //   //int itemIndentation = indentationForItem(viewItemIndex);
+ //   //QModelIndex index = modelIndex(viewItemIndex);
+	//int viewItemIndex = 0;
+	//int itemIndentation = 0;
+	//QModelIndex index = indexAt(pos);
+
+ //   if (!index.isValid() || column != 0
+ //       || cx < (itemIndentation - indentation()) || cx > itemIndentation)
+ //       return -1; // pos is outside the decoration rect
+
+ //   //if (!rootDecoration && index.parent() == root)
+ //   //    return -1; // no decoration at root
+
+ //   QRect rect;
+ //   if (isRightToLeft())
+ //       rect = QRect(position + size - itemIndentation, coordinateForItem(viewItemIndex),
+ //                    indentation(), itemHeight(viewItemIndex));
+ //   else
+ //       rect = QRect(position + itemIndentation - indent, coordinateForItem(viewItemIndex),
+ //                    indentation(), itemHeight(viewItemIndex));
+
+ //   //QStyleOption opt;
+ //   //opt.initFrom(q);
+ //   //opt.rect = rect;
+ //   //QRect returning = q->style()->subElementRect(QStyle::SE_TreeViewDisclosureItem, &opt, q);
+ //   //if (!returning.contains(pos))
+ //   //    return -1;
+
+	//if (!rect.contains(pos))
+	//	return -1;
+
+ //   return viewItemIndex;
+}

@@ -2071,3 +2071,41 @@ void OsgBoundingSphereProperty::setValue(const QVariant &v)
 	propertyAt(2)->setValue(bs.center().z());
 	propertyAt(3)->setValue(bs.radius());
 }
+
+//=================================================================================================
+
+Q_DECLARE_METATYPE(osg::BoundingBox)
+
+OsgBoundingBoxProperty::OsgBoundingBoxProperty(const osg::BoundingBox &value, const QString &name)
+: AbstractPropertyGroup(name)
+{
+	OsgVec3fProperty *pmin = new OsgVec3fProperty(value._min, QLatin1String("Min"));
+	pmin->setFake(true);
+	pmin->setParent(this);
+
+	OsgVec3fProperty *pmax = new OsgVec3fProperty(value._max, QLatin1String("Max"));
+	pmax->setFake(true);
+	pmax->setParent(this);
+
+	m_properties << pmin << pmax;
+
+	_boundingBox = value;
+}
+
+QVariant OsgBoundingBoxProperty::value() const
+{
+	QVariant v;
+	v.setValue(_boundingBox);
+	return v;
+}
+
+void OsgBoundingBoxProperty::setValue(const QVariant &v)
+{
+	//osg::BoundingSphere bs(v.value<osg::BoundingSphere>());
+	//propertyAt(0)->setValue(bs.center().x());
+	//propertyAt(1)->setValue(bs.center().y());
+	//propertyAt(2)->setValue(bs.center().z());
+	//propertyAt(3)->setValue(bs.radius());
+}
+
+//=================================================================================================

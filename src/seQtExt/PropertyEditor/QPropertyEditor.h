@@ -62,11 +62,15 @@ protected:
     virtual void keyPressEvent(QKeyEvent *ev);
     virtual QStyleOptionViewItem viewOptions() const;
     virtual void focusInEvent(QFocusEvent *event);
+    virtual void mousePressEvent(QMouseEvent *event);
 
 private slots:
     void headerDoubleClicked(int);
 
 private:
+	int itemDecorationAt(const QPoint &pos) const;
+
+
     QPropertyEditorModel *m_model;
     QPropertyEditorDelegate *m_itemDelegate;
 } ;

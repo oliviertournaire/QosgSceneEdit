@@ -211,7 +211,8 @@ IProperty* ReflectionManager::parseSimpleProperty(const osgIntrospection::Type& 
 	else if (tid == typeid(osg::BoundingBox))
 	{
 		osg::BoundingBox bb = variant_cast<osg::BoundingBox>(propValue);
-		p = new OsgVec3fProperty(bb._max, propName);
+		p = new OsgBoundingBoxProperty(bb, propName);
+		//p = new OsgVec3fProperty(bb._max, propName);
 	}
 	else if (tid == typeid(osg::BoundingSphere))
 	{
