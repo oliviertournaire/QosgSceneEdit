@@ -1,5 +1,5 @@
 #include <QApplication>
-#include <QTabBar.h>
+#include <QTabBar>
 #include <QStyleOptionTab>
 #include <QPainter>
 #include <QPolygon>

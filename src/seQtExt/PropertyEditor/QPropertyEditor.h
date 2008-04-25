@@ -68,8 +68,6 @@ private slots:
     void headerDoubleClicked(int);
 
 private:
-	int itemDecorationAt(const QPoint &pos) const;
-
 
     QPropertyEditorModel *m_model;
     QPropertyEditorDelegate *m_itemDelegate;

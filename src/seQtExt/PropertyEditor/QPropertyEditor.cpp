@@ -246,20 +246,36 @@ void QPropertyEditor::dropEvent ( QDropEvent * event )
 
 void QPropertyEditor::mousePressEvent(QMouseEvent *event)
 {
+/*    QTreeView::mousePressEvent(event);
+    return;*/
+    static const int windows_deco_size = 9;
+
     // we want to handle mousePress in EditingState (persistent editors)
     if ((state() != NoState && state() != EditingState) || !viewport()->rect().contains(event->pos())) 
 	{
         return;
     }
     //int i = itemDecorationAt(event->pos());
-	QModelIndex i = indexAt(event->pos());
-	QRect rect = visualRect(i);
-    if (i.isValid() && itemsExpandable() && model()->hasChildren(i)/*&& hasChildren(d->viewItems.at(i).index)*/) 
+    QModelIndex index = indexAt(event->pos());
+	QRect rect = visualRect(index);
+    QRect primitive(rect.left(), rect.top(), indentation(), rect.height());
+    primitive.moveLeft(primitive.left() - (primitive.width() - windows_deco_size)/2);
+    primitive.moveTop(primitive.top() + (primitive.height() - windows_deco_size)/2);
+    primitive.setWidth(windows_deco_size);
+    primitive.setHeight(windows_deco_size);
+
+    primitive = QRect((indentation() - windows_deco_size)/2, rect.top() + (rect.height() - windows_deco_size)/2, windows_deco_size, windows_deco_size);
+    qDebug("primitive %d %d %d %d", primitive.left(), primitive.top(), primitive.width(), primitive.height());
+
+    bool i = primitive.contains(event->pos());
+    qDebug("Pos: %d %d", event->pos().x(), event->pos().y());
+
+    if (i && itemsExpandable() && model()->hasChildren(index)/*&& hasChildren(d->viewItems.at(i).index)*/) 
 	{
-        if (isExpanded(i))
-            collapse(i);
+        if (isExpanded(index))
+            collapse(index);
         else
-            expand(i);
+            expand(index);
 
         if (!isAnimated())
 		{
@@ -269,51 +285,6 @@ void QPropertyEditor::mousePressEvent(QMouseEvent *event)
     } 
 	else 
 	{
-        QTreeView::mousePressEvent(event);
+        QAbstractItemView::mousePressEvent(event);
     }
-}
-
-int QPropertyEditor::itemDecorationAt(const QPoint &pos) const
-{
-	return -1;
- //   int x = pos.x();
- //   int column = header()->logicalIndexAt(x);
- //   if (column == -1)
- //       return -1; // no logical index at x
- //   int position = header()->sectionViewportPosition(column);
- //   int size = header()->sectionSize(column);
- //   int cx = (isRightToLeft() ? size - x + position : x - position);
- //   //int viewItemIndex = itemAtCoordinate(pos.y());
- //   //int itemIndentation = indentationForItem(viewItemIndex);
- //   //QModelIndex index = modelIndex(viewItemIndex);
-	//int viewItemIndex = 0;
-	//int itemIndentation = 0;
-	//QModelIndex index = indexAt(pos);
-
- //   if (!index.isValid() || column != 0
- //       || cx < (itemIndentation - indentation()) || cx > itemIndentation)
- //       return -1; // pos is outside the decoration rect
-
- //   //if (!rootDecoration && index.parent() == root)
- //   //    return -1; // no decoration at root
-
- //   QRect rect;
- //   if (isRightToLeft())
- //       rect = QRect(position + size - itemIndentation, coordinateForItem(viewItemIndex),
- //                    indentation(), itemHeight(viewItemIndex));
- //   else
- //       rect = QRect(position + itemIndentation - indent, coordinateForItem(viewItemIndex),
- //                    indentation(), itemHeight(viewItemIndex));
-
- //   //QStyleOption opt;
- //   //opt.initFrom(q);
- //   //opt.rect = rect;
- //   //QRect returning = q->style()->subElementRect(QStyle::SE_TreeViewDisclosureItem, &opt, q);
- //   //if (!returning.contains(pos))
- //   //    return -1;
-
-	//if (!rect.contains(pos))
-	//	return -1;
-
- //   return viewItemIndex;
 }

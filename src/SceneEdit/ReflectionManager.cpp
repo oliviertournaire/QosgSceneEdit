@@ -18,6 +18,7 @@
 #include <osgIntrospection/variant_cast>
 
 #include <QMetaType>
+#include <typeinfo>
 
 using osgIntrospection::variant_cast;
 
@@ -46,11 +47,13 @@ ReflectionManager::ReflectionManager(QTreeWidget *treeWidget, QPropertyEditor *p
 #if _DEBUG
 			if (fileName == "osgwrapper_osgd.dll")
 #else
-			if (fileName == "osgwrapper_osg.dll)
+			if (fileName == "osgwrapper_osg.dll")
 #endif
 				osgDB::DynamicLibrary::loadLibrary(dirName + pluginDir + "/" + fileName);
         }
     }
+
+    osgDB::DynamicLibrary::loadLibrary("/opt/OpenSceneGraph-2.3.11/lib/osgPlugins-2.2.0/osgwrapper_osg.so");
 
 	connect(_treeWidget, SIGNAL(itemSelectionChanged()), this, SLOT(treeItemSelectionChanged()));
 	connect(_propertyEditor->model(), SIGNAL(propertyChanged(IProperty*)), this, SLOT(propertyChanged(IProperty*)));
@@ -200,8 +203,8 @@ IProperty* ReflectionManager::parseProperties(const osgIntrospection::PropertyIn
 
 IProperty* ReflectionManager::parseSimpleProperty(const osgIntrospection::Type& propType, const QString& propName, const osgIntrospection::Value& propValue, const osgIntrospection::PropertyInfo* parentPropInfo)
 {
-	IProperty *p = 0L;
-	const type_info& tid = propType.getStdTypeInfo();
+    IProperty *p = 0L;
+	const std::type_info& tid = propType.getStdTypeInfo();
 	
 	if (tid == typeid(std::string))
 	{
@@ -292,15 +295,15 @@ void ReflectionManager::propertyChanged(IProperty *property)
 			{
 				QVariant variant = property->value();
 				int type = variant.userType();
-
+                osgIntrospection::Value v1(node.get());
 
 				if (type == QVariant::Bool)
 				{
-					propInfo->setValue(osgIntrospection::Value(node.get()), variant.toBool());
+					propInfo->setValue(v1, variant.toBool());
 				}
 				else if (type == QVariant::String)
 				{
-					propInfo->setValue(osgIntrospection::Value(node.get()), variant.toString().toStdString());
+					propInfo->setValue(v1, variant.toString().toStdString());
 
 					// If node name was changed, we must notify others that the name was changed.
 					if (propInfo->getName() == "Name")
@@ -310,7 +313,7 @@ void ReflectionManager::propertyChanged(IProperty *property)
 				}
 				else if (type == QVariant::Int)
 				{
-					propInfo->setValue(osgIntrospection::Value(node.get()), variant.toInt());
+					propInfo->setValue(v1, variant.toInt());
 				}
 				else if (type == qMetaTypeId<osg::BoundingSphere>())
 				{

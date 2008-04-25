@@ -286,7 +286,7 @@ void MainWindow::home()
 
 void MainWindow::zoomToSelected()
 {
-	QList<QTreeWidgetItem*>& items = _treeWidget->selectedItems();
+	QList<QTreeWidgetItem*> items = _treeWidget->selectedItems();
 
 	if (!items.empty())
 	{

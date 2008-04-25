@@ -25,7 +25,7 @@
 TRANSLATOR qdesigner_internal::StyleSheetEditorDialog
 */
 
-#include "QDesignerStyleSheeteditor.h"
+#include "QDesignerStyleSheetEditor.h"
 //#include "csshighlighter_p.h"
 
 #include <QtDesigner/QDesignerFormWindowInterface>

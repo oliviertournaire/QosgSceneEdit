@@ -2,7 +2,7 @@
 #include "QDebugStream.h"
 
 #include <QRegExp>
-#include <qsci/qscilexerpython.h>
+#include <Qsci/qscilexerpython.h>
 
 Shell::Shell(QWidget *parent)
 : QsciScintilla(parent)
