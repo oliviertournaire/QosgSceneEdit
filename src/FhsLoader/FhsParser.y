@@ -22,7 +22,11 @@
 #include <osg/Texture>
     
 /* Project */    
-#include "FlexLexer.h"
+#ifdef WIN32
+#include "win32/FlexLexer.h"
+#else
+#include <FlexLexer.h>
+#endif
 #include "FhsLoader.h"
 
 /* Forward declaration */    
@@ -578,8 +582,8 @@ polypool_header : FT_POLYPOOL { fhs->beginPolypool(); }
 polypool_body   : polygon_elements  
                 ;
 		                    
-light_rule      : FT_LIGHT FT_STRING descriptions FT_LEFT_BRACE light_elements FT_RIGHT_BRACE
-                | FT_LIGHT descriptions FT_LEFT_BRACE light_elements FT_RIGHT_BRACE
+light_rule      : FT_LIGHT FT_STRING descriptions FT_LEFT_BRACE light_elements FT_RIGHT_BRACE { fhs->dummy()}
+                | FT_LIGHT descriptions FT_LEFT_BRACE light_elements FT_RIGHT_BRACE { fhs->dummy(); }
                 ;
 
 light_elements  : /* empty */
