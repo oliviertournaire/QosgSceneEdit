@@ -199,12 +199,19 @@ void MainWindow::fileOpen()
             {
                 node = osgDB::readNodeFile(fileName.toStdString());
 
-				// optimize the scene graph, remove redundant nodes and state etc.
-				osgUtil::Optimizer optimizer;
-				optimizer.optimize(node.get());
+                if (node.valid())
+                {
+                    // optimize the scene graph, remove redundant nodes and state etc.
+                    osgUtil::Optimizer optimizer;
+                    optimizer.optimize(node.get());
 
-				//osgUtil::GLObjectsVisitor dlVisitor;
-				//node->accept(dlVisitor);
+                    //osgUtil::GLObjectsVisitor dlVisitor;
+                    //node->accept(dlVisitor);
+                }
+                else
+                {
+                    // TODO: Display a messagebox to show error
+                }
             }
             
 			if (node.valid())
@@ -259,7 +266,8 @@ void MainWindow::updateTree()
 	BuildQtTreeView visitor(_modelRoot.get());
 	_modelRoot->accept(visitor);
 
-	_treeSlider->setMaximum(qMax(visitor.getMaxTreeDepth(), _treeSlider->maximum()));
+	_treeSlider->setMaximum(visitor.getMaxTreeDepth());
+    _treeSlider->setValue(visitor.getMaxTreeDepth());
 
 	_treeWidget->clear();
 	_treeWidget->addTopLevelItem(visitor.getRoot());

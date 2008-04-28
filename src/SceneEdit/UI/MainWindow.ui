@@ -196,7 +196,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>21</height>
+     <height>29</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File" >
@@ -512,5 +512,22 @@
  <resources>
   <include location="../resources.qrc" />
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>_treeSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>_treeWidget</receiver>
+   <slot>expandToDepth(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>161</x>
+     <y>490</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>166</x>
+     <y>327</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
