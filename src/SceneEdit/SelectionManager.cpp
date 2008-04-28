@@ -17,26 +17,6 @@ SelectionManager::SelectionManager() : osg::Referenced()
 
     // create a selection decorator for highlighting.
     m_pSelectionDecorator = new SelectionDecorator;
-
-
- //   osgDB::FilePathList dirPathList = osgDB::getLibraryFilePathList();
- //   dirPathList.push_back(".");
- //   for (osgDB::FilePathList::iterator dirIter=dirPathList.begin(); dirIter!=dirPathList.end(); ++dirIter) 
-	//{
- //       std::string dirName = *dirIter;
- //       osgDB::DirectoryContents filePathList = osgDB::getDirectoryContents(dirName + "\\osgPlugins-2.3.9");
-
- //       for (osgDB::DirectoryContents::iterator fileIter=filePathList.begin(); fileIter!=filePathList.end(); ++fileIter) 
-	//	{
- //           std::string fileName = *fileIter;
-
-	//		if (fileName.find("osgwrapper_") == 0 && fileName.find(".dll") != std::string::npos)
-	//		{
- //               osgDB::DynamicLibrary::loadLibrary(dirName + "\\osgPlugins-2.3.9\\" + fileName);
- //           }
- //       }
- //   }
-
 }
 
 /*!
@@ -90,6 +70,7 @@ void SelectionManager::clearSelection()
     // deselect the previous selected node
     while (m_pSelectionDecorator->getNumChildren() > 0)
         m_pSelectionDecorator->removeChild(0,1);
+
     if (m_pSelectionDecorator->getNumParents() > 0)
         m_pSelectionDecorator->getParent(0)->removeChild(m_pSelectionDecorator.get());
 
@@ -103,8 +84,11 @@ void SelectionManager::clearSelection()
 */
 bool SelectionManager::select(osg::Node* pNode, bool noEvent)
 {
+	return false;
+
     // select the new node
-    if (pNode) {
+    if (pNode)
+	{
         m_pSelectionDecorator->addChild(pNode);
         
 		osg::Group* pParent = pNode->getParent(0);
@@ -121,34 +105,6 @@ bool SelectionManager::select(osg::Node* pNode, bool noEvent)
 
     // keep the pointer of the selected node
     m_pSelectedNode = pNode;
-
-
-
-	// TEST
-	if (pNode)
-	{
-		//osgIntrospection::Value ref_value(&*pNode);
-		osgIntrospection::ExtendedTypeInfo eti(typeid(*pNode), false, false);
-		const osgIntrospection::Type& classType = osgIntrospection::Reflection::getType(eti);
-		if (classType.isDefined())
-		{
-			std::ostream& out = osg::notify(osg::NOTICE);
-
-			out << "Classname: " << classType.getQualifiedName() << std::endl;
-			
-			const osgIntrospection::PropertyInfoList& pil = classType.getProperties();
-			if (!pil.empty())
-			{
-				int count = 0;
-				for (osgIntrospection::PropertyInfoList::const_iterator piItr = pil.begin(); piItr != pil.end(); piItr++)
-				{
-					const osgIntrospection::PropertyInfo *propInfo = *piItr;
-
-					out << "Property: " << propInfo->getName() << std::endl;
-				}
-			}
-		}
-	}
 
     return (pNode!=NULL);
 }

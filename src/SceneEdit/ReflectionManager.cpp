@@ -31,6 +31,7 @@ ReflectionManager::ReflectionManager(QTreeWidget *treeWidget, QPropertyEditor *p
 , _propertyEditor(pe)
 , _collection(0L)
 {
+	const std::string osgFileName = getLibraryPrefix() + "osg" + getLibraryExtension();
     osgDB::FilePathList dirPathList = osgDB::getLibraryFilePathList();
     dirPathList.push_back(".");
 
@@ -44,16 +45,10 @@ ReflectionManager::ReflectionManager(QTreeWidget *treeWidget, QPropertyEditor *p
 		{
             std::string fileName = *fileIter;
 
-#if _DEBUG
-			if (fileName == "osgwrapper_osgd.dll")
-#else
-			if (fileName == "osgwrapper_osg.dll")
-#endif
+			if (fileName == osgFileName)
 				osgDB::DynamicLibrary::loadLibrary(dirName + pluginDir + "/" + fileName);
         }
     }
-
-    osgDB::DynamicLibrary::loadLibrary("/opt/OpenSceneGraph-2.3.11/lib/osgPlugins-2.2.0/osgwrapper_osg.so");
 
 	connect(_treeWidget, SIGNAL(itemSelectionChanged()), this, SLOT(treeItemSelectionChanged()));
 	connect(_propertyEditor->model(), SIGNAL(propertyChanged(IProperty*)), this, SLOT(propertyChanged(IProperty*)));
@@ -133,7 +128,15 @@ void ReflectionManager::treeItemSelectionChanged()
 		{
 			osg::ref_ptr<osg::Node> node = item->getOsgNode();
 
-			setNode(node.get());
+			if (node.valid())
+				setNode(node.get());
+			else
+			{
+				osg::ref_ptr<osg::Object> obj = item->getOsgObject();
+
+				if (obj.valid())
+					setNode(obj.get());
+			}
 		}
 	}
 	else
@@ -288,8 +291,11 @@ void ReflectionManager::propertyChanged(IProperty *property)
 		if (item)
 		{
 			QString propName(property->propertyName());
-			osg::ref_ptr<osg::Node> node = item->getOsgNode();
+			osg::ref_ptr<osg::Referenced> node = item->getOsgNode();
 			const osgIntrospection::PropertyInfo *propInfo = _propertyHash[property];
+
+			if (!node.valid())
+				node = item->getOsgObject();
 
 			if (propInfo)
 			{
@@ -326,4 +332,24 @@ void ReflectionManager::propertyChanged(IProperty *property)
 
 void ReflectionManager::resetProperty(const QString& name)
 {
+}
+
+std::string ReflectionManager::getLibraryExtension()
+{
+#if defined(WIN32)
+	#if defined(_DEBUG)
+		return "d.dll";
+	#else
+		return ".dll";
+	#endif
+#elif defined(__APPLE__)
+	return "";
+#else
+	return ".so";
+#endif
+}
+
+std::string ReflectionManager::getLibraryPrefix()
+{
+	return "osgwrapper_";
 }

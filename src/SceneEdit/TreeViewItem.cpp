@@ -32,3 +32,18 @@ const osg::Node* TreeViewItem::getOsgNode() const
 {
 	return _node.get();
 }
+
+void TreeViewItem::setOsgObject(osg::Object *obj)
+{
+	_obj = obj;
+}
+
+osg::Object* TreeViewItem::getOsgObject()
+{
+	return _obj.get();
+}
+
+const osg::Object* TreeViewItem::getOsgObject() const
+{
+	return _obj.get();
+}

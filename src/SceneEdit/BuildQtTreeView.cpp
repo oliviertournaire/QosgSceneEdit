@@ -29,6 +29,7 @@ BuildQtTreeView::~BuildQtTreeView()
 
 void BuildQtTreeView::apply(osg::Node& node)
 {
+	osg::Geode *geode = 0L;
     bool isGroup = false;
     QString nodeName = QString::fromStdString(node.getName());
 
@@ -47,18 +48,36 @@ void BuildQtTreeView::apply(osg::Node& node)
         item->setIcon(0, QIcon(":/icons/TreeView/LOD.png"));
         _parents.push(item);
         isGroup = true;
-    } else if (dynamic_cast<osg::Group*>(&node))
+    }
+	else if (dynamic_cast<osg::Group*>(&node))
     {
         item->setIcon(0, QIcon(":/icons/TreeView/Group.png"));
         _parents.push(item);
         isGroup = true;
-    } else if (dynamic_cast<osg::Billboard*>(&node))
+    }
+	else if (dynamic_cast<osg::Billboard*>(&node))
     {
         item->setIcon(0, QIcon(":/icons/TreeView/Billboard.png"));
-    } else if (dynamic_cast<osg::Geode*>(&node))
+	}
+	else if ((geode = dynamic_cast<osg::Geode*>(&node)))
     {
         item->setIcon(0, QIcon(":/icons/TreeView/Geode.png"));
-    } else
+
+		for (unsigned int i=0; i<geode->getNumDrawables(); ++i)
+		{
+			osg::ref_ptr<osg::Drawable> drawable = geode->getDrawable(i);
+
+			if (drawable.valid())
+			{
+				TreeViewItem *subItem = new TreeViewItem(item);
+				subItem->setText(0, "Drawable");
+				//item->setCheckState(0, Qt::Checked);
+				//item->setOsgNode(&node);
+				subItem->setOsgObject(drawable.get());
+			}
+		}
+    }
+	else
     {
         item->setIcon(0, QIcon(":/icons/TreeView/Other.png"));
     }

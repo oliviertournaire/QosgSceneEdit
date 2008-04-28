@@ -8,6 +8,8 @@ SET(qtext_SRCS
     QDebugStream.cpp
     Shell.cpp
     Shell.h
+    PythonShell.h
+    PythonShell.cpp
 	PropertyEditor/FlagBox.cpp
 	PropertyEditor/FlagBox.h
 	PropertyEditor/FlagBoxModel.cpp
@@ -48,6 +50,7 @@ SET(qtext_SRCS
 SET(qtext_MOC_HDRS
     QDebugStream.h
     Shell.h
+    PythonShell.h
 	PropertyEditor/QPropertyEditor.h
 	PropertyEditor/PropertyEditorModel.h
 	PropertyEditor/PropertyEditorItems.h
@@ -121,5 +124,5 @@ QT4_WRAP_UI(qtext_UI_SRCS ${qtext_UI})
 QT4_ADD_RESOURCES(qtext_RC_SRCS seQtExt.qrc)
 
 ADD_LIBRARY(seQtExt SHARED ${qtext_SRCS} ${qtext_MOC_SRCS} ${qtext_UI_SRCS} ${qtext_RC_SRCS})
-TARGET_LINK_LIBRARIES(seQtExt ${QT_LIBRARIES} ${OSG_LIBRARIES} qscintilla2)
+TARGET_LINK_LIBRARIES(seQtExt ${QT_LIBRARIES} ${OSG_LIBRARIES} qscintilla2d)
 INSTALL_TARGETS(/bin seQtExt)

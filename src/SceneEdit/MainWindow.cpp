@@ -15,6 +15,7 @@
 #include <osg/ClipPlane>
 #include <osg/ClipNode>
 #include <osgUtil/Simplifier>
+#include <osgUtil/GLObjectsVisitor>
 
 // Project
 #include "MainWindow.h"
@@ -131,15 +132,6 @@ MainWindow::MainWindow(QWidget* parent, Qt::WFlags flags)
 	_internalRoot->addChild(projection);
 
 
- //   osgViewer::Viewer::Windows windows;
-	//_viewerWindow->getWindows(windows);
-
-	//_hudCamera = createHUD();
- //   _hudCamera->setGraphicsContext(windows[0]);
- //   _hudCamera->setViewport(0,0,windows[0]->getTraits()->width, windows[0]->getTraits()->height);
-	//_viewerWindow->addSlave(_hudCamera.get(), false);
-
-
 	fileNew(false);
 	treeItemSelectionChanged();
 	updateTree();
@@ -210,6 +202,9 @@ void MainWindow::fileOpen()
 				// optimize the scene graph, remove redundant nodes and state etc.
 				osgUtil::Optimizer optimizer;
 				optimizer.optimize(node.get());
+
+				//osgUtil::GLObjectsVisitor dlVisitor;
+				//node->accept(dlVisitor);
             }
             
 			if (node.valid())
@@ -315,21 +310,25 @@ void MainWindow::treeItemSelectionChanged()
 				if (item)
 				{
 					osg::ref_ptr<osg::Node> node = item->getOsgNode();
-					QString name = QString::fromStdString(node->getName());
-					osg::Vec3f center = node->getBound().center();
-					float radius = node->getBound().radius();
-					QString centerString = QString("%1 %2 %3").arg(center[0], 0, 'f', 3)
-															  .arg(center[1], 0, 'f', 3)
-															  .arg(center[2], 0, 'f', 3);
 
-					if (name.isEmpty())
-						_nameLabel->setText(tr("<unnamed>"));
-					else
-						_nameLabel->setText(name);
-					_radiusLabel->setText(QString::number(radius));
-					_centerLabel->setText(centerString);
+					if (node.valid())
+					{
+						QString name = QString::fromStdString(node->getName());
+						osg::Vec3f center = node->getBound().center();
+						float radius = node->getBound().radius();
+						QString centerString = QString("%1 %2 %3").arg(center[0], 0, 'f', 3)
+																  .arg(center[1], 0, 'f', 3)
+																  .arg(center[2], 0, 'f', 3);
 
-					_selectionManager->select(node.get());
+						if (name.isEmpty())
+							_nameLabel->setText(tr("<unnamed>"));
+						else
+							_nameLabel->setText(name);
+						_radiusLabel->setText(QString::number(radius));
+						_centerLabel->setText(centerString);
+
+						_selectionManager->select(node.get());
+					}
 				}
 		}
 		else
@@ -410,10 +409,10 @@ void MainWindow::treeItemChanged(QTreeWidgetItem *item_, int column)
 
 void MainWindow::shutdown()
 {
-	if (_debugStream)
+	if (_pythonShell)
 	{
-		delete _debugStream;
-		_debugStream = 0L;
+		delete _pythonShell;
+		_pythonShell = 0L;
 	}
 }
 

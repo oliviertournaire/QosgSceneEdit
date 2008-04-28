@@ -38,6 +38,10 @@ protected slots:
 
 private:
 
+	std::string		getLibraryExtension();
+	std::string		getLibraryPrefix();
+
+
 	void			parseClass(const osgIntrospection::Type& classType, osg::Referenced *obj);
 	IProperty*		parseProperties(const osgIntrospection::PropertyInfo* pPropInfo, 
 		                            const osgIntrospection::Value& instance);
