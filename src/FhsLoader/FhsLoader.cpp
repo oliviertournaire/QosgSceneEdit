@@ -296,7 +296,7 @@ void FhsLoader::endGeometry()
     }
     */
     
-    m_geometry->setUseDisplayList(true);
+    //m_geometry->setUseDisplayList(true);
     m_geode->addDrawable(m_geometry.get());
     
     m_geode = NULL;

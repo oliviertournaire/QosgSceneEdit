@@ -14,7 +14,6 @@ class QUndoView;
 class QVBoxLayout;
 class QMdiArea;
 
-class QDebugStream;
 class SelectionManager;
 class ReflectionManager;
 
@@ -81,7 +80,6 @@ private:
 
 	QUndoStack *_undoStack;
 	QMdiArea *_mdiArea;
-	QDebugStream *_debugStream;
 	osg::ref_ptr<SelectionManager> _selectionManager;
 	osg::ref_ptr<ReflectionManager> _reflectionManager;
 };

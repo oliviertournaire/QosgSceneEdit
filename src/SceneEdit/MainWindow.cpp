@@ -30,6 +30,7 @@
 
 #include "QPropertyEditor.h"
 #include "ReflectionManager.h"
+#include "ComputeNodeInfoVisitor.h"
 
 using SceneEdit::BackgroundGeode;
 
@@ -37,16 +38,11 @@ using SceneEdit::BackgroundGeode;
 MainWindow::MainWindow(QWidget* parent, Qt::WFlags flags) 
 : QMainWindow(parent, flags)
 , _lastDirectory(QDir::homePath())
-, _debugStream(0L)
 , _backgroundGeode(new BackgroundGeode())
 {
 	_selectionManager = SelectionManager::instance();
 
 	setupUi(this);
-
-	//StdRedirector<> *myRedirector = new StdRedirector<>(std::cout, outcallback, textEdit);
-	//_debugStream = new QDebugStream(std::cout);
-	//connect(_debugStream, SIGNAL(clientProcessStdout), textEdit, SLOT(writeStdout));
 
 	osg::setNotifyLevel(osg::NOTICE);
 
@@ -82,7 +78,7 @@ MainWindow::MainWindow(QWidget* parent, Qt::WFlags flags)
 	_mdiArea = new QMdiArea(widget);
 	_mdiArea->setBackground(QBrush(QPixmap(":/Images/se.png")));
 
-	QHBoxLayout *layout = new QHBoxLayout(widget);
+	QBoxLayout *layout = new QHBoxLayout(widget);
 	layout->addWidget(_mdiArea);
 
 	QMdiSubWindow *subWindow = _mdiArea->addSubWindow(_viewerWindow);
@@ -90,8 +86,16 @@ MainWindow::MainWindow(QWidget* parent, Qt::WFlags flags)
 	subWindow->showMaximized();
 	subWindow->setWindowTitle("Render window");
 
-	QPropertyEditor *pe = new QPropertyEditor(tab_4);
-	layout = new QHBoxLayout(tab_4);
+	QPropertyEditor *pe = new QPropertyEditor(_peContainer);
+
+	QToolButton *btn = new QToolButton(_peContainer);
+	btn->setIcon(QIcon(":/SceneEdit/QtExt/images/back.png"));
+	btn->setIconSize(QSize(12,12));
+
+	layout = new QVBoxLayout(_peContainer);
+	//layout->setContentsMargins(0, 0, 0, 0);
+	layout->setSpacing(1);
+	layout->addWidget(btn);
 	layout->addWidget(pe);
 
 	_reflectionManager = new ReflectionManager(_treeWidget, pe);
@@ -323,19 +327,33 @@ void MainWindow::treeItemSelectionChanged()
 
 					if (node.valid())
 					{
+						QString minString, maxString;
 						QString name = QString::fromStdString(node->getName());
-						osg::Vec3f center = node->getBound().center();
-						float radius = node->getBound().radius();
-						QString centerString = QString("%1 %2 %3").arg(center[0], 0, 'f', 3)
-																  .arg(center[1], 0, 'f', 3)
-																  .arg(center[2], 0, 'f', 3);
+						osg::BoundingBox bbox;
+
+						bbox.expandBy(node->getBound());
+
+						if (bbox.valid())
+						{
+							minString = QString("(%1 %2 %3)").arg(bbox.xMin(), 0, 'f', 3)
+															 .arg(bbox.yMin(), 0, 'f', 3)
+															 .arg(bbox.zMin(), 0, 'f', 3);
+							maxString = QString("(%1 %2 %3)").arg(bbox.xMax(), 0, 'f', 3)
+															 .arg(bbox.yMax(), 0, 'f', 3)
+															 .arg(bbox.zMax(), 0, 'f', 3);
+						}
+
+						SceneEdit::ComputeNodeInfoVisitor niv;
+						node->accept(niv);
 
 						if (name.isEmpty())
 							_nameLabel->setText(tr("<unnamed>"));
 						else
 							_nameLabel->setText(name);
-						_radiusLabel->setText(QString::number(radius));
-						_centerLabel->setText(centerString);
+
+						_boundingBoxMinLabel->setText(minString);
+						_boundingBoxMaxLabel->setText(maxString);
+						_trianglesLabel->setText(QString("%1").arg(niv.getNumTriangles()));
 
 						_selectionManager->select(node.get());
 					}
@@ -343,15 +361,24 @@ void MainWindow::treeItemSelectionChanged()
 		}
 		else
 		{
-			osg::BoundingSphere sphere = calculateBoundingSphere(items);
-			osg::Vec3f center = sphere.center();
-			float radius = sphere.radius();
-			QString centerString = QString("%1 %2 %3").arg(center[0], 0, 'f', 3)
-													  .arg(center[1], 0, 'f', 3)
-													  .arg(center[2], 0, 'f', 3);
+			QString minString, maxString;
+			osg::BoundingBox bbox;
+
+			bbox.expandBy(calculateBoundingSphere(items));
+
+			if (bbox.valid())
+			{
+				minString = QString("(%1 %2 %3)").arg(bbox.xMin(), 0, 'f', 3)
+												 .arg(bbox.yMin(), 0, 'f', 3)
+												 .arg(bbox.zMin(), 0, 'f', 3);
+				maxString = QString("(%1 %2 %3)").arg(bbox.xMax(), 0, 'f', 3)
+												 .arg(bbox.yMax(), 0, 'f', 3)
+												 .arg(bbox.zMax(), 0, 'f', 3);
+			}
+
 			_nameLabel->setText(QString(tr("<%1 Nodes>")).arg(items.count()));
-			_radiusLabel->setText(QString::number(radius));
-			_centerLabel->setText(centerString);
+			_boundingBoxMinLabel->setText(minString);
+			_boundingBoxMaxLabel->setText(maxString);
 
 			//foreach (QTreeWidgetItem *tmpItem, items)
 			//{
@@ -365,8 +392,10 @@ void MainWindow::treeItemSelectionChanged()
 	else
 	{
 		_nameLabel->setText("");
-		_centerLabel->setText("");
-		_radiusLabel->setText("");
+		_trianglesLabel->setText("");
+		_textureMemoryLabel->setText("");
+		_boundingBoxMinLabel->setText("");
+		_boundingBoxMaxLabel->setText("");
 	}
 }
 

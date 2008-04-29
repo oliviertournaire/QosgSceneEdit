@@ -34,6 +34,8 @@ SET(SE_SOURCES
 	SelectionManager.cpp
 	ReflectionManager.h
 	ReflectionManager.cpp
+	ComputeNodeInfoVisitor.h
+	ComputeNodeInfoVisitor.cpp
 )
 
 #

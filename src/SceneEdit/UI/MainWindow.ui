@@ -53,91 +53,175 @@
                </property>
                <layout class="QVBoxLayout" >
                 <item>
-                 <layout class="QGridLayout" >
-                  <item row="0" column="0" >
-                   <widget class="QLabel" name="label" >
-                    <property name="sizePolicy" >
-                     <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="text" >
-                     <string>Name:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="0" column="1" >
-                   <widget class="QLabel" name="_nameLabel" >
-                    <property name="sizePolicy" >
-                     <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="text" >
-                     <string>TextLabel</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="1" column="0" >
-                   <widget class="QLabel" name="label_2" >
-                    <property name="sizePolicy" >
-                     <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="text" >
-                     <string>Center:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="1" column="1" >
-                   <widget class="QLabel" name="_centerLabel" >
-                    <property name="sizePolicy" >
-                     <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="text" >
-                     <string>TextLabel</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="2" column="0" >
-                   <widget class="QLabel" name="label_3" >
-                    <property name="sizePolicy" >
-                     <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="text" >
-                     <string>Radius:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="2" column="1" >
-                   <widget class="QLabel" name="_radiusLabel" >
-                    <property name="sizePolicy" >
-                     <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="text" >
-                     <string>TextLabel</string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
+                 <widget class="QWidget" native="1" name="widget_3" >
+                  <layout class="QGridLayout" >
+                   <item row="0" column="0" >
+                    <widget class="QLabel" name="label" >
+                     <property name="sizePolicy" >
+                      <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="minimumSize" >
+                      <size>
+                       <width>92</width>
+                       <height>0</height>
+                      </size>
+                     </property>
+                     <property name="text" >
+                      <string>Name:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="1" >
+                    <widget class="QLabel" name="_nameLabel" >
+                     <property name="sizePolicy" >
+                      <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="text" >
+                      <string>NameLabel</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="0" >
+                    <widget class="QLabel" name="label_2" >
+                     <property name="sizePolicy" >
+                      <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="minimumSize" >
+                      <size>
+                       <width>92</width>
+                       <height>0</height>
+                      </size>
+                     </property>
+                     <property name="text" >
+                      <string>Triangles:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="1" >
+                    <widget class="QLabel" name="_trianglesLabel" >
+                     <property name="sizePolicy" >
+                      <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="text" >
+                      <string>TrianglesLabel</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="0" >
+                    <widget class="QLabel" name="label_3" >
+                     <property name="sizePolicy" >
+                      <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="minimumSize" >
+                      <size>
+                       <width>92</width>
+                       <height>0</height>
+                      </size>
+                     </property>
+                     <property name="text" >
+                      <string>Texture memory:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="1" >
+                    <widget class="QLabel" name="_textureMemoryLabel" >
+                     <property name="sizePolicy" >
+                      <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="text" >
+                      <string>TextureMemoryLabel</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="0" >
+                    <widget class="QLabel" name="label_4" >
+                     <property name="sizePolicy" >
+                      <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="minimumSize" >
+                      <size>
+                       <width>92</width>
+                       <height>0</height>
+                      </size>
+                     </property>
+                     <property name="text" >
+                      <string>Bounding Box Min:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="1" >
+                    <widget class="QLabel" name="_boundingBoxMinLabel" >
+                     <property name="sizePolicy" >
+                      <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="text" >
+                      <string>BoundingBoxMin</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="4" column="0" >
+                    <widget class="QLabel" name="label_5" >
+                     <property name="sizePolicy" >
+                      <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="minimumSize" >
+                      <size>
+                       <width>92</width>
+                       <height>0</height>
+                      </size>
+                     </property>
+                     <property name="text" >
+                      <string>Bounding Box Max:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="4" column="1" >
+                    <widget class="QLabel" name="_boundingBoxMaxLabel" >
+                     <property name="sizePolicy" >
+                      <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="text" >
+                      <string>BoundingBoxMax</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
                 </item>
                 <item>
                  <layout class="QHBoxLayout" >
                   <item>
-                   <widget class="QPushButton" name="pushButton" >
+                   <widget class="QPushButton" name="_updateBtn" >
                     <property name="sizePolicy" >
                      <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
                       <horstretch>0</horstretch>
@@ -150,26 +234,13 @@
                    </widget>
                   </item>
                   <item>
-                   <widget class="QCheckBox" name="checkBox" >
+                   <widget class="QCheckBox" name="_autoUpdateCB" >
                     <property name="text" >
                      <string>Auto update</string>
                     </property>
                    </widget>
                   </item>
                  </layout>
-                </item>
-                <item>
-                 <spacer>
-                  <property name="orientation" >
-                   <enum>Qt::Vertical</enum>
-                  </property>
-                  <property name="sizeHint" >
-                   <size>
-                    <width>20</width>
-                    <height>40</height>
-                   </size>
-                  </property>
-                 </spacer>
                 </item>
                </layout>
               </widget>
@@ -180,6 +251,33 @@
             <attribute name="title" >
              <string>Properties</string>
             </attribute>
+            <layout class="QVBoxLayout" >
+             <property name="spacing" >
+              <number>0</number>
+             </property>
+             <property name="leftMargin" >
+              <number>0</number>
+             </property>
+             <property name="topMargin" >
+              <number>0</number>
+             </property>
+             <property name="rightMargin" >
+              <number>0</number>
+             </property>
+             <property name="bottomMargin" >
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="QWidget" native="1" name="_peContainer" >
+               <property name="sizePolicy" >
+                <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </widget>
          </widget>
@@ -196,7 +294,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>29</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File" >

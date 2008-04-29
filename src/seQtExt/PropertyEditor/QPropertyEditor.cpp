@@ -35,6 +35,7 @@
 #include <QtGui/QPainter>
 #include <QtGui/QScrollBar>
 #include <QtGui/qevent.h>
+#include <QToolButton>
 #include <qdebug.h>
 
 
@@ -66,6 +67,11 @@ QPropertyEditor::QPropertyEditor(QWidget *parent)
 
     setContextMenuPolicy(Qt::CustomContextMenu);
     setAcceptDrops(true);
+
+	//// TEST
+	//QToolButton *btn = new QToolButton(this);
+	//btn->setIcon(QIcon(":/SceneEdit/QtExt/images/win/back.png"));
+	//btn->setToolButtonStyle(Qt::ToolButtonIconOnly);
 }
 
 QPropertyEditor::~QPropertyEditor()
