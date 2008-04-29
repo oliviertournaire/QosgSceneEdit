@@ -31,6 +31,8 @@
 #include "QPropertyEditor.h"
 #include "ReflectionManager.h"
 
+using SceneEdit::BackgroundGeode;
+
 
 MainWindow::MainWindow(QWidget* parent, Qt::WFlags flags) 
 : QMainWindow(parent, flags)
@@ -263,7 +265,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
 void MainWindow::updateTree()
 {
-	BuildQtTreeView visitor(_modelRoot.get());
+	SceneEdit::BuildQtTreeView visitor(_modelRoot.get());
 	_modelRoot->accept(visitor);
 
 	_treeSlider->setMaximum(visitor.getMaxTreeDepth());

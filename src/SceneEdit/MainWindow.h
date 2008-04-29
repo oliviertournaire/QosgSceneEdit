@@ -16,12 +16,15 @@ class QMdiArea;
 
 class QDebugStream;
 class SelectionManager;
-class BackgroundGeode;
 class ReflectionManager;
 
 namespace osg {
 	class Group;
 	class Camera;
+}
+
+namespace SceneEdit {
+	class BackgroundGeode;
 }
 
 class MainWindow : public QMainWindow,
@@ -71,7 +74,7 @@ private:
 	osg::ref_ptr<osg::Group> _scene;
 	osg::ref_ptr<osg::Group> _modelRoot;
 	osg::ref_ptr<osg::Group> _internalRoot;
-	osg::ref_ptr<BackgroundGeode> _backgroundGeode;
+	osg::ref_ptr<SceneEdit::BackgroundGeode> _backgroundGeode;
 	osg::ref_ptr<osg::Camera> _hudCamera;
 
 	QString _lastDirectory;

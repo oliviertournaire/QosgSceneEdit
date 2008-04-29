@@ -1,3 +1,7 @@
+//==============================================================================
+//  Headerfiles
+//==============================================================================
+
 // OSG
 #include <osg/Group>
 #include <osg/Geode>
@@ -11,8 +15,17 @@
 #include "BuildQtTreeView.h"
 #include "TreeViewItem.h"
 
+//==============================================================================
+//  Namespace
+//==============================================================================
+
+namespace SceneEdit {
+
+//==============================================================================
+
 BuildQtTreeView::BuildQtTreeView(osg::Node *node)
 : osg::NodeVisitor(osg::NodeVisitor::TRAVERSE_ALL_CHILDREN)
+, _maxTreeDepth(0)
 {
     TreeViewItem *item = new TreeViewItem();
     item->setText(0, QObject::tr("Root"));
@@ -20,12 +33,15 @@ BuildQtTreeView::BuildQtTreeView(osg::Node *node)
 	item->setOsgNode(node);
 	item->setCheckState(0, Qt::Checked);
     _parents.push(item);
-    _maxTreeDepth = 0;
 }
+
+//==============================================================================
 
 BuildQtTreeView::~BuildQtTreeView()
 {
 }
+
+//==============================================================================
 
 void BuildQtTreeView::apply(osg::Node& node)
 {
@@ -92,7 +108,17 @@ void BuildQtTreeView::apply(osg::Node& node)
     }
 }
 
+//==============================================================================
+
 int BuildQtTreeView::getMaxTreeDepth() const
 {
     return _maxTreeDepth;
 }
+
+//==============================================================================
+//  Namespace
+//==============================================================================
+
+} // namespace SceneEdit
+
+//==============================================================================
