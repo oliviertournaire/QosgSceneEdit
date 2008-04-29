@@ -22,11 +22,7 @@
 #include <osg/Texture>
     
 /* Project */    
-#ifdef WIN32
-#include "win32/FlexLexer.h"
-#else
 #include <FlexLexer.h>
-#endif
 #include "FhsLoader.h"
 
 /* Forward declaration */    
