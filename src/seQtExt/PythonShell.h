@@ -17,6 +17,11 @@ public:
 	PythonShell(QWidget *parent = 0L);
 	virtual ~PythonShell();
 
+	void appendOutput(QString output);
+
+protected slots:
+
+	void executeCommand();
 
 private:
 

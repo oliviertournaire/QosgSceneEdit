@@ -5,6 +5,66 @@
 #include <QTextEdit>
 #include <QVBoxLayout>
 
+#include <boost/python.hpp>
+//#include <Python.h>
+
+static PyObject* redirector_init(PyObject*, PyObject*)
+{
+	Py_INCREF(Py_None);
+	return Py_None;
+}
+
+static PyObject* redirector_write(PyObject*, PyObject *args)
+{
+	char *output;
+	PyObject *self;
+
+	if (!PyArg_ParseTuple(args, "Os", &self, &output))
+		return 0;
+
+	//if (_globalShell)
+	//{
+	//	_globalShell->appendOutput(output);
+	//}
+
+	Py_INCREF(Py_None);
+	return Py_None;
+}
+
+static PyMethodDef ModuleMethods[] = { {NULL,NULL,0,NULL} };
+static PyMethodDef redirectorMethods[] =
+{
+    {"__init__", redirector_init, METH_VARARGS, "initialize the stdout/err redirector"},
+    {"write", redirector_write, METH_VARARGS, "implement the write method to redirect stdout/err"},
+    {NULL,NULL,0,NULL}
+};
+
+void initredirector()
+{
+    PyMethodDef *def;
+
+    /* create a new module and class */
+    PyObject *module = Py_InitModule("redirector", ModuleMethods);
+    PyObject *moduleDict = PyModule_GetDict(module);
+    PyObject *classDict = PyDict_New();
+    PyObject *className = PyString_FromString("redirector");
+    PyObject *fooClass = PyClass_New(NULL, classDict, className);
+    PyDict_SetItemString(moduleDict, "redirector", fooClass);
+    Py_DECREF(classDict);
+    Py_DECREF(className);
+    Py_DECREF(fooClass);
+
+    /* add methods to class */
+    for (def = redirectorMethods; def->ml_name != NULL; def++)
+	{
+        PyObject *func = PyCFunction_New(def, NULL);
+        PyObject *method = PyMethod_New(func, NULL, fooClass);
+        PyDict_SetItemString(classDict, def->ml_name, method);
+        Py_DECREF(func);
+        Py_DECREF(method);
+    }
+}
+
 
 PythonShell::PythonShell(QWidget *parent)
 : QWidget(parent)
@@ -23,6 +83,15 @@ PythonShell::PythonShell(QWidget *parent)
 
 	_stdoutStream = new QDebugStream(std::cout);
 	connect(_stdoutStream, SIGNAL(clientProcessStdout(QString)), _textEdit, SLOT(append(QString)));
+	connect(_lineEdit, SIGNAL(returnPressed()), this, SLOT(executeCommand()));
+
+	Py_Initialize();
+	initredirector();
+
+	int result = PyRun_SimpleString("import sys\n"
+               "import redirector\n"
+               "sys.stdout = redirector.redirector()\n"
+               "sys.stderr = sys.stdout\n");
 }
 
 PythonShell::~PythonShell()
@@ -32,4 +101,35 @@ PythonShell::~PythonShell()
 		delete _stdoutStream;
 		_stdoutStream = 0L;
 	}
+
+	//Py_Finalize();
+}
+
+void PythonShell::executeCommand()
+{
+#if 0
+	boost::python::api::object main_module = boost::python::import("__main__");
+	boost::python::api::object main_namespace(main_module.attr("__dict__"));
+	boost::python::str test("print \"Hallo Welt!\"");
+	boost::python::api::object result = boost::python::eval(test, main_namespace);
+	//std::string value = boost::python::extract<char*>(main_namespace["result"]);
+
+	try
+	{
+		//int value = boost::python::extract<int>(main_namespace["result"]);
+	}
+	catch (...)
+	{
+		PyErr_Print();
+		PyErr_Clear();
+	}
+#endif
+
+	PyRun_SimpleString(_lineEdit->text().toLatin1());
+	_lineEdit->clear();
+}
+
+void PythonShell::appendOutput(QString output)
+{
+	_textEdit->append(output.replace("\n", ""));
 }
