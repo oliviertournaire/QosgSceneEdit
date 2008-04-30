@@ -1,3 +1,7 @@
+//=======================================================================================
+//  Headerfiles
+//=======================================================================================
+
 // Qt 
 #include <QtGui/QtGui>
 #include <QtGui/QMdiArea>
@@ -27,13 +31,17 @@
 #include "QDebugStream.h"
 #include "SelectionManager.h"
 #include "BackgroundGeode.h"
-
 #include "QPropertyEditor.h"
 #include "ReflectionManager.h"
 #include "ComputeNodeInfoVisitor.h"
 
-using SceneEdit::BackgroundGeode;
+//=======================================================================================
+//  Namespace
+//=======================================================================================
 
+namespace SceneEdit {
+
+//=======================================================================================
 
 MainWindow::MainWindow(QWidget* parent, Qt::WFlags flags) 
 : QMainWindow(parent, flags)
@@ -145,10 +153,13 @@ MainWindow::MainWindow(QWidget* parent, Qt::WFlags flags)
 	showMaximized();
 }
 
+//=======================================================================================
 
 MainWindow::~MainWindow()
 {
 }
+
+//=======================================================================================
 
 void MainWindow::fileNew(bool addToHistory)
 {
@@ -167,6 +178,8 @@ void MainWindow::fileNew(bool addToHistory)
 		delete cl;
 	}
 }
+
+//=======================================================================================
 
 void MainWindow::fileOpen()
 {
@@ -230,11 +243,15 @@ void MainWindow::fileOpen()
 	}
 }
 
+//=======================================================================================
+
 void MainWindow::fileSave()
 {
 	updateTree();
 	//osgDB::writeNodeFile(*_scene, fileName.toStdString());
 }
+
+//=======================================================================================
 
 void MainWindow::fileSaveAs()
 {
@@ -250,6 +267,8 @@ void MainWindow::fileSaveAs()
 		osgDB::writeNodeFile(*_modelRoot->getChild(0), fileName.toStdString());
 	}
 }
+
+//=======================================================================================
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
@@ -267,6 +286,8 @@ void MainWindow::closeEvent(QCloseEvent *event)
 		shutdown();
 }
 
+//=======================================================================================
+
 void MainWindow::updateTree()
 {
 	SceneEdit::BuildQtTreeView visitor(_modelRoot.get());
@@ -281,10 +302,14 @@ void MainWindow::updateTree()
 	_treeWidget->resizeColumnToContents(0);
 }
 
+//=======================================================================================
+
 void MainWindow::undoRedoChanged(int idx)
 {
 	updateTree();
 }
+
+//=======================================================================================
 
 void MainWindow::home()
 {
@@ -292,6 +317,8 @@ void MainWindow::home()
 	_viewerWindow->getCameraManipulator()->computeHomePosition();
     _viewerWindow->home();
 }
+
+//=======================================================================================
 
 void MainWindow::zoomToSelected()
 {
@@ -308,6 +335,8 @@ void MainWindow::zoomToSelected()
 		_viewerWindow->home();
 	}
 }
+
+//=======================================================================================
 
 void MainWindow::treeItemSelectionChanged()
 {
@@ -399,6 +428,8 @@ void MainWindow::treeItemSelectionChanged()
 	}
 }
 
+//=======================================================================================
+
 osg::BoundingSphere MainWindow::calculateBoundingSphere(const QList<QTreeWidgetItem*>& items)
 {
 	osg::BoundingSphere sphere;
@@ -421,6 +452,8 @@ osg::BoundingSphere MainWindow::calculateBoundingSphere(const QList<QTreeWidgetI
 
 	return sphere;
 }
+
+//=======================================================================================
 
 void MainWindow::treeItemChanged(QTreeWidgetItem *item_, int column)
 {
@@ -446,6 +479,8 @@ void MainWindow::treeItemChanged(QTreeWidgetItem *item_, int column)
 	}
 }
 
+//=======================================================================================
+
 void MainWindow::shutdown()
 {
 	if (_pythonShell)
@@ -454,6 +489,8 @@ void MainWindow::shutdown()
 		_pythonShell = 0L;
 	}
 }
+
+//=======================================================================================
 
 osg::Camera* MainWindow::createHUD()
 {
@@ -489,6 +526,8 @@ osg::Camera* MainWindow::createHUD()
 	return camera;
 }
 
+//=======================================================================================
+
 void MainWindow::keyPressEvent( QKeyEvent* event )
 {
 	if (event->key() == Qt::Key_F)
@@ -500,6 +539,16 @@ void MainWindow::keyPressEvent( QKeyEvent* event )
 	QMainWindow::keyPressEvent(event);
 }
 
+//=======================================================================================
+
 void MainWindow::displayPrompt()
 {
 }
+
+//=======================================================================================
+//  Namespace
+//=======================================================================================
+
+} // namespace SceneEdit
+
+//=======================================================================================

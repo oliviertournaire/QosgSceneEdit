@@ -46,48 +46,26 @@ public:
 	virtual			~BackgroundGeode();
 
 	void			setBackgroundMode(BackgroundMode mode);
-	BackgroundMode	getBackgroundMode() const { return backgroundMode; }
+	BackgroundMode	getBackgroundMode() const { return _backgroundMode; }
 
 	void			setBackgroundColor(osg::Vec4d topColor_, osg::Vec4d bottomColor_);
-	osg::Vec4d		getBackgroundTopColor() const { return topColor; }
-	osg::Vec4d		getBackgroundBottomColor() const { return bottomColor; }
+	osg::Vec4d		getBackgroundTopColor() const { return _topColor; }
+	osg::Vec4d		getBackgroundBottomColor() const { return _bottomColor; }
 
 	void			setBackgroundImage(const std::string& fileName);
 
 
 private:
 
-	osg::Vec4d						topColor;
-	osg::Vec4d						bottomColor;
-	std::string						imageFileName;
-	BackgroundMode					backgroundMode;
-	osg::ref_ptr<osg::Geometry>		geom;
-	osg::ref_ptr<osg::Vec3Array>	vertices;
-	osg::ref_ptr<osg::Vec4Array>	colors;
-	osg::ref_ptr<osg::Texture2D>	texture;
-	osg::ref_ptr<osg::StateSet>		state;
-
-	//protected:
-
-	//	//! assigne les deux couleurs de fond pour le dégardé hortizontal/ne réaffecte pas les couleurs membres
-	//	/*! cette fonction ne change pas le mode d'affichage elle assigne juste les deux couleur
-	//	 *		\param topC    --> couleur du haut
-	//	 *		\param bottomC --> couleur du bas
-	//	 */
-	//	void				setInternalBackgroundColor(const QColor& topC, const QColor& bottomC);
-
-
-	//public:
-
-	//	//! assigne l'image de fond
-	//	/*! cette fonction ne change pas le mode elle assigne juste l'image de fond
-	//	 *		\fileName    --> nom de l'image (chemain complet)
-	//	 *		\return true si l'image a bien été chargée
-	//	 */
-	//	bool				setBackgroundImage(const QString& fileName);
-
-	//	//! renvoie le nom complet de l'image de fond
-	//	QString				getImageFileName() const;
+	osg::Vec4d						_topColor;
+	osg::Vec4d						_bottomColor;
+	std::string						_imageFileName;
+	BackgroundMode					_backgroundMode;
+	osg::ref_ptr<osg::Geometry>		_geom;
+	osg::ref_ptr<osg::Vec3Array>	_vertices;
+	osg::ref_ptr<osg::Vec4Array>	_colors;
+	osg::ref_ptr<osg::Texture2D>	_texture;
+	osg::ref_ptr<osg::StateSet>		_state;
 };
 
 //==============================================================================

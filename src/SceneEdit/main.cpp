@@ -1,13 +1,17 @@
+//=======================================================================================
+//  Headerfiles
+//=======================================================================================
+
 // Qt
-#include <qapplication.h>
+#include <QApplication>
 #include <QStyleFactory>
+#include <QSplashScreen>
+
+// Project
 #include "MainWindow.h"
 #include "Styles/seStyle.h"
 
-// Project
-#ifdef Q_WS_WIN
-#include "Styles/qtdotnetstyle.h"
-#endif
+//=======================================================================================
 
 #if defined(Q_WS_WIN)
 	#if defined _M_IX86
@@ -21,13 +25,23 @@
 	#endif
 #endif
 
+//=======================================================================================
+
 int main(int argc, char** argv)
 {
-	QApplication app( argc, argv );
+	QApplication app(argc, argv);
 	app.setStyle(new seStyle());
 
-	MainWindow* mainWindow = new MainWindow();
+	QSplashScreen splash(QPixmap(":/Images/vred_splash.png"));
+	splash.show();
+	app.processEvents();
+
+	SceneEdit::MainWindow* mainWindow = new SceneEdit::MainWindow();
 	mainWindow->show();
+
+	splash.finish(mainWindow);
 
 	return app.exec();
 }
+
+//=======================================================================================

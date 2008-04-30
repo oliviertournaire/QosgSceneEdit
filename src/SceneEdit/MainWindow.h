@@ -1,5 +1,9 @@
 #pragma once
 
+//==============================================================================
+//  Headerfiles
+//==============================================================================
+
 // OpenSceneGraph
 #include <osg/ref_ptr>
 #include <osg/BoundingSphere>
@@ -7,13 +11,16 @@
 // Project
 #include "ui_MainWindow.h"
 
-// Forward declaration
-class ViewerQT;
+//==============================================================================
+//  Forward declarations
+//==============================================================================
+
 class QUndoStack;
 class QUndoView;
 class QVBoxLayout;
 class QMdiArea;
 
+class ViewerQT;
 class SelectionManager;
 class ReflectionManager;
 
@@ -25,6 +32,16 @@ namespace osg {
 namespace SceneEdit {
 	class BackgroundGeode;
 }
+
+//==============================================================================
+//  Namespace
+//==============================================================================
+
+namespace SceneEdit {
+
+//==============================================================================
+//  Class Declaration
+//==============================================================================
 
 class MainWindow : public QMainWindow,
 				   protected Ui_MainWindow
@@ -68,18 +85,26 @@ private:
 	osg::Camera*			createHUD();
 
 
-	ViewerQT *_viewerWindow;
+	ViewerQT *						_viewerWindow;
 
-	osg::ref_ptr<osg::Group> _scene;
-	osg::ref_ptr<osg::Group> _modelRoot;
-	osg::ref_ptr<osg::Group> _internalRoot;
-	osg::ref_ptr<SceneEdit::BackgroundGeode> _backgroundGeode;
-	osg::ref_ptr<osg::Camera> _hudCamera;
+	osg::ref_ptr<osg::Group>		_scene;
+	osg::ref_ptr<osg::Group>		_modelRoot;
+	osg::ref_ptr<osg::Group>		_internalRoot;
+	osg::ref_ptr<BackgroundGeode>	_backgroundGeode;
+	osg::ref_ptr<osg::Camera>		_hudCamera;
 
-	QString _lastDirectory;
+	QString							_lastDirectory;
 
-	QUndoStack *_undoStack;
-	QMdiArea *_mdiArea;
-	osg::ref_ptr<SelectionManager> _selectionManager;
-	osg::ref_ptr<ReflectionManager> _reflectionManager;
+	QUndoStack *					_undoStack;
+	QMdiArea *						_mdiArea;
+	osg::ref_ptr<SelectionManager>	_selectionManager;
+	osg::ref_ptr<ReflectionManager>	_reflectionManager;
 };
+
+//==============================================================================
+//  Namespace
+//==============================================================================
+
+} // namespace SceneEdit
+
+//==============================================================================

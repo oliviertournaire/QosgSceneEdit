@@ -251,7 +251,7 @@ void ViewerQT::DrawUcsIcon()
 
 // ======================================================================================
 
-void ViewerQT::resizeGL( int width, int height )
+void ViewerQT::resizeGL(int width, int height)
 {
 	AdapterWidget::resizeGL(width,height);
 

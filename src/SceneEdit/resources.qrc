@@ -1,6 +1,7 @@
 <RCC>
     <qresource prefix="/" >
         <file>Images/se.png</file>
+        <file>Images/vred_splash.png</file>
         <file>icons/Toolbar/32x32/Home.png</file>
         <file>icons/Toolbar/32x32/ZoomTo.png</file>
         <file>icons/Toolbar/32x32/editcopy.png</file>
@@ -13,12 +14,12 @@
         <file>icons/Toolbar/32x32/filesaveas.png</file>
         <file>icons/Toolbar/32x32/redo.png</file>
         <file>icons/Toolbar/32x32/undo.png</file>
-		<file>icons/Toolbar/22x22/Icon43.png</file>
-		<file>icons/Toolbar/22x22/Icon44.png</file>
-		<file>icons/Toolbar/22x22/Icon45.png</file>
-		<file>icons/Toolbar/22x22/Icon46.png</file>
-		<file>icons/Toolbar/22x22/Icon57.png</file>
-		<file>icons/Toolbar/22x22/Icon58.png</file>
+		    <file>icons/Toolbar/22x22/Icon43.png</file>
+		    <file>icons/Toolbar/22x22/Icon44.png</file>
+		    <file>icons/Toolbar/22x22/Icon45.png</file>
+		    <file>icons/Toolbar/22x22/Icon46.png</file>
+		    <file>icons/Toolbar/22x22/Icon57.png</file>
+		    <file>icons/Toolbar/22x22/Icon58.png</file>
         <file>icons/TreeView/Billboard.png</file>
         <file>icons/TreeView/Geode.png</file>
         <file>icons/TreeView/Group.png</file>
