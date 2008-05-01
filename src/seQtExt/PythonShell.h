@@ -22,6 +22,7 @@ public:
 protected slots:
 
 	void executeCommand();
+    void displayPrompt();
 
 private:
 

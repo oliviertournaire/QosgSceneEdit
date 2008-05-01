@@ -4,9 +4,14 @@
 #include <QLineEdit>
 #include <QTextEdit>
 #include <QVBoxLayout>
+#include <QTextStream>
+
+#include <cstdio>
 
 #include <boost/python.hpp>
 //#include <Python.h>
+
+PythonShell *__globalShell = 0;
 
 static PyObject* redirector_init(PyObject*, PyObject*)
 {
@@ -21,6 +26,10 @@ static PyObject* redirector_write(PyObject*, PyObject *args)
 
 	if (!PyArg_ParseTuple(args, "Os", &self, &output))
 		return 0;
+    
+    __globalShell->appendOutput(output);
+//     printf("%s", output);
+//     fflush(stdout);
 
 	//if (_globalShell)
 	//{
@@ -69,23 +78,34 @@ void initredirector()
 PythonShell::PythonShell(QWidget *parent)
 : QWidget(parent)
 {
+    __globalShell = this;
+    
 	_lineEdit = new QLineEdit();
 	_lineEdit->setFrame(false);
 
 	_textEdit = new QTextEdit();
 	_textEdit->setFrameStyle(QFrame::NoFrame);
+    _textEdit->setReadOnly(true);
 
 	QVBoxLayout *layout = new QVBoxLayout(this);
 	layout->addWidget(_textEdit);
 	layout->addWidget(_lineEdit);
 	layout->setContentsMargins(0, 0, 0, 0);
 	layout->setSpacing(0);
+    
+//     _stdoutInterceptor = new Interceptor(this);
+//     _stdoutInterceptor->initialize(1);
+//     connect(_stdoutInterceptor, SIGNAL(received(QTextStream*)), SLOT(displayPrompt()));
+//     
+//     _stderrInterceptor = new Interceptor(this);
+//     _stderrInterceptor->initialize(2);
+//     connect(_stderrInterceptor, SIGNAL(received(QTextStream*)), SLOT(displayPrompt()));
 
 	_stdoutStream = new QDebugStream(std::cout);
 	connect(_stdoutStream, SIGNAL(clientProcessStdout(QString)), _textEdit, SLOT(append(QString)));
 	connect(_lineEdit, SIGNAL(returnPressed()), this, SLOT(executeCommand()));
 
-	Py_Initialize();
+    Py_Initialize();    
 	initredirector();
 
 	int result = PyRun_SimpleString("import sys\n"
@@ -131,5 +151,29 @@ void PythonShell::executeCommand()
 
 void PythonShell::appendOutput(QString output)
 {
-	_textEdit->append(output.replace("\n", ""));
+/*    _textEdit->append(output.replace("\n", ""));*/
+    _textEdit->append(output);
+}
+
+void PythonShell::displayPrompt()
+{
+/*    if (_stdoutInterceptor)
+    {
+        QString line;
+        QTextStream *s = _stdoutInterceptor->textIStream();        
+        
+        line = s->readAll();
+        _textEdit->setTextColor(Qt::white);
+        _textEdit->append(line);
+    }
+    
+    if (_stderrInterceptor)
+    {
+        QString line;
+        QTextStream *s = _stderrInterceptor->textIStream();        
+        
+        line = s->readAll();
+        _textEdit->setTextColor(Qt::red);
+        _textEdit->append(line);
+    }*/
 }

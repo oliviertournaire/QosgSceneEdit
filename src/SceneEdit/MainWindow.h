@@ -55,8 +55,7 @@ public:
 
 	osg::BoundingSphere		calculateBoundingSphere(const QList<QTreeWidgetItem*>& items);
 
-	virtual void			keyPressEvent( QKeyEvent* event );
-
+	virtual void			keyPressEvent( QKeyEvent* event ); 
 
 protected:
 
