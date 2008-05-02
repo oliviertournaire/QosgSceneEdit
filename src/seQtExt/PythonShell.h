@@ -17,16 +17,18 @@ public:
 	PythonShell(QWidget *parent = 0L);
 	virtual ~PythonShell();
 
-	void appendOutput(QString output);
-
 protected slots:
 
 	void executeCommand();
-    void displayPrompt();
+	void appendStdout(QString str);
+	void appendStderr(QString str);
 
 private:
 
 	QLineEdit *_lineEdit;
 	QTextEdit *_textEdit;
 	QDebugStream *_stdoutStream;
+	QDebugStream *_stderrStream;
+	QColor _stdoutColor;
+	QColor _stderrColor;
 };

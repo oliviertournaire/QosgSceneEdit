@@ -1,118 +1,113 @@
+//==============================================================================
+//  Headerfiles
+//==============================================================================
+
+// Project
 #include "PythonShell.h"
 #include "QDebugStream.h"
 
+// Qt
 #include <QLineEdit>
 #include <QTextEdit>
 #include <QVBoxLayout>
 #include <QTextStream>
 
+// OpenSceneGraph
+#include <osg/Notify>
+
+// C-Lib
 #include <cstdio>
 
+// Boost
 #include <boost/python.hpp>
-//#include <Python.h>
 
-PythonShell *__globalShell = 0;
+//==============================================================================
 
-static PyObject* redirector_init(PyObject*, PyObject*)
+static void PythonShellLogInfo(const std::string& str)
 {
-	Py_INCREF(Py_None);
-	return Py_None;
+	std::cout << str;
 }
 
-static PyObject* redirector_write(PyObject*, PyObject *args)
+//==============================================================================
+
+static void PythonShellLogError(const std::string& str)
 {
-	char *output;
-	PyObject *self;
-
-	if (!PyArg_ParseTuple(args, "Os", &self, &output))
-		return 0;
-    
-    __globalShell->appendOutput(output);
-//     printf("%s", output);
-//     fflush(stdout);
-
-	//if (_globalShell)
-	//{
-	//	_globalShell->appendOutput(output);
-	//}
-
-	Py_INCREF(Py_None);
-	return Py_None;
+	std::cerr << str;
 }
 
-static PyMethodDef ModuleMethods[] = { {NULL,NULL,0,NULL} };
-static PyMethodDef redirectorMethods[] =
+//==============================================================================
+
+BOOST_PYTHON_MODULE(PythonShell)
 {
-    {"__init__", redirector_init, METH_VARARGS, "initialize the stdout/err redirector"},
-    {"write", redirector_write, METH_VARARGS, "implement the write method to redirect stdout/err"},
-    {NULL,NULL,0,NULL}
-};
+	using namespace boost::python;
 
-void initredirector()
-{
-    PyMethodDef *def;
-
-    /* create a new module and class */
-    PyObject *module = Py_InitModule("redirector", ModuleMethods);
-    PyObject *moduleDict = PyModule_GetDict(module);
-    PyObject *classDict = PyDict_New();
-    PyObject *className = PyString_FromString("redirector");
-    PyObject *fooClass = PyClass_New(NULL, classDict, className);
-    PyDict_SetItemString(moduleDict, "redirector", fooClass);
-    Py_DECREF(classDict);
-    Py_DECREF(className);
-    Py_DECREF(fooClass);
-
-    /* add methods to class */
-    for (def = redirectorMethods; def->ml_name != NULL; def++)
-	{
-        PyObject *func = PyCFunction_New(def, NULL);
-        PyObject *method = PyMethod_New(func, NULL, fooClass);
-        PyDict_SetItemString(classDict, def->ml_name, method);
-        Py_DECREF(func);
-        Py_DECREF(method);
-    }
+	def("PythonShellLogInfo", PythonShellLogInfo);
+	def("PythonShellLogError", PythonShellLogError);
 }
 
+//==============================================================================
 
 PythonShell::PythonShell(QWidget *parent)
 : QWidget(parent)
+, _stdoutColor(220,220,220)
+, _stderrColor(255,64,64)
 {
-    __globalShell = this;
-    
 	_lineEdit = new QLineEdit();
 	_lineEdit->setFrame(false);
+	_lineEdit->setFocusPolicy(Qt::NoFocus);
 
 	_textEdit = new QTextEdit();
 	_textEdit->setFrameStyle(QFrame::NoFrame);
     _textEdit->setReadOnly(true);
+	_textEdit->setFocusPolicy(Qt::NoFocus);
 
 	QVBoxLayout *layout = new QVBoxLayout(this);
 	layout->addWidget(_textEdit);
 	layout->addWidget(_lineEdit);
 	layout->setContentsMargins(0, 0, 0, 0);
 	layout->setSpacing(0);
-    
-//     _stdoutInterceptor = new Interceptor(this);
-//     _stdoutInterceptor->initialize(1);
-//     connect(_stdoutInterceptor, SIGNAL(received(QTextStream*)), SLOT(displayPrompt()));
-//     
-//     _stderrInterceptor = new Interceptor(this);
-//     _stderrInterceptor->initialize(2);
-//     connect(_stderrInterceptor, SIGNAL(received(QTextStream*)), SLOT(displayPrompt()));
 
+	setFocusPolicy(Qt::StrongFocus);
+	setFocusProxy(_lineEdit);
+
+	// Redirect std::cout to the appendStdout method
 	_stdoutStream = new QDebugStream(std::cout);
-	connect(_stdoutStream, SIGNAL(clientProcessStdout(QString)), _textEdit, SLOT(append(QString)));
+	connect(_stdoutStream, SIGNAL(clientProcessStdout(QString)), SLOT(appendStdout(QString)));
+
+	// Redirect std::cerr to the appendStderr method
+	_stderrStream = new QDebugStream(std::cerr);
+	connect(_stderrStream, SIGNAL(clientProcessStdout(QString)), SLOT(appendStderr(QString)));
+
 	connect(_lineEdit, SIGNAL(returnPressed()), this, SLOT(executeCommand()));
 
-    Py_Initialize();    
-	initredirector();
+	// Initialize python and redirect stdout and stderr.
+    Py_Initialize();
 
-	int result = PyRun_SimpleString("import sys\n"
-               "import redirector\n"
-               "sys.stdout = redirector.redirector()\n"
-               "sys.stderr = sys.stdout\n");
+	initPythonShell();
+
+	PyRun_SimpleString("from PythonShell import *");
+	PyRun_SimpleString("class StdoutCatcher:\n"
+		                "\tdef __init__(self):\n"
+						"\t\tself.data = \"\"\n"
+						"\tdef write(self, str):\n"
+						"\t\tself.data = self.data + str\n"
+						"\t\tif self.data[-1] == \"\\n\":\n"
+						"\t\t\tPythonShellLogInfo(self.data)\n"
+						"\t\t\tself.data = \"\"\n");
+	PyRun_SimpleString("class StderrCatcher:\n"
+		                "\tdef __init__(self):\n"
+						"\t\tself.data = \"\"\n"
+						"\tdef write(self, str):\n"
+						"\t\tself.data = self.data + str\n"
+						"\t\tif self.data[-1] == \"\\n\":\n"
+						"\t\t\tPythonShellLogError(self.data)\n"
+						"\t\t\tself.data = \"\"\n");
+	PyRun_SimpleString("import sys");
+	PyRun_SimpleString("sys.stdout = StdoutCatcher()");
+	PyRun_SimpleString("sys.stderr = StderrCatcher()");
 }
+
+//==============================================================================
 
 PythonShell::~PythonShell()
 {
@@ -122,8 +117,16 @@ PythonShell::~PythonShell()
 		_stdoutStream = 0L;
 	}
 
+	if (_stderrStream)
+	{
+		delete _stderrStream;
+		_stderrStream = 0L;
+	}
+
 	//Py_Finalize();
 }
+
+//==============================================================================
 
 void PythonShell::executeCommand()
 {
@@ -145,35 +148,25 @@ void PythonShell::executeCommand()
 	}
 #endif
 
+	appendStdout(_lineEdit->text());
 	PyRun_SimpleString(_lineEdit->text().toLatin1());
 	_lineEdit->clear();
 }
 
-void PythonShell::appendOutput(QString output)
+//==============================================================================
+
+void PythonShell::appendStdout(QString str)
 {
-/*    _textEdit->append(output.replace("\n", ""));*/
-    _textEdit->append(output);
+	_textEdit->setTextColor(_stdoutColor);
+	_textEdit->append(str);
 }
 
-void PythonShell::displayPrompt()
+//==============================================================================
+
+void PythonShell::appendStderr(QString str)
 {
-/*    if (_stdoutInterceptor)
-    {
-        QString line;
-        QTextStream *s = _stdoutInterceptor->textIStream();        
-        
-        line = s->readAll();
-        _textEdit->setTextColor(Qt::white);
-        _textEdit->append(line);
-    }
-    
-    if (_stderrInterceptor)
-    {
-        QString line;
-        QTextStream *s = _stderrInterceptor->textIStream();        
-        
-        line = s->readAll();
-        _textEdit->setTextColor(Qt::red);
-        _textEdit->append(line);
-    }*/
+	_textEdit->setTextColor(_stderrColor);
+	_textEdit->append(str);
 }
+
+//==============================================================================
