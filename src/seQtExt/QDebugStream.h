@@ -1,12 +1,24 @@
 #ifndef QDEBUGSTREAM_H
 #define QDEBUGSTREAM_H
 
+//==============================================================================
+//  Headerfiles
+//==============================================================================
+
+// Project
+#include "seQtExt.h"
+
+// Qt
 #include <QObject>
+
+// C++-Lib
 #include <iostream>
 #include <streambuf>
 #include <string>
 
-#include "seQtExt.h"
+//==============================================================================
+//  Class Declaration
+//==============================================================================
 
 class SEQTEXT_EXPORT QDebugStream : public QObject,
 	                                public std::basic_streambuf<char>
@@ -35,5 +47,7 @@ private:
 	std::streambuf *m_old_buf;
 	std::string m_string;
 };
+
+//==============================================================================
 
 #endif // QDEBUGSTREAM_H
