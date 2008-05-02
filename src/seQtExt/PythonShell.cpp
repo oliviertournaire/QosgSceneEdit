@@ -11,6 +11,8 @@
 #include <QTextEdit>
 #include <QVBoxLayout>
 #include <QTextStream>
+#include <QKeyEvent>
+#include <QLabel>
 
 // OpenSceneGraph
 #include <osg/Notify>
@@ -48,11 +50,13 @@ BOOST_PYTHON_MODULE(PythonShell)
 //==============================================================================
 
 PythonShell::PythonShell(QWidget *parent)
-: QWidget(parent)
+: QFrame(parent)
 , _stdoutColor(220,220,220)
 , _stderrColor(255,64,64)
+, _promptColor(144, 255, 144)
+, _prompt("python# ")
 {
-	_lineEdit = new QLineEdit();
+	_lineEdit = new MyLineEdit();
 	_lineEdit->setFrame(false);
 	_lineEdit->setFocusPolicy(Qt::NoFocus);
 
@@ -61,14 +65,22 @@ PythonShell::PythonShell(QWidget *parent)
     _textEdit->setReadOnly(true);
 	_textEdit->setFocusPolicy(Qt::NoFocus);
 
+	QLabel *label = new QLabel();
+	label->setText(_prompt);
+
+	QHBoxLayout *h_layout = new QHBoxLayout();
+	h_layout->addWidget(label);
+	h_layout->addWidget(_lineEdit);
+
 	QVBoxLayout *layout = new QVBoxLayout(this);
 	layout->addWidget(_textEdit);
-	layout->addWidget(_lineEdit);
+	layout->addLayout(h_layout);
 	layout->setContentsMargins(0, 0, 0, 0);
 	layout->setSpacing(0);
 
 	setFocusPolicy(Qt::StrongFocus);
 	setFocusProxy(_lineEdit);
+	setFrameStyle(QFrame::StyledPanel);
 
 	// Redirect std::cout to the appendStdout method
 	_stdoutStream = new QDebugStream(std::cout);
@@ -106,6 +118,10 @@ PythonShell::PythonShell(QWidget *parent)
 	PyRun_SimpleString("sys.stdout = StdoutCatcher()");
 	PyRun_SimpleString("sys.stderr = StderrCatcher()");
 }
+
+//==============================================================================
+
+//==============================================================================
 
 //==============================================================================
 
@@ -148,8 +164,11 @@ void PythonShell::executeCommand()
 	}
 #endif
 
-	appendStdout(_lineEdit->text());
+	_textEdit->setTextColor(_promptColor);
+	_textEdit->append(_lineEdit->text());
+
 	PyRun_SimpleString(_lineEdit->text().toLatin1());
+
 	_lineEdit->clear();
 }
 
@@ -170,3 +189,48 @@ void PythonShell::appendStderr(QString str)
 }
 
 //==============================================================================
+
+MyLineEdit::MyLineEdit(QWidget *parent)
+: QLineEdit(parent)
+, _historyIndex(0)
+{
+	_history.clear();
+}
+
+MyLineEdit::~MyLineEdit()
+{
+}
+
+void MyLineEdit::keyPressEvent(QKeyEvent *e)
+{
+	switch (e->key())
+	{
+	case Qt::Key_Return:
+		_history << text();
+		_historyIndex = _history.size();
+		break;
+
+	case Qt::Key_Up:
+		if (_historyIndex > 0)
+		{
+			_historyIndex--;
+			setText(_history.at(_historyIndex));
+		}
+		break;
+
+	case Qt::Key_Down:
+		if (_historyIndex+1 < _history.size())
+		{
+			_historyIndex++;
+			setText(_history.at(_historyIndex));
+		}
+		else
+		{
+			setText("");
+			_historyIndex = _history.size();
+		}
+		break;
+	}
+
+	QLineEdit::keyPressEvent(e);
+}
