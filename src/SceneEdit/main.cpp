@@ -32,7 +32,7 @@ int main(int argc, char** argv)
 	QApplication app(argc, argv);
 	app.setStyle(new seStyle());
 
-	QSplashScreen splash(QPixmap(":/Images/vred_splash.png"));
+	QSplashScreen splash(QPixmap(":/Images/se_splash.png"));
 	splash.show();
 	app.processEvents();
 

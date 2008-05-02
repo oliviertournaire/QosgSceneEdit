@@ -1,7 +1,7 @@
 <RCC>
     <qresource prefix="/" >
         <file>Images/se.png</file>
-        <file>Images/vred_splash.png</file>
+        <file>Images/se_splash.png</file>
         <file>icons/Toolbar/32x32/Home.png</file>
         <file>icons/Toolbar/32x32/ZoomTo.png</file>
         <file>icons/Toolbar/32x32/editcopy.png</file>
