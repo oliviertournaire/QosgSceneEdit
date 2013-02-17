@@ -36,7 +36,7 @@ int main(int argc, char** argv)
 	splash.show();
 	app.processEvents();
 
-	SceneEdit::MainWindow* mainWindow = new SceneEdit::MainWindow();
+	QosgSceneEdit::MainWindow* mainWindow = new QosgSceneEdit::MainWindow();
 	mainWindow->show();
 
 	splash.finish(mainWindow);

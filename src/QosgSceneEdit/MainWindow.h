@@ -29,7 +29,7 @@ namespace osg {
 	class Camera;
 }
 
-namespace SceneEdit {
+namespace QosgSceneEdit {
 	class BackgroundGeode;
 }
 
@@ -37,7 +37,7 @@ namespace SceneEdit {
 //  Namespace
 //==============================================================================
 
-namespace SceneEdit {
+namespace QosgSceneEdit {
 
 //==============================================================================
 //  Class Declaration
@@ -104,6 +104,6 @@ private:
 //  Namespace
 //==============================================================================
 
-} // namespace SceneEdit
+} // namespace QosgSceneEdit
 
 //==============================================================================

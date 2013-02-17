@@ -35,7 +35,7 @@
 //  Namespace
 //=======================================================================================
 
-namespace SceneEdit 
+namespace QosgSceneEdit 
 {
 
 //=======================================================================================
@@ -92,7 +92,7 @@ MainWindow::MainWindow(QWidget* parent, Qt::WFlags flags)
     subWindow->setWindowTitle("Render window");
 
     QToolButton *btn = new QToolButton(_peContainer);
-    btn->setIcon(QIcon(":/SceneEdit/QtExt/images/back.png"));
+    btn->setIcon(QIcon(":/QosgSceneEdit/QtExt/images/back.png"));
     btn->setIconSize(QSize(12,12));
 
     layout = new QVBoxLayout(_peContainer);
@@ -268,7 +268,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
 void MainWindow::updateTree()
 {
-    SceneEdit::BuildQtTreeView visitor(_modelRoot.get());
+    QosgSceneEdit::BuildQtTreeView visitor(_modelRoot.get());
     _modelRoot->accept(visitor);
 
     _treeSlider->setMaximum(visitor.getMaxTreeDepth());
@@ -350,7 +350,7 @@ void MainWindow::treeItemSelectionChanged()
                                 .arg(bbox.zMax(), 0, 'f', 3);
                     }
 
-                    SceneEdit::ComputeNodeInfoVisitor niv;
+                    QosgSceneEdit::ComputeNodeInfoVisitor niv;
                     node->accept(niv);
 
                     if (name.isEmpty())
