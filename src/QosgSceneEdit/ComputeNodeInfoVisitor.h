@@ -28,7 +28,7 @@ public:
 
 	unsigned int getNumTriangles() const { return _numTriangles; }
 
-	void apply(osg::Geode& geode);
+    virtual void apply( osg::Geode& geode);
 
 
 protected:

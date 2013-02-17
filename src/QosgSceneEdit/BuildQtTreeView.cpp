@@ -7,6 +7,10 @@
 #include <osg/Geode>
 #include <osg/Billboard>
 #include <osg/LOD>
+#include <osg/PagedLOD>
+
+// STD
+#include <iostream>
 
 // Qt
 #include <QTreeWidgetItem>
@@ -20,6 +24,7 @@
 //==============================================================================
 
 using namespace QosgSceneEdit;
+using namespace std;
 
 //==============================================================================
 
@@ -63,7 +68,13 @@ void BuildQtTreeView::apply(osg::Node& node)
 	item->setCheckState(0, Qt::Checked);
 	item->setOsgNode(&node);
 
-    if (dynamic_cast<osg::LOD*>(&node))
+    if (dynamic_cast<osg::PagedLOD*>(&node))
+    {
+        item->setIcon(0, QIcon(":/icons/TreeView/LOD.png"));
+        _parents.push(item);
+        isGroup = true;
+    }
+    else if (dynamic_cast<osg::LOD*>(&node))
     {
         item->setIcon(0, QIcon(":/icons/TreeView/LOD.png"));
         _parents.push(item);
