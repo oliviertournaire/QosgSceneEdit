@@ -31,7 +31,6 @@
 #include "QDebugStream.h"
 #include "SelectionManager.h"
 #include "BackgroundGeode.h"
-#include "QPropertyEditor.h"
 #include "ReflectionManager.h"
 #include "ComputeNodeInfoVisitor.h"
 
@@ -93,9 +92,7 @@ MainWindow::MainWindow(QWidget* parent, Qt::WFlags flags)
 	QMdiSubWindow *subWindow = _mdiArea->addSubWindow(_viewerWindow);
 	subWindow->setGeometry(10, 10, 200, 200);
 	subWindow->showMaximized();
-	subWindow->setWindowTitle("Render window");
-
-	QPropertyEditor *pe = new QPropertyEditor(_peContainer);
+    subWindow->setWindowTitle("Render window");
 
 	QToolButton *btn = new QToolButton(_peContainer);
 	btn->setIcon(QIcon(":/SceneEdit/QtExt/images/back.png"));
@@ -104,8 +101,7 @@ MainWindow::MainWindow(QWidget* parent, Qt::WFlags flags)
 	layout = new QVBoxLayout(_peContainer);
 	//layout->setContentsMargins(0, 0, 0, 0);
 	layout->setSpacing(1);
-	layout->addWidget(btn);
-	layout->addWidget(pe);
+    layout->addWidget(btn);
 
     //_reflectionManager = new ReflectionManager(_treeWidget, pe);
 
@@ -483,13 +479,7 @@ void MainWindow::treeItemChanged(QTreeWidgetItem *item_, int column)
 //=======================================================================================
 
 void MainWindow::shutdown()
-{
-	if (_pythonShell)
-	{
-		delete _pythonShell;
-		_pythonShell = 0L;
-	}
-}
+{}
 
 //=======================================================================================
 

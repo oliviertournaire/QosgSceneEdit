@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow" >
-  <property name="geometry" >
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,208 +10,207 @@
     <height>549</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>SceneEdit</string>
   </property>
-  <property name="animated" >
+  <property name="animated">
    <bool>false</bool>
   </property>
-  <widget class="QWidget" name="m_centralwidget" >
-   <layout class="QVBoxLayout" >
+  <widget class="QWidget" name="m_centralwidget">
+   <layout class="QVBoxLayout">
     <item>
-     <widget class="QSplitter" name="splitter" >
-      <property name="orientation" >
+     <widget class="QSplitter" name="splitter">
+      <property name="orientation">
        <enum>Qt::Vertical</enum>
       </property>
-      <widget class="QWidget" native="1" name="widget" />
-      <widget class="QWidget" native="1" name="widget_2" >
-       <layout class="QHBoxLayout" >
+      <widget class="QWidget" name="widget" native="true"/>
+      <widget class="QWidget" name="widget_2" native="true">
+       <layout class="QHBoxLayout">
         <item>
-         <widget class="QSplitter" name="splitter_2" >
-          <property name="orientation" >
+         <widget class="QSplitter" name="splitter_2">
+          <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
-          <widget class="PythonShell" native="1" name="_pythonShell" />
-          <widget class="QTabWidget" name="tabWidget_2" >
-           <property name="minimumSize" >
+          <widget class="QTabWidget" name="tabWidget_2">
+           <property name="minimumSize">
             <size>
              <width>200</width>
              <height>0</height>
             </size>
            </property>
-           <property name="currentIndex" >
+           <property name="currentIndex">
             <number>0</number>
            </property>
-           <widget class="QWidget" name="tab_3" >
-            <attribute name="title" >
+           <widget class="QWidget" name="tab_3">
+            <attribute name="title">
              <string>Info</string>
             </attribute>
-            <layout class="QVBoxLayout" >
+            <layout class="QVBoxLayout">
              <item>
-              <widget class="QGroupBox" name="groupBox" >
-               <property name="title" >
+              <widget class="QGroupBox" name="groupBox">
+               <property name="title">
                 <string>Selected node</string>
                </property>
-               <layout class="QVBoxLayout" >
+               <layout class="QVBoxLayout">
                 <item>
-                 <widget class="QWidget" native="1" name="widget_3" >
-                  <layout class="QGridLayout" >
-                   <item row="0" column="0" >
-                    <widget class="QLabel" name="label" >
-                     <property name="sizePolicy" >
-                      <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
+                 <widget class="QWidget" name="widget_3" native="true">
+                  <layout class="QGridLayout">
+                   <item row="0" column="0">
+                    <widget class="QLabel" name="label">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                        <horstretch>0</horstretch>
                        <verstretch>0</verstretch>
                       </sizepolicy>
                      </property>
-                     <property name="minimumSize" >
+                     <property name="minimumSize">
                       <size>
                        <width>92</width>
                        <height>0</height>
                       </size>
                      </property>
-                     <property name="text" >
+                     <property name="text">
                       <string>Name:</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="0" column="1" >
-                    <widget class="QLabel" name="_nameLabel" >
-                     <property name="sizePolicy" >
-                      <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+                   <item row="0" column="1">
+                    <widget class="QLabel" name="_nameLabel">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                        <horstretch>0</horstretch>
                        <verstretch>0</verstretch>
                       </sizepolicy>
                      </property>
-                     <property name="text" >
+                     <property name="text">
                       <string>NameLabel</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="1" column="0" >
-                    <widget class="QLabel" name="label_2" >
-                     <property name="sizePolicy" >
-                      <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
+                   <item row="1" column="0">
+                    <widget class="QLabel" name="label_2">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                        <horstretch>0</horstretch>
                        <verstretch>0</verstretch>
                       </sizepolicy>
                      </property>
-                     <property name="minimumSize" >
+                     <property name="minimumSize">
                       <size>
                        <width>92</width>
                        <height>0</height>
                       </size>
                      </property>
-                     <property name="text" >
+                     <property name="text">
                       <string>Triangles:</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="1" column="1" >
-                    <widget class="QLabel" name="_trianglesLabel" >
-                     <property name="sizePolicy" >
-                      <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+                   <item row="1" column="1">
+                    <widget class="QLabel" name="_trianglesLabel">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                        <horstretch>0</horstretch>
                        <verstretch>0</verstretch>
                       </sizepolicy>
                      </property>
-                     <property name="text" >
+                     <property name="text">
                       <string>TrianglesLabel</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="2" column="0" >
-                    <widget class="QLabel" name="label_3" >
-                     <property name="sizePolicy" >
-                      <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
+                   <item row="2" column="0">
+                    <widget class="QLabel" name="label_3">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                        <horstretch>0</horstretch>
                        <verstretch>0</verstretch>
                       </sizepolicy>
                      </property>
-                     <property name="minimumSize" >
+                     <property name="minimumSize">
                       <size>
                        <width>92</width>
                        <height>0</height>
                       </size>
                      </property>
-                     <property name="text" >
+                     <property name="text">
                       <string>Texture memory:</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="2" column="1" >
-                    <widget class="QLabel" name="_textureMemoryLabel" >
-                     <property name="sizePolicy" >
-                      <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+                   <item row="2" column="1">
+                    <widget class="QLabel" name="_textureMemoryLabel">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                        <horstretch>0</horstretch>
                        <verstretch>0</verstretch>
                       </sizepolicy>
                      </property>
-                     <property name="text" >
+                     <property name="text">
                       <string>TextureMemoryLabel</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="3" column="0" >
-                    <widget class="QLabel" name="label_4" >
-                     <property name="sizePolicy" >
-                      <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
+                   <item row="3" column="0">
+                    <widget class="QLabel" name="label_4">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                        <horstretch>0</horstretch>
                        <verstretch>0</verstretch>
                       </sizepolicy>
                      </property>
-                     <property name="minimumSize" >
+                     <property name="minimumSize">
                       <size>
                        <width>92</width>
                        <height>0</height>
                       </size>
                      </property>
-                     <property name="text" >
+                     <property name="text">
                       <string>Bounding Box Min:</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="3" column="1" >
-                    <widget class="QLabel" name="_boundingBoxMinLabel" >
-                     <property name="sizePolicy" >
-                      <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+                   <item row="3" column="1">
+                    <widget class="QLabel" name="_boundingBoxMinLabel">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                        <horstretch>0</horstretch>
                        <verstretch>0</verstretch>
                       </sizepolicy>
                      </property>
-                     <property name="text" >
+                     <property name="text">
                       <string>BoundingBoxMin</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="4" column="0" >
-                    <widget class="QLabel" name="label_5" >
-                     <property name="sizePolicy" >
-                      <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
+                   <item row="4" column="0">
+                    <widget class="QLabel" name="label_5">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                        <horstretch>0</horstretch>
                        <verstretch>0</verstretch>
                       </sizepolicy>
                      </property>
-                     <property name="minimumSize" >
+                     <property name="minimumSize">
                       <size>
                        <width>92</width>
                        <height>0</height>
                       </size>
                      </property>
-                     <property name="text" >
+                     <property name="text">
                       <string>Bounding Box Max:</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="4" column="1" >
-                    <widget class="QLabel" name="_boundingBoxMaxLabel" >
-                     <property name="sizePolicy" >
-                      <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+                   <item row="4" column="1">
+                    <widget class="QLabel" name="_boundingBoxMaxLabel">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                        <horstretch>0</horstretch>
                        <verstretch>0</verstretch>
                       </sizepolicy>
                      </property>
-                     <property name="text" >
+                     <property name="text">
                       <string>BoundingBoxMax</string>
                      </property>
                     </widget>
@@ -219,23 +219,23 @@
                  </widget>
                 </item>
                 <item>
-                 <layout class="QHBoxLayout" >
+                 <layout class="QHBoxLayout">
                   <item>
-                   <widget class="QPushButton" name="_updateBtn" >
-                    <property name="sizePolicy" >
-                     <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+                   <widget class="QPushButton" name="_updateBtn">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                       <horstretch>0</horstretch>
                       <verstretch>0</verstretch>
                      </sizepolicy>
                     </property>
-                    <property name="text" >
+                    <property name="text">
                      <string>Update</string>
                     </property>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QCheckBox" name="_autoUpdateCB" >
-                    <property name="text" >
+                   <widget class="QCheckBox" name="_autoUpdateCB">
+                    <property name="text">
                      <string>Auto update</string>
                     </property>
                    </widget>
@@ -247,30 +247,21 @@
              </item>
             </layout>
            </widget>
-           <widget class="QWidget" name="tab_4" >
-            <attribute name="title" >
+           <widget class="QWidget" name="tab_4">
+            <attribute name="title">
              <string>Properties</string>
             </attribute>
-            <layout class="QVBoxLayout" >
-             <property name="spacing" >
+            <layout class="QVBoxLayout">
+             <property name="spacing">
               <number>0</number>
              </property>
-             <property name="leftMargin" >
-              <number>0</number>
-             </property>
-             <property name="topMargin" >
-              <number>0</number>
-             </property>
-             <property name="rightMargin" >
-              <number>0</number>
-             </property>
-             <property name="bottomMargin" >
+             <property name="margin">
               <number>0</number>
              </property>
              <item>
-              <widget class="QWidget" native="1" name="_peContainer" >
-               <property name="sizePolicy" >
-                <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+              <widget class="QWidget" name="_peContainer" native="true">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
@@ -288,139 +279,121 @@
     </item>
    </layout>
   </widget>
-  <widget class="QMenuBar" name="m_menuBar" >
-   <property name="geometry" >
+  <widget class="QMenuBar" name="m_menuBar">
+   <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>21</height>
+     <height>25</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menu_File" >
-    <property name="tearOffEnabled" >
+   <widget class="QMenu" name="menu_File">
+    <property name="tearOffEnabled">
      <bool>true</bool>
     </property>
-    <property name="title" >
+    <property name="title">
      <string>&amp;File</string>
     </property>
-    <addaction name="actionNew" />
-    <addaction name="actionOpen" />
-    <addaction name="separator" />
-    <addaction name="actionSave" />
-    <addaction name="actionSaveAs" />
-    <addaction name="separator" />
-    <addaction name="actionExit" />
+    <addaction name="actionNew"/>
+    <addaction name="actionOpen"/>
+    <addaction name="separator"/>
+    <addaction name="actionSave"/>
+    <addaction name="actionSaveAs"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
    </widget>
-   <widget class="QMenu" name="menuEdit" >
-    <property name="tearOffEnabled" >
+   <widget class="QMenu" name="menuEdit">
+    <property name="tearOffEnabled">
      <bool>true</bool>
     </property>
-    <property name="title" >
+    <property name="title">
      <string>Edit</string>
     </property>
-    <addaction name="actionUndo" />
-    <addaction name="actionRedo" />
-    <addaction name="separator" />
-    <addaction name="actionCut" />
-    <addaction name="actionCopy" />
-    <addaction name="actionPaste" />
+    <addaction name="actionUndo"/>
+    <addaction name="actionRedo"/>
+    <addaction name="separator"/>
+    <addaction name="actionCut"/>
+    <addaction name="actionCopy"/>
+    <addaction name="actionPaste"/>
    </widget>
-   <addaction name="menu_File" />
-   <addaction name="menuEdit" />
+   <addaction name="menu_File"/>
+   <addaction name="menuEdit"/>
   </widget>
-  <widget class="QStatusBar" name="m_statusBar" />
-  <widget class="QDockWidget" name="_treeDock" >
-   <property name="allowedAreas" >
-    <set>Qt::LeftDockWidgetArea|Qt::NoDockWidgetArea|Qt::RightDockWidgetArea</set>
+  <widget class="QStatusBar" name="m_statusBar"/>
+  <widget class="QDockWidget" name="_treeDock">
+   <property name="allowedAreas">
+    <set>Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea</set>
    </property>
-   <property name="windowTitle" >
+   <property name="windowTitle">
     <string>Scene</string>
    </property>
-   <attribute name="dockWidgetArea" >
+   <attribute name="dockWidgetArea">
     <number>1</number>
    </attribute>
-   <widget class="QWidget" name="dockWidgetContents" >
-    <layout class="QVBoxLayout" >
-     <property name="spacing" >
+   <widget class="QWidget" name="dockWidgetContents">
+    <layout class="QVBoxLayout">
+     <property name="spacing">
       <number>6</number>
      </property>
-     <property name="leftMargin" >
-      <number>9</number>
-     </property>
-     <property name="topMargin" >
-      <number>9</number>
-     </property>
-     <property name="rightMargin" >
-      <number>9</number>
-     </property>
-     <property name="bottomMargin" >
+     <property name="margin">
       <number>9</number>
      </property>
      <item>
-      <widget class="QTabWidget" name="tabWidget" >
-       <property name="tabPosition" >
+      <widget class="QTabWidget" name="tabWidget">
+       <property name="tabPosition">
         <enum>QTabWidget::North</enum>
        </property>
-       <property name="tabShape" >
+       <property name="tabShape">
         <enum>QTabWidget::Rounded</enum>
        </property>
-       <property name="currentIndex" >
+       <property name="currentIndex">
         <number>0</number>
        </property>
-       <property name="elideMode" >
+       <property name="elideMode">
         <enum>Qt::ElideNone</enum>
        </property>
-       <widget class="QWidget" name="tab" >
-        <attribute name="title" >
+       <widget class="QWidget" name="tab">
+        <attribute name="title">
          <string>Graph</string>
         </attribute>
-        <layout class="QVBoxLayout" >
-         <property name="spacing" >
+        <layout class="QVBoxLayout">
+         <property name="spacing">
           <number>6</number>
          </property>
-         <property name="leftMargin" >
-          <number>9</number>
-         </property>
-         <property name="topMargin" >
-          <number>9</number>
-         </property>
-         <property name="rightMargin" >
-          <number>9</number>
-         </property>
-         <property name="bottomMargin" >
+         <property name="margin">
           <number>9</number>
          </property>
          <item>
-          <widget class="QTreeWidget" name="_treeWidget" >
-           <property name="selectionMode" >
+          <widget class="QTreeWidget" name="_treeWidget">
+           <property name="selectionMode">
             <enum>QAbstractItemView::ExtendedSelection</enum>
            </property>
-           <property name="selectionBehavior" >
+           <property name="selectionBehavior">
             <enum>QAbstractItemView::SelectItems</enum>
            </property>
-           <property name="columnCount" >
+           <property name="columnCount">
             <number>1</number>
            </property>
            <column>
-            <property name="text" >
+            <property name="text">
              <string>Nodes</string>
             </property>
            </column>
           </widget>
          </item>
          <item>
-          <widget class="QSlider" name="_treeSlider" >
-           <property name="maximum" >
+          <widget class="QSlider" name="_treeSlider">
+           <property name="maximum">
             <number>1</number>
            </property>
-           <property name="orientation" >
+           <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
-           <property name="tickPosition" >
+           <property name="tickPosition">
             <enum>QSlider::TicksBelow</enum>
            </property>
-           <property name="tickInterval" >
+           <property name="tickInterval">
             <number>0</number>
            </property>
           </widget>
@@ -432,183 +405,187 @@
     </layout>
    </widget>
   </widget>
-  <widget class="QToolBar" name="_standardBar" >
-   <property name="windowTitle" >
+  <widget class="QToolBar" name="_standardBar">
+   <property name="windowTitle">
     <string>toolBar</string>
    </property>
-   <property name="orientation" >
+   <property name="orientation">
     <enum>Qt::Horizontal</enum>
    </property>
-   <attribute name="toolBarArea" >
+   <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>
    </attribute>
-   <attribute name="toolBarBreak" >
+   <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="actionNew" />
-   <addaction name="actionOpen" />
-   <addaction name="actionSave" />
-   <addaction name="separator" />
-   <addaction name="actionCut" />
-   <addaction name="actionCopy" />
-   <addaction name="actionPaste" />
-   <addaction name="separator" />
-   <addaction name="actionUndo" />
-   <addaction name="actionRedo" />
+   <addaction name="actionNew"/>
+   <addaction name="actionOpen"/>
+   <addaction name="actionSave"/>
+   <addaction name="separator"/>
+   <addaction name="actionCut"/>
+   <addaction name="actionCopy"/>
+   <addaction name="actionPaste"/>
+   <addaction name="separator"/>
+   <addaction name="actionUndo"/>
+   <addaction name="actionRedo"/>
   </widget>
-  <widget class="QToolBar" name="_navigationBar" >
-   <property name="windowTitle" >
+  <widget class="QToolBar" name="_navigationBar">
+   <property name="windowTitle">
     <string>toolBar_2</string>
    </property>
-   <property name="orientation" >
+   <property name="orientation">
     <enum>Qt::Horizontal</enum>
    </property>
-   <property name="iconSize" >
+   <property name="iconSize">
     <size>
      <width>22</width>
      <height>22</height>
     </size>
    </property>
-   <attribute name="toolBarArea" >
+   <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>
    </attribute>
-   <attribute name="toolBarBreak" >
+   <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="actionHome" />
-   <addaction name="actionZoom" />
+   <addaction name="actionHome"/>
+   <addaction name="actionZoom"/>
   </widget>
-  <action name="actionNew" >
-   <property name="icon" >
-    <iconset resource="../resources.qrc" >:/icons/Toolbar/32x32/filenew.png</iconset>
+  <action name="actionNew">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/Toolbar/32x32/filenew.png</normaloff>:/icons/Toolbar/32x32/filenew.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>New</string>
    </property>
   </action>
-  <action name="actionOpen" >
-   <property name="icon" >
-    <iconset resource="../resources.qrc" >:/icons/Toolbar/32x32/fileopen.png</iconset>
+  <action name="actionOpen">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/Toolbar/32x32/fileopen.png</normaloff>:/icons/Toolbar/32x32/fileopen.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Open</string>
    </property>
-   <property name="shortcut" >
+   <property name="shortcut">
     <string>Ctrl+O</string>
    </property>
   </action>
-  <action name="actionSave" >
-   <property name="icon" >
-    <iconset resource="../resources.qrc" >:/icons/Toolbar/32x32/filesave.png</iconset>
+  <action name="actionSave">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/Toolbar/32x32/filesave.png</normaloff>:/icons/Toolbar/32x32/filesave.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Save</string>
    </property>
-   <property name="shortcut" >
+   <property name="shortcut">
     <string>Ctrl+S</string>
    </property>
   </action>
-  <action name="actionSaveAs" >
-   <property name="enabled" >
+  <action name="actionSaveAs">
+   <property name="enabled">
     <bool>true</bool>
    </property>
-   <property name="icon" >
-    <iconset resource="../resources.qrc" >:/icons/Toolbar/32x32/filesaveas.png</iconset>
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/Toolbar/32x32/filesaveas.png</normaloff>:/icons/Toolbar/32x32/filesaveas.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Save As</string>
    </property>
   </action>
-  <action name="actionExit" >
-   <property name="icon" >
-    <iconset resource="../resources.qrc" >:/icons/Toolbar/32x32/exit.png</iconset>
+  <action name="actionExit">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/Toolbar/32x32/exit.png</normaloff>:/icons/Toolbar/32x32/exit.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Exit</string>
    </property>
   </action>
-  <action name="actionUndo" >
-   <property name="enabled" >
+  <action name="actionUndo">
+   <property name="enabled">
     <bool>false</bool>
    </property>
-   <property name="icon" >
-    <iconset resource="../resources.qrc" >:/icons/Toolbar/32x32/undo.png</iconset>
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/Toolbar/32x32/undo.png</normaloff>:/icons/Toolbar/32x32/undo.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Undo</string>
    </property>
   </action>
-  <action name="actionRedo" >
-   <property name="enabled" >
+  <action name="actionRedo">
+   <property name="enabled">
     <bool>false</bool>
    </property>
-   <property name="icon" >
-    <iconset resource="../resources.qrc" >:/icons/Toolbar/32x32/redo.png</iconset>
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/Toolbar/32x32/redo.png</normaloff>:/icons/Toolbar/32x32/redo.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Redo</string>
    </property>
   </action>
-  <action name="actionCut" >
-   <property name="enabled" >
+  <action name="actionCut">
+   <property name="enabled">
     <bool>false</bool>
    </property>
-   <property name="icon" >
-    <iconset resource="../resources.qrc" >:/icons/Toolbar/32x32/editcut.png</iconset>
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/Toolbar/32x32/editcut.png</normaloff>:/icons/Toolbar/32x32/editcut.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Cut</string>
    </property>
   </action>
-  <action name="actionCopy" >
-   <property name="enabled" >
+  <action name="actionCopy">
+   <property name="enabled">
     <bool>false</bool>
    </property>
-   <property name="icon" >
-    <iconset resource="../resources.qrc" >:/icons/Toolbar/32x32/editcopy.png</iconset>
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/Toolbar/32x32/editcopy.png</normaloff>:/icons/Toolbar/32x32/editcopy.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Copy</string>
    </property>
   </action>
-  <action name="actionPaste" >
-   <property name="enabled" >
+  <action name="actionPaste">
+   <property name="enabled">
     <bool>false</bool>
    </property>
-   <property name="icon" >
-    <iconset resource="../resources.qrc" >:/icons/Toolbar/32x32/editpaste.png</iconset>
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/Toolbar/32x32/editpaste.png</normaloff>:/icons/Toolbar/32x32/editpaste.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Paste</string>
    </property>
   </action>
-  <action name="actionHome" >
-   <property name="icon" >
-    <iconset resource="../resources.qrc" >:/icons/Toolbar/22x22/Icon57.png</iconset>
+  <action name="actionHome">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/Toolbar/22x22/Icon57.png</normaloff>:/icons/Toolbar/22x22/Icon57.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Home</string>
    </property>
   </action>
-  <action name="actionZoom" >
-   <property name="icon" >
-    <iconset resource="../resources.qrc" >:/icons/Toolbar/22x22/Icon58.png</iconset>
+  <action name="actionZoom">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/Toolbar/22x22/Icon58.png</normaloff>:/icons/Toolbar/22x22/Icon58.png</iconset>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Zoom</string>
    </property>
   </action>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>PythonShell</class>
-   <extends>QWidget</extends>
-   <header>PythonShell.h</header>
-   <container>1</container>
-  </customwidget>
- </customwidgets>
  <resources>
-  <include location="../resources.qrc" />
+  <include location="../resources.qrc"/>
  </resources>
  <connections>
   <connection>
@@ -617,11 +594,11 @@
    <receiver>_treeWidget</receiver>
    <slot>expandToDepth(int)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>161</x>
      <y>490</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>166</x>
      <y>327</y>
     </hint>
