@@ -30,6 +30,8 @@
 
 #include <osgDB/ReadFile>
 
+#include <string.h>
+
 FhsLoader::FhsLoader()
 : m_version(0.0f)
 , m_pointOrder(CCW)

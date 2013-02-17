@@ -1,3 +1,4 @@
+/*
 #include "ReflectionManager.h"
 #include "QPropertyEditor.h"
 #include "TreeViewItem.h"
@@ -353,3 +354,4 @@ std::string ReflectionManager::getLibraryPrefix()
 {
 	return "osgwrapper_";
 }
+*/

@@ -1,10 +1,10 @@
 #pragma once
-
+/*
 #include <QObject>
 #include <QHash>
 
 #include <osg/Referenced>
-#include <osgIntrospection/Reflection>
+//#include <osgIntrospection/Reflection>
 
 class QPropertyEditor;
 class QTreeWidget;
@@ -53,3 +53,4 @@ private:
 	PropertyCollection *_collection;
 	QHash<IProperty*, const osgIntrospection::PropertyInfo*> _propertyHash;
 };
+*/

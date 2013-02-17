@@ -22,7 +22,7 @@ class QMdiArea;
 
 class ViewerQT;
 class SelectionManager;
-class ReflectionManager;
+//class ReflectionManager;
 
 namespace osg {
 	class Group;
@@ -97,7 +97,7 @@ private:
 	QUndoStack *					_undoStack;
 	QMdiArea *						_mdiArea;
 	osg::ref_ptr<SelectionManager>	_selectionManager;
-	osg::ref_ptr<ReflectionManager>	_reflectionManager;
+    //osg::ref_ptr<ReflectionManager>	_reflectionManager;
 };
 
 //==============================================================================

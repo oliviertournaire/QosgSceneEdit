@@ -3,11 +3,13 @@
 #include <osgDB/Registry>
 #include <osgDB/DynamicLibrary>
 #include <osgDB/FileUtils>
+/*
 #include <osgIntrospection/Value>
 #include <osgIntrospection/Reflection>
 #include <osgIntrospection/MethodInfo>
 #include <osgIntrospection/PropertyInfo>
 #include <osgIntrospection/variant_cast>
+*/
 
 
 SelectionManager::SelectionManager() : osg::Referenced()

@@ -230,7 +230,7 @@ void seStyle::polish(QApplication *application)
 	_oldPalette = application->palette();
 
 	QPalette pal(_oldPalette);
-	pal.setColor(QPalette::Window, QColor(0x47, 0x47, 0x47));
+    pal.setColor(QPalette::Window, QColor(0x47, 0x47, 0x47));
 	pal.setColor(QPalette::Base, QColor(0x57, 0x57, 0x57));
 	pal.setColor(QPalette::Text, QColor(0xe4, 0xe4, 0xe4));
 	pal.setColor(QPalette::HighlightedText, QColor(0x26, 0x26, 0x27));

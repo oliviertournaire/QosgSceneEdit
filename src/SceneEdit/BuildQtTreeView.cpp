@@ -51,7 +51,11 @@ void BuildQtTreeView::apply(osg::Node& node)
 
     if (nodeName.isEmpty())
     {
-        nodeName = QObject::tr("<unnamed>");
+        nodeName = node.className();
+        if (nodeName.isEmpty())
+        {
+            nodeName = QObject::tr("<unnamed>");
+        }
     }
 
     TreeViewItem *item = new TreeViewItem(_parents.top());

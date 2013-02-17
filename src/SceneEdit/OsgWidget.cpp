@@ -1,5 +1,7 @@
 // ======================================================================================
 
+#include <GL/glu.h>
+
 #include "OsgWidget.h"
 
 #include <QDesktopWidget>

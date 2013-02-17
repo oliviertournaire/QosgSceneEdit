@@ -107,7 +107,7 @@ MainWindow::MainWindow(QWidget* parent, Qt::WFlags flags)
 	layout->addWidget(btn);
 	layout->addWidget(pe);
 
-	_reflectionManager = new ReflectionManager(_treeWidget, pe);
+    //_reflectionManager = new ReflectionManager(_treeWidget, pe);
 
 	//PropertyCollection *collections = new PropertyCollection("<root>");
 	//QVariant value = QString("Test name");
@@ -186,7 +186,7 @@ void MainWindow::fileOpen()
 {
 	QFileDialog dialog(this, "Open", _lastDirectory);
 	dialog.setFileMode(QFileDialog::AnyFile);
-	dialog.setFilter(tr("Geometry files (*.fhs *.flt *.ive *.osg *.3ds *.ac *.dw *.geo *.logo *.lws *.lwo *.md2 *.obj *.stl *.txf *.x)"));
+    dialog.setFilter(tr("Geometry files (*.osgb *.osgt *.fhs *.flt *.ive *.osg *.3ds *.ac *.dw *.geo *.logo *.lws *.lwo *.md2 *.obj *.stl *.txf *.x)"));
 	dialog.setViewMode(QFileDialog::Detail);
 
 	if (dialog.exec())
