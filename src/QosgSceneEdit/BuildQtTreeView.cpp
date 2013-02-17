@@ -52,14 +52,17 @@ void BuildQtTreeView::apply(osg::Node& node)
 {
 	osg::Geode *geode = 0L;
     bool isGroup = false;
-    QString nodeName = QString::fromStdString(node.getName());
+    QString nodeName;
+    if(node.className()!="")
+        nodeName = "[" + QString::fromStdString(node.className()) + "]";
 
     if (nodeName.isEmpty())
     {
-        nodeName = node.className();
+        if(node.getName()!="")
+            nodeName += " " + QString::fromStdString(node.getName());
         if (nodeName.isEmpty())
         {
-            nodeName = QObject::tr("<unnamed>");
+            nodeName = QObject::tr("[<unknow_type>] <unnamed>");
         }
     }
 
