@@ -11,14 +11,13 @@ namespace osg {
 	class Object;
 }
 
-class TreeViewItem :
-	public QTreeWidgetItem
+class TreeViewItem : public QTreeWidgetItem
 {
 public:
 
 						TreeViewItem();
 						TreeViewItem(TreeViewItem *parent, int type = Type);
-	virtual				~TreeViewItem();
+	virtual				~TreeViewItem() {}
 
 	void				setOsgNode(osg::Node* node);
 	osg::Node*			getOsgNode();

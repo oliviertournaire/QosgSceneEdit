@@ -7,15 +7,13 @@
 TreeViewItem::TreeViewItem()
 : QTreeWidgetItem()
 {
+    setFlags( Qt::ItemIsUserCheckable | Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsEnabled );
 }
 
 TreeViewItem::TreeViewItem(TreeViewItem *parent, int type)
 : QTreeWidgetItem(parent, type)
 {
-}
-
-TreeViewItem::~TreeViewItem()
-{
+    setFlags( Qt::ItemIsUserCheckable | Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsEnabled );
 }
 
 void TreeViewItem::setOsgNode(osg::Node* node)

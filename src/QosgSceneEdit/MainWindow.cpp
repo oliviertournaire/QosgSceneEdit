@@ -64,8 +64,6 @@ MainWindow::MainWindow(QWidget* parent, Qt::WFlags flags)
     _scene->addChild(_modelRoot.get());
     _scene->addChild(_internalRoot.get());
 
-
-
     QGLFormat format;
     format.setDirectRendering(true);
     format.setRgba(true);
