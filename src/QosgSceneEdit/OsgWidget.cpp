@@ -1,6 +1,11 @@
 // ======================================================================================
 
-#include <GL/glu.h>
+#ifndef _WINDOWS
+#   include <GL/glu.h>
+#else
+#   include <Windows.h>
+#   include <GL/GLU.h>
+#endif // _WINDOWS
 
 #include "OsgWidget.h"
 
