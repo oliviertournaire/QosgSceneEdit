@@ -30,6 +30,7 @@
 #include "SelectionManager.h"
 #include "BackgroundGeode.h"
 #include "ComputeNodeInfoVisitor.h"
+#include "colorlisteditor.h"
 
 //=======================================================================================
 //  Namespace
@@ -45,6 +46,11 @@ MainWindow::MainWindow(QWidget* parent, Qt::WFlags flags)
     , _lastDirectory(QDir::homePath())
     , _backgroundGeode(new BackgroundGeode())
 {
+    QItemEditorFactory *factory = new QItemEditorFactory;
+    QItemEditorCreatorBase *colorListCreator = new QStandardItemEditorCreator<ColorListEditor>();
+    factory->registerEditor(QVariant::Color, colorListCreator);
+    QItemEditorFactory::setDefaultFactory(factory);
+
     _selectionManager = SelectionManager::instance();
 
     setupUi(this);

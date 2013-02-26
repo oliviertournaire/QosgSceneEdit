@@ -70,6 +70,8 @@ void BuildQtTreeView::apply(osg::Node& node)
     item->setText(0, nodeName);
 	item->setCheckState(0, Qt::Checked);
 	item->setOsgNode(&node);
+    // Here !!!
+    item->setData(0, Qt::EditRole, QColor("aliceblue"));
 
     if (dynamic_cast<osg::PagedLOD*>(&node))
     {
@@ -108,6 +110,8 @@ void BuildQtTreeView::apply(osg::Node& node)
 				//item->setCheckState(0, Qt::Checked);
 				//item->setOsgNode(&node);
 				subItem->setOsgObject(drawable.get());
+                // Here !!!
+                subItem->setData(0, Qt::EditRole, QColor("aliceblue"));
 			}
 		}
     }

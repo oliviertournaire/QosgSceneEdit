@@ -26,6 +26,8 @@ SET(SE_SOURCES
 	SelectionManager.cpp
 	ComputeNodeInfoVisitor.h
 	ComputeNodeInfoVisitor.cpp
+        colorlisteditor.h
+        colorlisteditor.cpp
 )
 
 #
@@ -35,7 +37,7 @@ SET(SE_SOURCES
 #
 # Headers which have a Q_OBJECT
 #
-SET(MOC_HEADERS MainWindow.h )
+SET(MOC_HEADERS MainWindow.h colorlisteditor.h)
 qt4_wrap_cpp( SE_MOC_HEADERS ${MOC_HEADERS} )
 
 #
