@@ -72,32 +72,33 @@ void BuildQtTreeView::apply(osg::Node& node)
 	item->setOsgNode(&node);
     // Here !!!
     item->setData(0, Qt::EditRole, QColor("aliceblue"));
+    item->setData(0, Qt::DisplayRole, nodeName);
 
     if (dynamic_cast<osg::PagedLOD*>(&node))
     {
-        item->setIcon(0, QIcon(":/icons/TreeView/LOD.png"));
+        item->setData(0, Qt::DecorationRole, QIcon(":/icons/TreeView/LOD.png"));
         _parents.push(item);
         isGroup = true;
     }
     else if (dynamic_cast<osg::LOD*>(&node))
     {
-        item->setIcon(0, QIcon(":/icons/TreeView/LOD.png"));
+        item->setData(0, Qt::DecorationRole, QIcon(":/icons/TreeView/LOD.png"));
         _parents.push(item);
         isGroup = true;
     }
 	else if (dynamic_cast<osg::Group*>(&node))
     {
-        item->setIcon(0, QIcon(":/icons/TreeView/Group.png"));
+        item->setData(0, Qt::DecorationRole, QIcon(":/icons/TreeView/Group.png"));
         _parents.push(item);
         isGroup = true;
     }
 	else if (dynamic_cast<osg::Billboard*>(&node))
     {
-        item->setIcon(0, QIcon(":/icons/TreeView/Billboard.png"));
+        item->setData(0, Qt::DecorationRole, QIcon(":/icons/TreeView/Billboard.png"));
 	}
 	else if ((geode = dynamic_cast<osg::Geode*>(&node)))
     {
-        item->setIcon(0, QIcon(":/icons/TreeView/Geode.png"));
+        item->setData(0, Qt::DecorationRole, QIcon(":/icons/TreeView/Geode.png"));
 
 		for (unsigned int i=0; i<geode->getNumDrawables(); ++i)
 		{
@@ -112,12 +113,13 @@ void BuildQtTreeView::apply(osg::Node& node)
 				subItem->setOsgObject(drawable.get());
                 // Here !!!
                 subItem->setData(0, Qt::EditRole, QColor("aliceblue"));
+                //subItem->setData(0, Qt::DisplayRole, "Drawable");
 			}
 		}
     }
 	else
     {
-        item->setIcon(0, QIcon(":/icons/TreeView/Other.png"));
+        item->setData(0, Qt::DecorationRole, QIcon(":/icons/TreeView/Other.png"));
     }
 
     _maxTreeDepth = std::max<int>(_maxTreeDepth, _parents.size());

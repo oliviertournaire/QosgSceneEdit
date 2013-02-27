@@ -31,25 +31,67 @@
 #include "BackgroundGeode.h"
 #include "ComputeNodeInfoVisitor.h"
 #include "colorlisteditor.h"
+#include "test_editor.hpp"
 
 //=======================================================================================
 //  Namespace
 //=======================================================================================
+
+using namespace std;
 
 namespace QosgSceneEdit 
 {
 
 //=======================================================================================
 
+class MyItemDelegate : public QItemDelegate
+{
+public:
+    MyItemDelegate(QObject* parent = 0) : QItemDelegate(parent) {}
+
+    QWidget* createEditor(QWidget* parent, const QStyleOptionViewItem& option = QStyleOptionViewItem(), const QModelIndex& index = QModelIndex()) const
+    {
+        // allow only specific column to be edited, second column in this example
+        if (index.column() == 0)
+        {
+            test_editor* te = new test_editor;
+            te->setWindowTitle("Form1");
+            return te;//QItemDelegate::createEditor(parent, option, index);
+        }
+        return 0;
+    }
+};
+
+class MyItemDelegate2 : public QItemDelegate
+{
+public:
+    MyItemDelegate2(QObject* parent = 0) : QItemDelegate(parent) {}
+
+    QWidget* createEditor(QWidget* parent, const QStyleOptionViewItem& option = QStyleOptionViewItem(), const QModelIndex& index = QModelIndex()) const
+    {
+        // allow only specific column to be edited, second column in this example
+        if (index.column() == 0)
+        {
+            test_editor* te = new test_editor;
+            te->setWindowTitle("Form2");
+            return te;//QItemDelegate::createEditor(parent, option, index);
+        }
+        return 0;
+    }
+};
+
+
 MainWindow::MainWindow(QWidget* parent, Qt::WFlags flags) 
     : QMainWindow(parent, flags)
     , _lastDirectory(QDir::homePath())
     , _backgroundGeode(new BackgroundGeode())
 {
+    /*
     QItemEditorFactory *factory = new QItemEditorFactory;
-    QItemEditorCreatorBase *colorListCreator = new QStandardItemEditorCreator<ColorListEditor>();
+    QItemEditorCreatorBase *colorListCreator = new QStandardItemEditorCreator<test_editor>();
     factory->registerEditor(QVariant::Color, colorListCreator);
     QItemEditorFactory::setDefaultFactory(factory);
+    */
 
     _selectionManager = SelectionManager::instance();
 
@@ -143,10 +185,14 @@ MainWindow::MainWindow(QWidget* parent, Qt::WFlags flags)
     projection->addChild(modelview_abs);
     _internalRoot->addChild(projection);
 
-
     fileNew(false);
     treeItemSelectionChanged();
     updateTree();
+
+    //_treeWidget->setItemDelegate(new MyItemDelegate(_treeWidget));
+    _treeWidget->setItemDelegateForRow(0, new MyItemDelegate(_treeWidget));
+    _treeWidget->setItemDelegateForRow(1, new MyItemDelegate2(_treeWidget));
+    _treeWidget->setItemDelegateForColumn(1, new MyItemDelegate2(_treeWidget));
 
     showMaximized();
 }

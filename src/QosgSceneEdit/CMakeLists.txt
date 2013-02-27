@@ -28,6 +28,8 @@ SET(SE_SOURCES
 	ComputeNodeInfoVisitor.cpp
         colorlisteditor.h
         colorlisteditor.cpp
+        test_editor.hpp
+        test_editor.cpp
 )
 
 #
@@ -37,13 +39,13 @@ SET(SE_SOURCES
 #
 # Headers which have a Q_OBJECT
 #
-SET(MOC_HEADERS MainWindow.h colorlisteditor.h)
+SET(MOC_HEADERS MainWindow.h colorlisteditor.h test_editor.hpp )
 qt4_wrap_cpp( SE_MOC_HEADERS ${MOC_HEADERS} )
 
 #
 # Generate C++ files from ui file
 #
-SET(SE_UIS UI/MainWindow.ui )
+SET(SE_UIS UI/MainWindow.ui UI/test_editor.ui )
 
 #
 # Qt4 setup
