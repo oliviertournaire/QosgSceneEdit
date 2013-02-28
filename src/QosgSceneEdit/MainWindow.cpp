@@ -5,6 +5,7 @@
 // Qt 
 #include <QtGui/QtGui>
 #include <QtGui/QMdiArea>
+#include <QSettings>
 
 // OpenSceneGraph
 #include <osgGA/TrackballManipulator>
@@ -181,6 +182,10 @@ void MainWindow::fileNew(bool addToHistory)
 
 void MainWindow::fileOpen()
 {
+    QSettings application_settings;
+    const QString DEFAULT_DIR_KEY("default_dir");
+
+    _lastDirectory = application_settings.value(DEFAULT_DIR_KEY).toString();
     QFileDialog dialog(this, "Open", _lastDirectory);
     dialog.setFileMode(QFileDialog::AnyFile);
     dialog.setFilter(tr("Geometry files (*.osgb *.osgt *.fhs *.flt *.ive *.osg *.3ds *.ac *.dw *.geo *.logo *.lws *.lwo *.md2 *.obj *.stl *.txf *.x)"));
@@ -192,6 +197,7 @@ void MainWindow::fileOpen()
         QFileInfo fileInfo(fileName);
 
         _lastDirectory = fileInfo.absolutePath();
+        application_settings.setValue(DEFAULT_DIR_KEY, _lastDirectory);
 
         if (fileInfo.exists())
         {
