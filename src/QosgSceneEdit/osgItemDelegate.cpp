@@ -4,8 +4,10 @@
 
 #include <osg/Node>
 #include <osg/PagedLOD>
+#include <osg/MatrixTransform>
 
-#include "pagedlod_editor.hpp"
+#include "editors/pagedlod_editor.hpp"
+#include "editors/matrixtransform_editor.hpp"
 #include "TreeViewItem.h"
 
 using namespace osg;
@@ -19,11 +21,10 @@ QWidget* osgItemDelegate::createEditor(QWidget* parent, const QStyleOptionViewIt
     TreeViewItem* treeitem = dynamic_cast<TreeViewItem*>(item);
     if (treeitem)
     {
-        PagedLOD* pl = dynamic_cast<PagedLOD*>(treeitem->getOsgNode());
-        if(pl)
-        {
+        if(PagedLOD* pl = dynamic_cast<PagedLOD*>(treeitem->getOsgNode()))
             return new pagedlod_editor(pl);
-        }
+        else if(MatrixTransform* mt = dynamic_cast<MatrixTransform*>(treeitem->getOsgNode()))
+            return new matrixtransform_editor(mt);
     }
     return 0;
 }

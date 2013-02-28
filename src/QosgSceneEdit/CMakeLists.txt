@@ -25,11 +25,16 @@ SET(SE_SOURCES
 	SelectionManager.h
 	SelectionManager.cpp
 	ComputeNodeInfoVisitor.h
-	ComputeNodeInfoVisitor.cpp
-	pagedlod_editor.hpp
-	pagedlod_editor.cpp
+        ComputeNodeInfoVisitor.cpp
 	osgItemDelegate.hpp
 	osgItemDelegate.cpp
+)
+
+set( SRC_EDITORS
+        editors/pagedlod_editor.hpp
+        editors/pagedlod_editor.cpp
+        editors/matrixtransform_editor.hpp
+        editors/matrixtransform_editor.cpp
 )
 
 #
@@ -39,13 +44,13 @@ SET(SE_SOURCES
 #
 # Headers which have a Q_OBJECT
 #
-SET(MOC_HEADERS MainWindow.h pagedlod_editor.hpp )
+SET(MOC_HEADERS MainWindow.h editors/pagedlod_editor.hpp editors/matrixtransform_editor.hpp )
 qt4_wrap_cpp( SE_MOC_HEADERS ${MOC_HEADERS} )
 
 #
 # Generate C++ files from ui file
 #
-SET(SE_UIS UI/MainWindow.ui UI/pagedlod_editor.ui )
+SET(SE_UIS UI/MainWindow.ui UI/pagedlod_editor.ui UI/matrixtransform_editor.ui )
 
 #
 # Qt4 setup
@@ -58,7 +63,7 @@ include_directories( ${OPENSCENEGRAPH_INCLUDE_DIRS} )
 
 SET(EXECUTABLE_OUTPUT_PATH ${SE_EXECUTABLE_DIR})
 
-ADD_EXECUTABLE(QosgSceneEdit ${EXECUTABLE_TYPE} ${SE_SOURCES} ${SE_MOC_HEADERS} ${SE_UIS_H} ${SE_RC_SOURCES})
+ADD_EXECUTABLE(QosgSceneEdit ${EXECUTABLE_TYPE} ${SE_SOURCES} ${SE_MOC_HEADERS} ${SE_UIS_H} ${SE_RC_SOURCES} ${SRC_EDITORS})
 TARGET_LINK_LIBRARIES(QosgSceneEdit ${OPENSCENEGRAPH_LIBRARIES} ${QT_LIBRARIES} ${OPENGL_LIBRARIES} )
 
 INSTALL( TARGETS QosgSceneEdit RUNTIME DESTINATION bin )
