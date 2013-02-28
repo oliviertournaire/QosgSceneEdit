@@ -18,6 +18,10 @@ class pagedlod_editor : public QWidget
 public:
     explicit pagedlod_editor(osg::PagedLOD* node, QWidget *parent = 0);
     ~pagedlod_editor();
+
+public slots:
+    void accept();
+    void reject();
     
 private:
     Ui::pagedlod_editor *ui;

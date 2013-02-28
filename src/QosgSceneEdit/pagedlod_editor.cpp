@@ -16,6 +16,9 @@ pagedlod_editor::pagedlod_editor(PagedLOD* node, QWidget *parent) :
 {
     ui->setupUi(this);
 
+    connect(ui->_buttonbox, SIGNAL(accepted()), this, SLOT(accept()));
+    connect(ui->_buttonbox, SIGNAL(rejected()), this, SLOT(reject()));
+
     // Name
     QString name = QString::fromStdString(_node->getName());
     ui->_label_name->setText( name == "" ? "<unknow name>" : name );
@@ -75,4 +78,14 @@ pagedlod_editor::pagedlod_editor(PagedLOD* node, QWidget *parent) :
 pagedlod_editor::~pagedlod_editor()
 {
     delete ui;
+}
+
+void pagedlod_editor::accept()
+{
+    cout << __FUNCTION__ << endl;
+}
+
+void pagedlod_editor::reject()
+{
+    cout << __FUNCTION__ << endl;
 }
