@@ -65,16 +65,16 @@ pagedlod_editor::pagedlod_editor(PagedLOD* node, QWidget *parent) :
      bbox.expandBy(node->getBound());
      if (bbox.valid())
      {
-         ui->_lineedit_bb_min_x->setText( QString::number(bbox._min.x()) );
-         ui->_lineedit_bb_min_y->setText( QString::number(bbox._min.y()) );
-         ui->_lineedit_bb_min_z->setText( QString::number(bbox._min.z()) );
-         ui->_lineedit_bb_max_x->setText( QString::number(bbox._max.x()) );
-         ui->_lineedit_bb_max_y->setText( QString::number(bbox._max.y()) );
-         ui->_lineedit_bb_max_z->setText( QString::number(bbox._max.z()) );
+         ui->_lineedit_bb_min_x->setText( QString::number(bbox._min.x(), 'g', 10) );
+         ui->_lineedit_bb_min_y->setText( QString::number(bbox._min.y(), 'g', 10) );
+         ui->_lineedit_bb_min_z->setText( QString::number(bbox._min.z(), 'g', 10) );
+         ui->_lineedit_bb_max_x->setText( QString::number(bbox._max.x(), 'g', 10) );
+         ui->_lineedit_bb_max_y->setText( QString::number(bbox._max.y(), 'g', 10) );
+         ui->_lineedit_bb_max_z->setText( QString::number(bbox._max.z(), 'g', 10) );
 
-         ui->_lineedit_bb_size_x->setText( QString::number(bbox._max.x()-bbox._min.x()));
-         ui->_lineedit_bb_size_y->setText( QString::number(bbox._max.y()-bbox._min.y()));
-         ui->_lineedit_bb_size_z->setText( QString::number(bbox._max.z()-bbox._min.z()));
+         ui->_lineedit_bb_size_x->setText( QString::number(bbox._max.x()-bbox._min.x(), 'g', 10) );
+         ui->_lineedit_bb_size_y->setText( QString::number(bbox._max.y()-bbox._min.y(), 'g', 10) );
+         ui->_lineedit_bb_size_z->setText( QString::number(bbox._max.z()-bbox._min.z(), 'g', 10) );
      }
 }
 
