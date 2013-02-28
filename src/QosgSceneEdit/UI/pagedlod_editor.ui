@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>440</width>
-    <height>219</height>
+    <height>365</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,6 +18,39 @@
     <normaloff>:/icons/TreeView/LOD.png</normaloff>:/icons/TreeView/LOD.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="_label_name">
+     <property name="text">
+      <string>TextLabel</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_3">
+     <property name="title">
+      <string>Children</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_4">
+      <item>
+       <widget class="QLabel" name="_label_children_1">
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="_label_children_2">
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
    <item>
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
@@ -133,6 +166,46 @@
            </size>
           </property>
          </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_5">
+        <item>
+         <widget class="QLabel" name="label_5">
+          <property name="text">
+           <string>BoundingBox min</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="_lineedit_bb_min_x"/>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="_lineedit_bb_min_y"/>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="_lineedit_bb_min_z"/>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_6">
+        <item>
+         <widget class="QLabel" name="label_6">
+          <property name="text">
+           <string>BoundingBox max</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="_lineedit_bb_max_x"/>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="_lineedit_bb_max_y"/>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="_lineedit_bb_max_z"/>
         </item>
        </layout>
       </item>

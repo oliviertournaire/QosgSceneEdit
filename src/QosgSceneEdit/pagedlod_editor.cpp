@@ -2,8 +2,12 @@
 #include "ui_pagedlod_editor.h"
 
 #include <osg/PagedLOD>
+#include <osg/BoundingBox>
+
+#include <iostream>
 
 using namespace osg;
+using namespace std;
 
 pagedlod_editor::pagedlod_editor(PagedLOD* node, QWidget *parent) :
     _node(node),
@@ -11,6 +15,25 @@ pagedlod_editor::pagedlod_editor(PagedLOD* node, QWidget *parent) :
     ui(new Ui::pagedlod_editor)
 {
     ui->setupUi(this);
+
+    // Name
+    QString name = QString::fromStdString(_node->getName());
+    ui->_label_name->setText( name == "" ? "<unknow name>" : name );
+
+    // Children
+    if (_node->getNumChildren() == 2)
+    {
+        QString name1 = QString::fromStdString(_node->getFileName(0));
+        ui->_label_children_1->setText( name1 == "" ? "<unknow children name>" : name1 );
+        QString name2 = QString::fromStdString(_node->getFileName(1));
+        ui->_label_children_2->setText( name2 == "" ? "<unknow children name>" : name2 );
+    }
+    else
+    {
+        ui->_label_children_1->setText("Unable to display if PagedLOD has less or more than 2 children ...");
+        ui->_label_children_2->setText("Unable to display if PagedLOD has less or more than 2 children ...");
+    }
+
 
     // Ranges
     PagedLOD::RangeList ranges = _node->getRangeList();
@@ -34,6 +57,19 @@ pagedlod_editor::pagedlod_editor(PagedLOD* node, QWidget *parent) :
      ui->_lineedit_center_x->setText( QString::number(center[0]) );
      ui->_lineedit_center_y->setText( QString::number(center[1]) );
      ui->_lineedit_center_z->setText( QString::number(center[2]) );
+
+     // Bounding box
+     BoundingBox bbox;
+     bbox.expandBy(node->getBound());
+     if (bbox.valid())
+     {
+         ui->_lineedit_bb_min_x->setText( QString::number(bbox._min.x()) );
+         ui->_lineedit_bb_min_y->setText( QString::number(bbox._min.y()) );
+         ui->_lineedit_bb_min_z->setText( QString::number(bbox._min.z()) );
+         ui->_lineedit_bb_max_x->setText( QString::number(bbox._max.x()) );
+         ui->_lineedit_bb_max_y->setText( QString::number(bbox._max.y()) );
+         ui->_lineedit_bb_max_z->setText( QString::number(bbox._max.z()) );
+     }
 }
 
 pagedlod_editor::~pagedlod_editor()
