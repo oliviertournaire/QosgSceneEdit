@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>matrixtransform_editor</class>
+ <widget class="QWidget" name="matrixtransform_editor">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>270</width>
+    <height>185</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLineEdit" name="_lineedit_00"/>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="_lineedit_01"/>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="_lineedit_02"/>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="_lineedit_03"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QLineEdit" name="_lineedit_10"/>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="_lineedit_11"/>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="_lineedit_12"/>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="_lineedit_13"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QLineEdit" name="_lineedit_20"/>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="_lineedit_21"/>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="_lineedit_22"/>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="_lineedit_23"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_4">
+     <item>
+      <widget class="QLineEdit" name="_lineedit_30"/>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="_lineedit_31"/>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="_lineedit_32"/>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="_lineedit_33"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="_buttonbox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
