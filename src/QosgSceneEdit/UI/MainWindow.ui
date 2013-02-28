@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>SceneEdit</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="../resources.qrc">
+    <normaloff>:/Images/osg64.png</normaloff>:/Images/osg64.png</iconset>
+  </property>
   <property name="animated">
    <bool>false</bool>
   </property>
@@ -285,7 +289,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>25</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">

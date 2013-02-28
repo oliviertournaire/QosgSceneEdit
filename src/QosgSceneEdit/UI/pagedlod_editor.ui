@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>548</width>
+    <width>440</width>
     <height>219</height>
    </rect>
   </property>
@@ -105,13 +105,34 @@
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="_lineedit_center_z"/>
+         <widget class="QLineEdit" name="_lineedit_center_x">
+          <property name="minimumSize">
+           <size>
+            <width>50</width>
+            <height>0</height>
+           </size>
+          </property>
+         </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="_lineedit_center_x"/>
+         <widget class="QLineEdit" name="_lineedit_center_y">
+          <property name="minimumSize">
+           <size>
+            <width>50</width>
+            <height>0</height>
+           </size>
+          </property>
+         </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="_lineedit_center_y"/>
+         <widget class="QLineEdit" name="_lineedit_center_z">
+          <property name="minimumSize">
+           <size>
+            <width>50</width>
+            <height>0</height>
+           </size>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>

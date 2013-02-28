@@ -67,11 +67,8 @@ void BuildQtTreeView::apply(osg::Node& node)
     }
 
     TreeViewItem *item = new TreeViewItem(_parents.top());
-    item->setText(0, nodeName);
 	item->setCheckState(0, Qt::Checked);
 	item->setOsgNode(&node);
-    // Here !!!
-    item->setData(0, Qt::EditRole, QColor("aliceblue"));
     item->setData(0, Qt::DisplayRole, nodeName);
 
     if (dynamic_cast<osg::PagedLOD*>(&node))
@@ -107,13 +104,10 @@ void BuildQtTreeView::apply(osg::Node& node)
 			if (drawable.valid())
 			{
 				TreeViewItem *subItem = new TreeViewItem(item);
-				subItem->setText(0, "Drawable");
 				//item->setCheckState(0, Qt::Checked);
 				//item->setOsgNode(&node);
 				subItem->setOsgObject(drawable.get());
-                // Here !!!
-                subItem->setData(0, Qt::EditRole, QColor("aliceblue"));
-                //subItem->setData(0, Qt::DisplayRole, "Drawable");
+                subItem->setData(0, Qt::DisplayRole, "Drawable");
 			}
 		}
     }

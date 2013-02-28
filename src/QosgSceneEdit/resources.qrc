@@ -1,29 +1,30 @@
 <RCC>
-    <qresource prefix="/" >
-        <file>Images/se.png</file>
-        <file>Images/se_splash.png</file>
-        <file>icons/Toolbar/32x32/Home.png</file>
-        <file>icons/Toolbar/32x32/ZoomTo.png</file>
-        <file>icons/Toolbar/32x32/editcopy.png</file>
-        <file>icons/Toolbar/32x32/editcut.png</file>
-        <file>icons/Toolbar/32x32/editpaste.png</file>
-        <file>icons/Toolbar/32x32/exit.png</file>
-        <file>icons/Toolbar/32x32/filenew.png</file>
-        <file>icons/Toolbar/32x32/fileopen.png</file>
-        <file>icons/Toolbar/32x32/filesave.png</file>
-        <file>icons/Toolbar/32x32/filesaveas.png</file>
-        <file>icons/Toolbar/32x32/redo.png</file>
-        <file>icons/Toolbar/32x32/undo.png</file>
-		    <file>icons/Toolbar/22x22/Icon43.png</file>
-		    <file>icons/Toolbar/22x22/Icon44.png</file>
-		    <file>icons/Toolbar/22x22/Icon45.png</file>
-		    <file>icons/Toolbar/22x22/Icon46.png</file>
-		    <file>icons/Toolbar/22x22/Icon57.png</file>
-		    <file>icons/Toolbar/22x22/Icon58.png</file>
-        <file>icons/TreeView/Billboard.png</file>
-        <file>icons/TreeView/Geode.png</file>
-        <file>icons/TreeView/Group.png</file>
-        <file>icons/TreeView/LOD.png</file>
-        <file>icons/TreeView/Other.png</file>
-    </qresource>
+  <qresource prefix="/">
+    <file>Images/osg64.png</file>
+    <file>Images/se.png</file>
+    <file>Images/se_splash.png</file>
+    <file>icons/Toolbar/32x32/Home.png</file>
+    <file>icons/Toolbar/32x32/ZoomTo.png</file>
+    <file>icons/Toolbar/32x32/editcopy.png</file>
+    <file>icons/Toolbar/32x32/editcut.png</file>
+    <file>icons/Toolbar/32x32/editpaste.png</file>
+    <file>icons/Toolbar/32x32/exit.png</file>
+    <file>icons/Toolbar/32x32/filenew.png</file>
+    <file>icons/Toolbar/32x32/fileopen.png</file>
+    <file>icons/Toolbar/32x32/filesave.png</file>
+    <file>icons/Toolbar/32x32/filesaveas.png</file>
+    <file>icons/Toolbar/32x32/redo.png</file>
+    <file>icons/Toolbar/32x32/undo.png</file>
+    <file>icons/Toolbar/22x22/Icon43.png</file>
+    <file>icons/Toolbar/22x22/Icon44.png</file>
+    <file>icons/Toolbar/22x22/Icon45.png</file>
+    <file>icons/Toolbar/22x22/Icon46.png</file>
+    <file>icons/Toolbar/22x22/Icon57.png</file>
+    <file>icons/Toolbar/22x22/Icon58.png</file>
+    <file>icons/TreeView/Billboard.png</file>
+    <file>icons/TreeView/Geode.png</file>
+    <file>icons/TreeView/Group.png</file>
+    <file>icons/TreeView/LOD.png</file>
+    <file>icons/TreeView/Other.png</file>
+  </qresource>
 </RCC>

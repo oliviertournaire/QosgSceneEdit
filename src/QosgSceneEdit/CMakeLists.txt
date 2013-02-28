@@ -29,6 +29,7 @@ SET(SE_SOURCES
 	pagedlod_editor.hpp
 	pagedlod_editor.cpp
 	osgItemDelegate.hpp
+	osgItemDelegate.cpp
 )
 
 #

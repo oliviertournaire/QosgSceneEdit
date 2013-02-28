@@ -3,13 +3,17 @@
 
 #include <QItemDelegate>
 
-#include <osg/Node>
-#include <osg/PagedLOD>
+class QTreeWidget;
 
-#include "pagedlod_editor.hpp"
+namespace osg {
+    class Node;
+}
 
 class osgItemDelegate : public QItemDelegate
 {
+public:
+    osgItemDelegate(QTreeWidget* parent = 0);
+    QWidget* createEditor(QWidget* parent, const QStyleOptionViewItem& option = QStyleOptionViewItem(), const QModelIndex& index = QModelIndex()) const;
 
 private:
     typedef enum NodeType
@@ -22,25 +26,6 @@ private:
     _nodeType getNodeTypeFromItemIndex( QModelIndex index, osg::Node* node ) const
     {
         return UNHANDLED_NODETYPE;
-    }
-
-public:
-    osgItemDelegate(QTreeWidget* parent = 0) : QItemDelegate(parent) {}
-
-    QWidget* createEditor(QWidget* parent, const QStyleOptionViewItem& option = QStyleOptionViewItem(), const QModelIndex& index = QModelIndex()) const
-    {
-        // First, we retrieve the item associated with index
-        QTreeWidgetItem *item = (QTreeWidgetItem*)index.internalPointer();
-        TreeViewItem* treeitem = dynamic_cast<TreeViewItem*>(item);
-        if (treeitem)
-        {
-            osg::PagedLOD* pl = dynamic_cast<osg::PagedLOD*>(treeitem->getOsgNode());
-            if(pl)
-            {
-                return new pagedlod_editor(pl);
-            }
-        }
-        return 0;
     }
 };
 
