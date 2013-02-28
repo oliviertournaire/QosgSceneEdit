@@ -26,10 +26,8 @@ SET(SE_SOURCES
 	SelectionManager.cpp
 	ComputeNodeInfoVisitor.h
 	ComputeNodeInfoVisitor.cpp
-        colorlisteditor.h
-        colorlisteditor.cpp
-        test_editor.hpp
-        test_editor.cpp
+	pagedlod_editor.hpp
+	pagedlod_editor.cpp
 )
 
 #
@@ -39,13 +37,13 @@ SET(SE_SOURCES
 #
 # Headers which have a Q_OBJECT
 #
-SET(MOC_HEADERS MainWindow.h colorlisteditor.h test_editor.hpp )
+SET(MOC_HEADERS MainWindow.h pagedlod_editor.hpp )
 qt4_wrap_cpp( SE_MOC_HEADERS ${MOC_HEADERS} )
 
 #
 # Generate C++ files from ui file
 #
-SET(SE_UIS UI/MainWindow.ui UI/test_editor.ui )
+SET(SE_UIS UI/MainWindow.ui UI/pagedlod_editor.ui )
 
 #
 # Qt4 setup

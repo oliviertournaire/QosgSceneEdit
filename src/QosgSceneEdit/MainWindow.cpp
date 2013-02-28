@@ -30,8 +30,7 @@
 #include "SelectionManager.h"
 #include "BackgroundGeode.h"
 #include "ComputeNodeInfoVisitor.h"
-#include "colorlisteditor.h"
-#include "test_editor.hpp"
+#include "pagedlod_editor.hpp"
 
 //=======================================================================================
 //  Namespace
@@ -46,40 +45,41 @@ namespace QosgSceneEdit
 
 class MyItemDelegate : public QItemDelegate
 {
+
+private:
+    QTreeWidget* _treeWidget;
+
+    typedef enum NodeType
+    {
+        PAGEDLOD,
+        GEODE,
+        UNHANDLED_NODETYPE
+    } _nodeType;
+
+    _nodeType getNodeTypeFromItemIndex( QModelIndex index, osg::Node* node ) const
+    {
+        return UNHANDLED_NODETYPE;
+    }
+
 public:
-    MyItemDelegate(QObject* parent = 0) : QItemDelegate(parent) {}
+    MyItemDelegate(QTreeWidget* parent = 0) : QItemDelegate(parent), _treeWidget(parent) {}
 
     QWidget* createEditor(QWidget* parent, const QStyleOptionViewItem& option = QStyleOptionViewItem(), const QModelIndex& index = QModelIndex()) const
     {
-        // allow only specific column to be edited, second column in this example
-        if (index.column() == 0)
+        // First, we retrieve the item associated with index
+        QTreeWidgetItem *item = (QTreeWidgetItem*)index.internalPointer();
+        TreeViewItem* treeitem = dynamic_cast<TreeViewItem*>(item);
+        if (treeitem)
         {
-            test_editor* te = new test_editor;
-            te->setWindowTitle("Form1");
-            return te;//QItemDelegate::createEditor(parent, option, index);
+            osg::PagedLOD* pl = dynamic_cast<osg::PagedLOD*>(treeitem->getOsgNode());
+            if(pl)
+            {
+                return new test_editor(pl);
+            }
         }
         return 0;
     }
 };
-
-class MyItemDelegate2 : public QItemDelegate
-{
-public:
-    MyItemDelegate2(QObject* parent = 0) : QItemDelegate(parent) {}
-
-    QWidget* createEditor(QWidget* parent, const QStyleOptionViewItem& option = QStyleOptionViewItem(), const QModelIndex& index = QModelIndex()) const
-    {
-        // allow only specific column to be edited, second column in this example
-        if (index.column() == 0)
-        {
-            test_editor* te = new test_editor;
-            te->setWindowTitle("Form2");
-            return te;//QItemDelegate::createEditor(parent, option, index);
-        }
-        return 0;
-    }
-};
-
 
 MainWindow::MainWindow(QWidget* parent, Qt::WFlags flags) 
     : QMainWindow(parent, flags)
@@ -189,10 +189,9 @@ MainWindow::MainWindow(QWidget* parent, Qt::WFlags flags)
     treeItemSelectionChanged();
     updateTree();
 
-    //_treeWidget->setItemDelegate(new MyItemDelegate(_treeWidget));
-    _treeWidget->setItemDelegateForRow(0, new MyItemDelegate(_treeWidget));
-    _treeWidget->setItemDelegateForRow(1, new MyItemDelegate2(_treeWidget));
-    _treeWidget->setItemDelegateForColumn(1, new MyItemDelegate2(_treeWidget));
+    _treeWidget->setItemDelegate(new MyItemDelegate(_treeWidget));
+
+    QAbstractItemModel* model = _treeWidget->model();
 
     showMaximized();
 }
