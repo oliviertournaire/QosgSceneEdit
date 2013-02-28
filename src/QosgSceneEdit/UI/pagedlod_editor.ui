@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>440</width>
-    <height>365</height>
+    <width>525</width>
+    <height>467</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -206,6 +206,26 @@
         </item>
         <item>
          <widget class="QLineEdit" name="_lineedit_bb_max_z"/>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_7">
+        <item>
+         <widget class="QLabel" name="label_7">
+          <property name="text">
+           <string>BoundingBox size</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="_lineedit_bb_size_x"/>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="_lineedit_bb_size_y"/>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="_lineedit_bb_size_z"/>
         </item>
        </layout>
       </item>

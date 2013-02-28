@@ -37,7 +37,6 @@ pagedlod_editor::pagedlod_editor(PagedLOD* node, QWidget *parent) :
         ui->_label_children_2->setText("Unable to display if PagedLOD has less or more than 2 children ...");
     }
 
-
     // Ranges
     PagedLOD::RangeList ranges = _node->getRangeList();
 
@@ -72,6 +71,10 @@ pagedlod_editor::pagedlod_editor(PagedLOD* node, QWidget *parent) :
          ui->_lineedit_bb_max_x->setText( QString::number(bbox._max.x()) );
          ui->_lineedit_bb_max_y->setText( QString::number(bbox._max.y()) );
          ui->_lineedit_bb_max_z->setText( QString::number(bbox._max.z()) );
+
+         ui->_lineedit_bb_size_x->setText( QString::number(bbox._max.x()-bbox._min.x()));
+         ui->_lineedit_bb_size_y->setText( QString::number(bbox._max.y()-bbox._min.y()));
+         ui->_lineedit_bb_size_z->setText( QString::number(bbox._max.z()-bbox._min.z()));
      }
 }
 
