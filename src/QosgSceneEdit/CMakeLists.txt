@@ -28,6 +28,7 @@ SET(SE_SOURCES
 	ComputeNodeInfoVisitor.cpp
 	pagedlod_editor.hpp
 	pagedlod_editor.cpp
+	osgItemDelegate.hpp
 )
 
 #

@@ -5,7 +5,7 @@
 
 using namespace osg;
 
-test_editor::test_editor(PagedLOD* node, QWidget *parent) :
+pagedlod_editor::pagedlod_editor(PagedLOD* node, QWidget *parent) :
     _node(node),
     QWidget(parent),
     ui(new Ui::pagedlod_editor)
@@ -36,7 +36,7 @@ test_editor::test_editor(PagedLOD* node, QWidget *parent) :
      ui->_lineedit_center_z->setText( QString::number(center[2]) );
 }
 
-test_editor::~test_editor()
+pagedlod_editor::~pagedlod_editor()
 {
     delete ui;
 }

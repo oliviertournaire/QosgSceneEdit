@@ -30,7 +30,7 @@
 #include "SelectionManager.h"
 #include "BackgroundGeode.h"
 #include "ComputeNodeInfoVisitor.h"
-#include "pagedlod_editor.hpp"
+#include "osgItemDelegate.hpp"
 
 //=======================================================================================
 //  Namespace
@@ -43,56 +43,11 @@ namespace QosgSceneEdit
 
 //=======================================================================================
 
-class MyItemDelegate : public QItemDelegate
-{
-
-private:
-    QTreeWidget* _treeWidget;
-
-    typedef enum NodeType
-    {
-        PAGEDLOD,
-        GEODE,
-        UNHANDLED_NODETYPE
-    } _nodeType;
-
-    _nodeType getNodeTypeFromItemIndex( QModelIndex index, osg::Node* node ) const
-    {
-        return UNHANDLED_NODETYPE;
-    }
-
-public:
-    MyItemDelegate(QTreeWidget* parent = 0) : QItemDelegate(parent), _treeWidget(parent) {}
-
-    QWidget* createEditor(QWidget* parent, const QStyleOptionViewItem& option = QStyleOptionViewItem(), const QModelIndex& index = QModelIndex()) const
-    {
-        // First, we retrieve the item associated with index
-        QTreeWidgetItem *item = (QTreeWidgetItem*)index.internalPointer();
-        TreeViewItem* treeitem = dynamic_cast<TreeViewItem*>(item);
-        if (treeitem)
-        {
-            osg::PagedLOD* pl = dynamic_cast<osg::PagedLOD*>(treeitem->getOsgNode());
-            if(pl)
-            {
-                return new test_editor(pl);
-            }
-        }
-        return 0;
-    }
-};
-
 MainWindow::MainWindow(QWidget* parent, Qt::WFlags flags) 
     : QMainWindow(parent, flags)
     , _lastDirectory(QDir::homePath())
     , _backgroundGeode(new BackgroundGeode())
 {
-    /*
-    QItemEditorFactory *factory = new QItemEditorFactory;
-    QItemEditorCreatorBase *colorListCreator = new QStandardItemEditorCreator<test_editor>();
-    factory->registerEditor(QVariant::Color, colorListCreator);
-    QItemEditorFactory::setDefaultFactory(factory);
-    */
-
     _selectionManager = SelectionManager::instance();
 
     setupUi(this);
@@ -189,7 +144,7 @@ MainWindow::MainWindow(QWidget* parent, Qt::WFlags flags)
     treeItemSelectionChanged();
     updateTree();
 
-    _treeWidget->setItemDelegate(new MyItemDelegate(_treeWidget));
+    _treeWidget->setItemDelegate(new osgItemDelegate(_treeWidget));
 
     QAbstractItemModel* model = _treeWidget->model();
 

@@ -11,13 +11,13 @@ namespace osg {
     class PagedLOD;
 }
 
-class test_editor : public QWidget
+class pagedlod_editor : public QWidget
 {
     Q_OBJECT
     
 public:
-    explicit test_editor(osg::PagedLOD* node, QWidget *parent = 0);
-    ~test_editor();
+    explicit pagedlod_editor(osg::PagedLOD* node, QWidget *parent = 0);
+    ~pagedlod_editor();
     
 private:
     Ui::pagedlod_editor *ui;
