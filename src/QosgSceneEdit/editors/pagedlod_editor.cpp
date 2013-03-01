@@ -56,9 +56,9 @@ pagedlod_editor::pagedlod_editor(PagedLOD* node, QWidget *parent) :
          ui->_combobox_centermode->setCurrentIndex(1);
      // 3) Center coordinates
      osg::LOD::vec_type center = _node->getCenter();
-     ui->_lineedit_center_x->setText( QString::number(center[0]) );
-     ui->_lineedit_center_y->setText( QString::number(center[1]) );
-     ui->_lineedit_center_z->setText( QString::number(center[2]) );
+     ui->_lineedit_center_x->setText( QString::number(center[0], 'g', 10) );
+     ui->_lineedit_center_y->setText( QString::number(center[1], 'g', 10) );
+     ui->_lineedit_center_z->setText( QString::number(center[2], 'g', 10) );
 
      // Bounding box
      BoundingBox bbox;

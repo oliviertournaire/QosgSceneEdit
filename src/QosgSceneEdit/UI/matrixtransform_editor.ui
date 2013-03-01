@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>matrixtransform_editor</class>
  <widget class="QWidget" name="matrixtransform_editor">
+  <property name="windowModality">
+   <enum>Qt::ApplicationModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -87,6 +90,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../resources.qrc"/>
+ </resources>
  <connections/>
 </ui>
