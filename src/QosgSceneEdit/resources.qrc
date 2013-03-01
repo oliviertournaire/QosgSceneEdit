@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="/">
+    <file>icons/TreeView/Matrix.png</file>
     <file>Images/osg64.png</file>
     <file>Images/se.png</file>
     <file>Images/se_splash.png</file>

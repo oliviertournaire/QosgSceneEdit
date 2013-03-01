@@ -8,6 +8,7 @@
 #include <osg/Billboard>
 #include <osg/LOD>
 #include <osg/PagedLOD>
+#include <osg/MatrixTransform>
 
 // STD
 #include <iostream>
@@ -85,7 +86,10 @@ void BuildQtTreeView::apply(osg::Node& node)
     }
 	else if (dynamic_cast<osg::Group*>(&node))
     {
-        item->setData(0, Qt::DecorationRole, QIcon(":/icons/TreeView/Group.png"));
+        if (dynamic_cast<osg::MatrixTransform*>(&node))
+            item->setData(0, Qt::DecorationRole, QIcon(":/icons/TreeView/Matrix.png"));
+        else
+            item->setData(0, Qt::DecorationRole, QIcon(":/icons/TreeView/Group.png"));
         _parents.push(item);
         isGroup = true;
     }
