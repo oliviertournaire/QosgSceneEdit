@@ -21,7 +21,7 @@ pagedlod_editor::pagedlod_editor(PagedLOD* node, QWidget *parent) :
 
     // Name
     QString name = QString::fromStdString(_node->getName());
-    ui->_label_name->setText( name == "" ? "<unknow name>" : name );
+    ui->_lineedit_name->setText( name == "" ? "<unknow name>" : name );
 
     // Children
     if (_node->getNumChildren() == 2)
@@ -34,12 +34,16 @@ pagedlod_editor::pagedlod_editor(PagedLOD* node, QWidget *parent) :
     else
     {
         ui->_label_children_1->setText("Unable to display if PagedLOD has less or more than 2 children ...");
-        ui->_label_children_2->setText("Unable to display if PagedLOD has less or more than 2 children ...");
+        ui->_label_children_2->setText("PagedLOD has " + QString::number(_node->getNumChildren()));
     }
 
     // Ranges
+    LOD::RangeMode rangemode = _node->getRangeMode();
+    if ( rangemode == osg::LOD::DISTANCE_FROM_EYE_POINT )
+        ui->_combobox_rangemode->setCurrentIndex(0);
+    else if ( rangemode == osg::LOD::PIXEL_SIZE_ON_SCREEN  )
+        ui->_combobox_rangemode->setCurrentIndex(1);
     PagedLOD::RangeList ranges = _node->getRangeList();
-
     ui->_lineedit_rangemin1->setText( QString::number(ranges[0].first) );
     ui->_lineedit_rangemax1->setText( QString::number(ranges[0].second) );
     ui->_lineedit_rangemin2->setText( QString::number(ranges[1].first) );
@@ -85,7 +89,7 @@ pagedlod_editor::~pagedlod_editor()
 
 void pagedlod_editor::accept()
 {
-    cout << __FUNCTION__ << endl;
+    _node->setName( ui->_lineedit_name->text().toStdString() );
 }
 
 void pagedlod_editor::reject()

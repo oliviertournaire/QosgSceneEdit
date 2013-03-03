@@ -9,12 +9,15 @@
 #include <osg/Geometry>
 #include <osg/PrimitiveSet>
 
+#include <iostream>
+
 //=======================================================================================
 //  Namespace
 //=======================================================================================
 
 using namespace QosgSceneEdit;
 using namespace osg;
+using namespace std;
 
 //=======================================================================================
 
@@ -48,6 +51,7 @@ void ComputeNodeInfoVisitor::apply(Geode& geode)
                         {
                         case PrimitiveSet::TRIANGLES:
                             _numTriangles += ps->getNumIndices() / 3;
+                            cout << geode.getName() << "  -->  " << ps->getNumIndices() / 3 << endl;
                             break;
 
                         case PrimitiveSet::TRIANGLE_STRIP:

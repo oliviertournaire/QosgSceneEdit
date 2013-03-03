@@ -35,6 +35,8 @@ set( SRC_EDITORS
         editors/pagedlod_editor.cpp
         editors/matrixtransform_editor.hpp
         editors/matrixtransform_editor.cpp
+        editors/group_editor.hpp
+        editors/group_editor.cpp
 )
 
 #
@@ -44,13 +46,19 @@ set( SRC_EDITORS
 #
 # Headers which have a Q_OBJECT
 #
-SET(MOC_HEADERS MainWindow.h editors/pagedlod_editor.hpp editors/matrixtransform_editor.hpp )
+SET(MOC_HEADERS MainWindow.h
+                editors/pagedlod_editor.hpp
+                editors/matrixtransform_editor.hpp
+                editors/group_editor.hpp)
 qt4_wrap_cpp( SE_MOC_HEADERS ${MOC_HEADERS} )
 
 #
 # Generate C++ files from ui file
 #
-SET(SE_UIS UI/MainWindow.ui UI/pagedlod_editor.ui UI/matrixtransform_editor.ui )
+SET(SE_UIS UI/MainWindow.ui
+           UI/pagedlod_editor.ui
+           UI/matrixtransform_editor.ui
+           UI/group_editor.ui )
 
 #
 # Qt4 setup

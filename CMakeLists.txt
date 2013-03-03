@@ -34,6 +34,10 @@ IF(WIN32)
 	set(EXECUTABLE_TYPE)
 ENDIF(WIN32)
 
+set( CMAKE_DEBUG_POSTFIX "_d" )
+set( EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin )
+set( LIBRARY_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin )
+
 #
 # find and setup Qt4 for this project
 #

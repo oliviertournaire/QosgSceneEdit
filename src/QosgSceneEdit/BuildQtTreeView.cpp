@@ -43,9 +43,7 @@ BuildQtTreeView::BuildQtTreeView(osg::Node *node)
 
 //==============================================================================
 
-BuildQtTreeView::~BuildQtTreeView()
-{
-}
+BuildQtTreeView::~BuildQtTreeView() {}
 
 //==============================================================================
 
@@ -57,15 +55,10 @@ void BuildQtTreeView::apply(osg::Node& node)
     if(node.className()!="")
         nodeName = "[" + QString::fromStdString(node.className()) + "]";
 
+    if(node.getName()!="")
+        nodeName += " " + QString::fromStdString(node.getName());
     if (nodeName.isEmpty())
-    {
-        if(node.getName()!="")
-            nodeName += " " + QString::fromStdString(node.getName());
-        if (nodeName.isEmpty())
-        {
-            nodeName = QObject::tr("[<unknow_type>] <unnamed>");
-        }
-    }
+        nodeName = QObject::tr("[<unknow_type>] <unnamed>");
 
     TreeViewItem *item = new TreeViewItem(_parents.top());
 	item->setCheckState(0, Qt::Checked);

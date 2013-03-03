@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>525</width>
-    <height>467</height>
+    <height>512</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,10 +19,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QLabel" name="_label_name">
-     <property name="text">
-      <string>TextLabel</string>
-     </property>
+    <widget class="QLineEdit" name="_lineedit_name">
      <property name="alignment">
       <set>Qt::AlignCenter</set>
      </property>
@@ -58,19 +55,33 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout">
+       <layout class="QHBoxLayout" name="horizontalLayout_8">
         <item>
-         <widget class="QLabel" name="label">
+         <widget class="QLabel" name="label_8">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="text">
-           <string>Range 1</string>
+           <string>RangeMode</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="_lineedit_rangemin1"/>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="_lineedit_rangemax1"/>
+         <widget class="QComboBox" name="_combobox_rangemode">
+          <item>
+           <property name="text">
+            <string>DISTANCE_FROM_EYE_POINT</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>PIXEL_SIZE_ON_SCREEN </string>
+           </property>
+          </item>
+         </widget>
         </item>
        </layout>
       </item>
@@ -88,6 +99,23 @@
         </item>
         <item>
          <widget class="QLineEdit" name="_lineedit_rangemax2"/>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>Range 1</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="_lineedit_rangemin1"/>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="_lineedit_rangemax1"/>
         </item>
        </layout>
       </item>
