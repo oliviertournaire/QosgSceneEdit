@@ -86,23 +86,6 @@
        </layout>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
-        <item>
-         <widget class="QLabel" name="label_2">
-          <property name="text">
-           <string>Range 2</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="_lineedit_rangemin2"/>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="_lineedit_rangemax2"/>
-        </item>
-       </layout>
-      </item>
-      <item>
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
          <widget class="QLabel" name="label">
@@ -116,6 +99,23 @@
         </item>
         <item>
          <widget class="QLineEdit" name="_lineedit_rangemax1"/>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QLabel" name="label_2">
+          <property name="text">
+           <string>Range 2</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="_lineedit_rangemin2"/>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="_lineedit_rangemax2"/>
         </item>
        </layout>
       </item>
